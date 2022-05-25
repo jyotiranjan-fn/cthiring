@@ -8,7 +8,7 @@
     <meta name="description" content=", powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
     <meta name="keywords" content="">
     <meta name="author" content="PIXINVENT">
-    <title>CT Hiring
+    <title>CT hiring
     </title>
     <link rel="apple-touch-icon" href="{{asset('assets/images/careertree.jpg')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/careertree.jpg')}}">
