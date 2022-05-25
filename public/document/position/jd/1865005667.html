@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- Select2 CSS --> 
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
+<!-- jQuery --> <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+<!-- Select2 JS --> 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script> 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <form>
+      <div id="box1">
+        <div class="form-group">
+          <label for="email">Name:</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter name" name="name">
+
+        </div>
+        <span id="show">
+        	<input type="button" class="btn btn-default" value="Next">
+        </span>
+      </div><br>
+      <div id="box2" style="display:none">
+      <div class="repeater">
+	<div data-repeater-list="group-a">
+      <div data-repeater-item>
+        <div class="form-group">
+            <label>City:</label><br>
+			<select id='selUser' style='width: 200px;'>
+                 <option>Select User</option> 
+                 <option value='1'>Yogesh singh</option> 
+                 <option value='2'>Sonarika Bhadoria</option> 
+            </select>
+        </div>
+        <div class="form-group">
+           <label>Location:</label><br>
+           <input type="text" class="btn btn-default">
+        </div>
+        <div>
+        <button type="button" data-repeater-delete class="btn btn-icon btn-danger mr-1"><i class="fa-solid fa-xmark"></i>
+        </button>
+    	</div>
+      </div>
+  </div>
+  <input data-repeater-create type="button"  value="Add"/>
+
+</div>
+        
+        <div>
+            <span id="hide">
+                <input type="button" class="btn btn-default" value="Back">
+            </span>
+        	<button type="submit" class="btn btn-default">Submit</button>
+        </div>
+      </div>
+  </form>
+</div>
+<script>
+    $(document).ready(function() {
+        $("#show").click(function() {
+            $("#box2").show();
+            $("#box1").hide();
+        });
+
+        $("#hide").click(function() {
+            $("#box2").hide();
+            $("#box1").show();
+        });
+    });
+</script>
+<script>
+$(document).ready(function(){
+ 
+  // Initialize select2
+  $("#selUser").select2();
+
+});
+</script>
+<script>
+$( document ).ready(function() {
+$('.repeater').repeater({
+			
+});
+});
+</script>
+</body>
+</html>
