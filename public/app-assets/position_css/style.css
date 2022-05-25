@@ -1,0 +1,340 @@
+/* tag end */
+        .select2-selection__custom {
+            display: none;
+        }
+
+        form .form-control.cst_n {
+            padding: 0px;
+            border: unset;
+        }
+
+        body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
+            margin-left: 0px;
+        }
+
+
+        /* for skil */
+
+        .tags-input-wrapper {
+            background: transparent;
+            padding: 10px;
+            border-radius: 4px;
+            max-width: 400px;
+            border: 1px solid #ccc
+        }
+
+        .tags-input-wrapper input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 140px;
+            margin-left: 8px;
+        }
+
+        .tags-input-wrapper .tag {
+            display: inline-block;
+            background-color: #fa0e7e;
+            color: white;
+            border-radius: 40px;
+            padding: 0px 3px 0px 7px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            box-shadow: 0 5px 15px -2px rgba(250, 14, 126, .7)
+        }
+
+        .tags-input-wrapper .tag a {
+            margin: 0 7px 3px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        /* for requiter field */
+        .form-control .select2-container {
+            width: 100% !important;
+        }
+
+        .form-control .select2-selection__rendered {
+            position: absolute;
+            top: -1000px;
+            left: -1000px;
+        }
+
+        .form-control .select2-selection__custom {
+            padding: 6px 7px;
+        }
+
+        .tags-area .tag {
+            display: inline-block;
+            margin: 0 10px 10px 0;
+            background: #eee;
+            text-decoration: none;
+            border-radius: 6px;
+            padding: 5px 8px;
+            font-size: 14px;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+            color: #000;
+        }
+
+        .tags-area .tag:after {
+            content: "+";
+            display: inline-block;
+            transform: rotate(45deg);
+            margin-left: 5px;
+        }
+
+        .tags-area .tag:hover {
+            background: #e0e0e0;
+        }
+
+/* publish on website */
+.container_rdo {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container_rdo input.btn_r {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container_rdo:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container_rdo input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container_rdo input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container_rdo .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+.hide {
+  display: none;
+}
+
+p {
+  font-weight: bold;
+}
+.hyde {
+  display: none;
+}
+    
+.myDIV:hover + .hyde {
+  display: block;
+}
+
+
+
+ /* technical and behavioural tags start */
+        .skills {
+            border: 1px solid #BABFC7;
+            border-radius: 4px;
+        }
+
+        .bootstrap-tagsinput {
+            margin: 0;
+            width: 100%;
+            padding: 0.5rem 0.75rem 0;
+            font-size: 1rem;
+            line-height: 1.25;
+            transition: border-color 0.15s ease-in-out;
+        }
+
+        .bootstrap-tagsinput .label-info {
+            display: inline-block;
+            background-color: #56575a;
+            padding: 0 0.4em 0.15em;
+            border-radius: 0.25rem;
+            margin-bottom: 0.4em;
+            color: #fff;
+        }
+
+        .bootstrap-tagsinput input {
+            margin-bottom: 0.5em;
+            background: no-repeat bottom, 50% calc(100% - 1px);
+            background-image: none, none;
+            background-size: auto auto;
+            width: 70%;
+            border: 0;
+            height: 36px;
+            transition: background 0s ease-out;
+            padding-left: 0;
+            padding-right: 0;
+            border-radius: 0;
+            font-size: 14px;
+        }
+
+        .bootstrap-tagsinput .tag [data-role="remove"]:after {
+            content: "\00d7";
+            padding-left: 5px;
+        }
+
+
+        /* tooltip */
+
+        .tooltip {
+          position: relative;
+          display: inline-block;
+          border-bottom: 1px dotted black;
+          opacity: 1;
+          color: black;
+        }
+        .tooltip1 {
+          position: relative;
+          display: inline-block;
+          border-bottom: 1px dotted black;
+          opacity: 1;
+          color: black;
+        }
+        .tooltip2 {
+          position: relative;
+          display: inline-block;
+          border-bottom: 1px dotted black;
+          opacity: 1;
+          color: black;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            min-width: 534px;
+            background-color: #fff;
+            color: #000;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            text-align: left;
+            border: 1px solid #393939;
+            padding-left: 20px;
+        }
+        .tooltip1 .tooltiptext1 {
+          visibility: hidden;
+          min-width: 534px;
+          background-color: #fff;
+          color: #000;
+          text-align: center;
+          border-radius: 6px;
+          padding: 5px 0;
+          position: absolute;
+          z-index: 1;
+          bottom: 125%;
+          left: 50%;
+          margin-left: -60px;
+          opacity: 0;
+          transition: opacity 0.3s;
+          text-align: left;
+          border: 1px solid #393939;
+          padding-left: 20px;
+      }
+      .tooltip2 .tooltiptext2 {
+        visibility: hidden;
+        min-width: 534px;
+        background-color: #fff;
+        color: #000;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        text-align: left;
+        border: 1px solid #393939;
+        padding-left: 20px;
+    }
+        ul{
+            padding: 0px;
+        }
+        .tooltip .tooltiptext::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 13%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: #555 transparent transparent transparent;
+        }
+
+        .tooltip1 .tooltiptext1::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 13%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: #555 transparent transparent transparent;
+        }
+        .tooltip2 .tooltiptext2::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 13%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: #555 transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+          visibility: visible;
+          opacity: 1;
+        }
+        .tooltip1:hover .tooltiptext1 {
+          visibility: visible;
+          opacity: 1;
+        }
+        .tooltip2:hover .tooltiptext2 {
+          visibility: visible;
+          opacity: 1;
+        }
