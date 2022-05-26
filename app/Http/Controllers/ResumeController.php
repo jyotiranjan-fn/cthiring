@@ -720,69 +720,71 @@ class ResumeController extends Controller
     
     public function approve_cv($id){
         
-       // dd($id);
+     //  dd($id);
+       $position_id=Resume::where('id',$id)->get('position_id');
+      
         
         $cv_approve=Resume::where('id',$id)->update(['crm_status' => 1]);
         
-        return redirect('/position_view_details/'.$id)->with('message', 'Resume Approved Successfully.');;
+        return redirect('/position_view_details/'.$position_id[0]->position_id)->with('message', 'Resume Approved Successfully.');;
         
     }
     public function schedule_interview(Request $request,$id){
-        // dd($request->all(),$id,$request->interview_level);
- 
-         $schedule_interview = Resume::find($id);
-         //dd($schedule_interview);
- 
-            if($request->interview_level==1)
-           
-             {
-                 $interview_status=4;
-             }
-             elseif($request->interview_level==2)
-             {
-                 $interview_status=8;
-             }
-             elseif($request->interview_level==3)
-             {
-                 $interview_status=12;
-             }
-             elseif($request->interview_level==4)
-             {
-                 $interview_status=16;
- 
-             }
-             elseif($request->interview_level==5)
-             {
-                 $interview_status=20;
-             }
+         //dd($request->all(),$id,$request->interview_level);
+
+        $schedule_interview = Resume::find($id);
+        //dd($schedule_interview);
+
+           if($request->interview_level==1)
+          
+            {
+                $interview_status=4;
+            }
+            elseif($request->interview_level==2)
+            {
+                $interview_status=8;
+            }
+            elseif($request->interview_level==3)
+            {
+                $interview_status=12;
+            }
+            elseif($request->interview_level==4)
+            {
+                $interview_status=16;
+
+            }
+            elseif($request->interview_level==5)
+            {
+                $interview_status=20;
+            }
+       
+        $schedule_interview->cv_status = $interview_status;
+        $schedule_interview->save();
+
+
+        $interview_level_data = new Interview;
+        $interview_level_data->candidate_id = request('candidate_id');
+        $interview_level_data->position_id = request('pos_id');
+        $interview_level_data->client_id = request('client_id');
+
+
+        $interview_level_data->candidate_name = request('cand_name_interview');
+        $interview_level_data->interview_level = request('interview_level');
+        $interview_level_data->interview_mode = request('interview_mode');
+        $interview_level_data->interview_venue_adrs = request('interview_venue_adrs');
+        $interview_level_data->interview_date = request('interview_date');
+        $interview_level_data->interview_timeperiod = request('interview_time_period');
+        $interview_level_data->interview_venue = request('interview_venue');
+
+        $interview_level_data->interview_spoc = request('spoc_interview');
+        $interview_level_data->client_contact_name = request('client_contact_name');
+        $interview_level_data->client_contact_number  = request('client_contact_number');
+        $interview_level_data->addition_info = request('additional_info');
         
-         $schedule_interview->cv_status = $interview_status;
-         $schedule_interview->save();
- 
- 
-         $interview_level_data = new Interview;
-         $interview_level_data->candidate_id = request('candidate_id');
-         $interview_level_data->position_id = request('pos_id');
-         $interview_level_data->client_id = request('client_id');
- 
- 
-         $interview_level_data->candidate_name = request('cand_name_interview');
-         $interview_level_data->interview_level = request('interview_level');
-         $interview_level_data->interview_mode = request('interview_mode');
-         $interview_level_data->interview_venue_adrs = request('interview_venue_adrs');
-         $interview_level_data->interview_date = request('interview_date');
-         $interview_level_data->interview_timeperiod = request('interview_time_period');
-         $interview_level_data->interview_venue = request('interview_venue');
- 
-         $interview_level_data->interview_spoc = request('spoc_interview');
-         $interview_level_data->client_contact_name = request('client_contact_name');
-         $interview_level_data->client_contact_number  = request('client_contact_number');
-         $interview_level_data->addition_info = request('additional_info');
-         
- 
- 
-          $interview_level_data->save();
-           return redirect('/position_view_details')->with('message', 'Resume.');
+
+
+         $interview_level_data->save();
+           return redirect('/position_view_details/'.$id)->with('message', 'Resume.');
  
  
         

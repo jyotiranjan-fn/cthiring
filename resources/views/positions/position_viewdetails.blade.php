@@ -356,8 +356,11 @@
                                         </span></a>
                                 </li>
                                 @php
-                                $cv_send_count=count(App\Models\Resume::where('cv_status','>=','1')->get());
+                                $cv_send_count=count(App\Models\Resume::where('cv_status','>=',1)
+                                                                        ->where('position_id','=',$view->position_id)
+                                                                      ->get());
                                 @endphp
+                               
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#menu2"><img
                                             src="../assets/position/completed-task.png" class="hi8">CV Sent <span
@@ -451,7 +454,7 @@
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                    @elseif($res_show->crm_status==1 && $res_show->crm_status==1)<span
+                                                    @elseif($res_show->crm_status==1 && $res_show->cv_status==1)<span
                                                         class="badge badge-success" data-toggle="tooltip"
                                                         data-placement="top" title="Billing Pending">CV Sent</span>
                                                     @else<span class="badge badge-success" data-toggle="tooltip"
@@ -468,7 +471,7 @@
                                                     @endif
                                                     @endif<br>
 
-                                                    @if($res_show->crm_status==1 && $res_show->crm_status==0) <a
+                                                    @if($res_show->crm_status==1 && $res_show->cv_status==0) <a
                                                         href="#"><img src="../assets/position/next.png" class="hi8"
                                                             data-toggle="modal"
                                                             data-target="#sendcv{{$res_show->id}}"></a> @endif
@@ -502,10 +505,7 @@
                                                                                     <td class="pd_410"><input
                                                                                             type="text"
                                                                                             class="form-control"
-                                                                                            value={{optional ($view->client_na)->client_name}}
-                                                                                            <{{optional ($view->pos_client_cont)->contact_name}}>
-                                                                                        <{{optional ($view->pos_client_cont)->email}}>
-                                                                                            readonly>
+                                                                                            value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>" readonly>       
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -636,7 +636,10 @@
                                         <tbody>
                                             <!-- CV Send data -->
                                             @php
-                                            $cv_details=App\Models\Resume::where('cv_status','>=','1')->get();@endphp
+                                            $cv_details=App\Models\Resume::where('cv_status','>=','1')
+                                                                          ->where('position_id',$view->position_id)
+                                                                          ->get();
+                                                                          @endphp
 
                                             @foreach($cv_details as $res_show)
                                             <tr>
@@ -683,7 +686,9 @@
                                     <table class="table table-striped w_100">
                                         <thead>
                                             @php
-                                            $cv_status=App\Models\Resume::where('cv_status','>=','1')->get();@endphp
+                                            $cv_status=App\Models\Resume::where('cv_status','>=',1)
+                                             ->where('position_id',$view->position_id)
+                                            ->get();@endphp
 
 
                                             <tr>
@@ -765,7 +770,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <input type="text" value="{{$res_show ->id}}" name="candidate_id"
+                                                    <input type="text" value="{{$res_show ->id}}" id="resume_id_ajax" name="candidate_id"
                                                         hidden>
                                                     <input type="text" value="{{$res_show ->position_id}}" name="pos_id"
                                                         hidden>
@@ -907,7 +912,7 @@
                                     </div>
                                     @endif
                                     <!-- ISA code end -->
-
+<input type="hidden" id="">
                                     <!-- first interview schedule start -->
                                     @if($res_show->cv_status==4)
                                     <span class="p_d" data-toggle="tooltip" data-placement="top"
@@ -1263,10 +1268,20 @@
                                                 </div>
 
                                                 <!-- interview schedule form start  -->
-                                                <form action="{{url('/schedule_interview',$res_show ->id)}}"
+                                             <form action="{{url('/schedule_interview',$res_show ->id)}}"
                                                     method='post'>
                                                     @csrf
                                                     <div class="modal-body">
+
+
+                                                        <input type="text" value="{{$res_show ->id}}" name="candidate_id"
+                                                            hidden>
+                                                        <input type="text" value="{{$res_show ->position_id}}" name="pos_id"
+                                                            hidden>
+                                                        <input type="text" value="{{$res_show ->client_id}}"
+                                                            name="client_id" hidden>
+
+
                                                         <ul class="nav nav-tabs" role="tablist">
                                                             <li class="nav-item">
                                                                 <a class="nav-link active" data-toggle="tab"
@@ -1300,7 +1315,7 @@
                                                                     <tr>
                                                                         <th class="pd_410">Cc</th>
                                                                         <td class="pd_410"><input type="text"
-                                                                                class="form-control" name="gamil_name_cc"
+                                                                                class="form-control" name="gmail_name_cc"
                                                                                 placeholder="Add multiple emails separated by comma">
                                                                         </td>
                                                                     </tr>
@@ -1402,7 +1417,7 @@
                                                                                                 class="form-check-input"
                                                                                                 id="f2f"
                                                                                                 name="interview_mode"
-                                                                                                value="f2f">
+                                                                                                value="Face to Face">
                                                                                         </a>
                                                                                         Face to Face
                                                                                     </label>
@@ -1441,7 +1456,7 @@
                                                                          
                                                                         <td class="pd_410">
                                                                             <select class="form-control"
-                                                                                id="get_address" name="interview_venue_adrs ">
+                                                                                id="get_address" name="interview_venue_adrs">
                                                                                 <option value="0" selected>Choose Interview Venue 
                                                                                     Address                                                                                                                      
                                                                                     </option>
@@ -1488,7 +1503,7 @@
                                                                     <tr>
                                                                         <th class="pd_410">Interview
                                                                             Venue*</th>
-                                                                        <td class="pd_410" id="interview">
+                                                                        <td class="pd_410" id="interview" name="interview_venue">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1502,7 +1517,7 @@
                                                                             @endphp
 
                                                                             <select class="form-control" id="spoc"
-                                                                                name="interview_venue">
+                                                                                name="spoc_interview">
 
                                                                                 <option>Choose Spoc
                                                                                 </option>
@@ -1539,7 +1554,7 @@
                                                                     <tr>
                                                                         <th class="pd_410">Additional
                                                                             Info</th>
-                                                                        <td class="pd_410"><textarea name="remarks"
+                                                                        <td class="pd_410"><textarea name="additional_info"
                                                                                 class="form-control" id="" cols="63"
                                                                                 rows="2"></textarea>
                                                                         </td>
@@ -1553,7 +1568,7 @@
                                                                     <tr>
                                                                         <th class="pd_410">Client</th>
                                                                         <td class="pd_410"><input type="text"
-                                                                                class="form-control"
+                                                                                class="form-control" name="client_name_interview"
                                                                                 value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>"
                                                                                 readonly></td>
                                                                     </tr>
@@ -1561,7 +1576,7 @@
                                                                     <tr>
                                                                         <th class="pd_410">Subject*</th>
                                                                         <td class="pd_410"><input type="text"
-                                                                                class="form-control"
+                                                                                class="form-control" name="client_subject_interview"
                                                                                 value="Interview Schedule of Candidates for the Position of {{$view->job_title}}">
                                                                         </td>
                                                                     </tr>
@@ -1573,7 +1588,7 @@
                                                                         <th class="pd_410">Message*</th>
                                                                         @foreach($get_crm_name as $crm_details)
                                                                         <td class="pd_410">
-                                                                            <textarea name="editor2" id="editor2"
+                                                                            <textarea name="second_msg_interview" id="editor2"
                                                                                 rows="10" cols="80"
                                                                                 value=""><p>Dear {{($view->pos_client_cont)->contact_name}},<br /><br />Greetings from {{$crm_details->fname}} {{$crm_details->lname}}<br /><br />In continuation to our telephonic discussions, I have lined-up the shortlisted candidate(s) for the interview(s) as per the following schedule.<br /><br />POSITION TITLE: {{$view->job_title }}<br /><br />{{$res_show ->name}}<br /><br />Trust this schedule is fine. Please do let me know if there requires any further information about the candidate(s) or the schedule.<br /><br />{{$crm_details->signature}}</p></textarea>
                                                                             <script>
@@ -1585,15 +1600,19 @@
 
                                                                 </table>
                                                             </div>
-                                                      <!-- 3rd tab form schudel interview form -->                                 
+                                                            <!-- 3rd tab form schudel interview form -->                                 
                                                             <div id="ICcandidate" class="tab-pane">
                                                                 <br>
+
+                                                                <!-- <div id="nights">hi</div> -->
+
+
                                                                 <table class="table table-bordered wd_16 t_left">
                                                                     <tr>
                                                                         <th class="pd_410">Candidate(s)
                                                                         </th>
                                                                         <td class="pd_410"><input type="text"
-                                                                                class="form-control"
+                                                                                class="form-control" name="third_candidate_interview"
                                                                                 value="{{$res_show->name}}" readonly>
                                                                         </td>
                                                                     </tr>
@@ -1601,7 +1620,7 @@
                                                                     <tr>
                                                                         <th class="pd_410">Subject*</th>
                                                                         <td class="pd_410"><input type="text"
-                                                                                class="form-control"
+                                                                                class="form-control" name="third_subject_interview"
                                                                                 value="Interview Schedule for the Position of {{$view->job_title}}">
                                                                         </td>
                                                                     </tr>
@@ -1609,10 +1628,10 @@
                                                                         <th class="pd_410">Message*</th>
                                                                         <td class="pd_410">
                                                                             <textarea name="editor3" id="editor3"
-                                                                                rows="10" cols="80"
+                                                                                rows="10" cols="80" name="third_msg_interview"
                                                                                 value=""><p>Dear&nbsp;{{$res_show->name}}<br /><br /><strong>Greetings from {{($view->pos_client_cont)->contact_name}}&nbsp;</strong><br /><br />In continuation to our telephonic discussions, I am confirming your interview schedule with our client as below:</p>
                                                                                         <p>&nbsp;</p>
-                                                                                        <table style="width: 500px; border-collapse: collapse; float: left;" border="0" cellspacing="4" cellpadding="4">
+                                                                                        <table style="width: 500px; border-collapse: collapse; float: left; border:0px;"  cellspacing="4" cellpadding="4">
                                                                                         <tbody>
                                                                                         <tr>
                                                                                         <td style="width: 193.217px;">COMPANY NAME</td>
@@ -1640,7 +1659,7 @@
                                                                                         </tr>
                                                                                         <tr>
                                                                                         <td style="width: 193.217px;">Venue</td>
-                                                                                        <td style="width: 287.783px;">[interview_venue]</td>
+                                                                                        <td style="width: 287.783px;" id="nights"><span id="nights"></span>[]</td>
                                                                                         </tr>
                                                                                         <tr>
                                                                                         <td style="width: 193.217px;">Contact Person</td>
@@ -2946,19 +2965,19 @@
             <script>
             $("#get_address").on('change', function() {
                 var ab = $(this).val();
-
+                var resume_id= $('#resume_id_ajax').val();
                 if (ab == 1) {
                     $.ajax({
                         url: "{{url('getaddtess')}}",
                         type: "POST",
                         data: {
-                            resume_id: '{{$res_show ->id}}',
+                            resume_id: resume_id,
                             _token: '{{csrf_token()}}'
                         },
                         dataType: 'json',
 
                         success: function(result) {
-                            $('#interview').html('<textarea name="remarks"' +
+                            $('#interview').html('<textarea name="interview_venue"' +
                                 'class="form-control" id="interview" cols="63"' +
                                 'rows="2">' + result[0][0].client_name +
                                 '\nAddress: ' + result[0][0].door_no + ', ' + result[0][0]
