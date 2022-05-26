@@ -505,7 +505,9 @@ class ResumeController extends Controller
         $insert_interview->remark = request('remarks');
 
         $insert_interview->save();
-        return redirect()->back()->with('message', 'Candidate Rejected');
+        
+        $request->session()->flash('delt', 'Candidate Rejected');
+        return redirect()->back();
 
     }
 
@@ -726,9 +728,30 @@ class ResumeController extends Controller
         
         $cv_approve=Resume::where('id',$id)->update(['crm_status' => 1]);
         
-        return redirect('/position_view_details/'.$position_id[0]->position_id)->with('message', 'Resume Approved Successfully.');;
+        return redirect('/position_view_details/'.$position_id[0]->position_id)->with('message', 'Resume Approved Successfully.');
         
     }
+
+    public function reject_cv_crm(Request $request,$id)
+    {  
+       
+        
+        $position_id=Resume::where('id',$id)->get('position_id');
+        $cv_rejected=Resume::where('id',$id)->update([
+                   'crm_status' => 2,
+                   'cv_rejected_remarks'=>$request->reject_cvremark
+                ]);
+
+        $request->session()->flash('delt', 'Resume Rejected');
+        return redirect('/position_view_details/'.$position_id[0]->position_id);
+        
+
+    }
+
+
+
+
+
     public function schedule_interview(Request $request,$id){
          //dd($request->all(),$id,$request->interview_level);
 
@@ -784,7 +807,7 @@ class ResumeController extends Controller
 
 
          $interview_level_data->save();
-           return redirect('/position_view_details/'.$id)->with('message', 'Resume.');
+        return redirect('/position_view_details/'.$id)->with('message', '1st Interview Scheduled.');
  
  
         

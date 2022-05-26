@@ -259,6 +259,7 @@ Route::middleware(['auth'])->name('admin.')->prefix('')->group(function() {
     
     //resume approve by crm 
     Route::get('approve_cv/{id}',[ResumeController::class,'approve_cv']);
+    Route::post('reject_cv/{id}',[ResumeController::class,'reject_cv_crm']);
     
     
     //interview Schedule

@@ -93,20 +93,21 @@ class UserController extends Controller
     {
         // $created_by = session('USER_ID');
     //     // dd($request);
-        //  $user = $request->validate([
-        //      'fname' => 'required',
-     	// 	'lname' => 'required',
-     	// 	'email' => 'required|email|unique:users',
-        //      'mobile' => 'numeric|required|size:10',
-        //      'gender' => 'required',
-        //      'designation' => 'required',
-        //      'role' => 'required',
-     	// 	'user_location' => 'required',
-     	// 	'label_1' => 'required',
-     	// 	'label_2' => 'required',
-     	// 	'status' => 'required',
-        //      'editer' => 'required ',
-        //  ]);
+       $user = $request->validate([
+           'fname' => 'required',
+    	'lname' => 'required',
+     		'email' => 'required|email|unique:users',
+    //         'mobile' => 'numeric|required|min:10|max:10',
+    //         'gender' => 'required',
+    //         'designation' => 'required',
+    //         'role' => 'required',
+    // 		'user_location' => 'required',
+    // 		'label_1' => 'required',
+    // 		'label_2' => 'required',
+    // 		'status' => 'required',
+    //         'editer' => 'required ',
+    //         'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
         //image
 
         if($request->image != ''){

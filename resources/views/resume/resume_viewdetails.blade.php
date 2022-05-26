@@ -48,7 +48,6 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body pd_lr_body">
-
                             <div class="">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
@@ -297,10 +296,10 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                             <div class="card-body pd_0">
                                                 @php
                                                 $count=count($res);
-                                                for($i=0;$i<$count;$i++) { @endphp <div
-                                                    class="col-md-12 col-sm-12 col-xs-12 pd_0">
+                                                for($i=0;$i<$count;$i++) { 
+                                                @endphp 
+                                                <div class="col-md-12 col-sm-12 col-xs-12 pd_0">
                                                     <div class="row">
-
                                                         <div class="col-md-6 col-sm-12 col-xs-12">
                                                             <div class="table-responsive">
                                                                 <table class="table table-bordered wd_37">
@@ -325,7 +324,6 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                                                         <td>{{$res[$i][5]}}</td>
                                                                     </tr>
                                                                 </table>
-
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12 col-xs-12">
@@ -341,17 +339,16 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                                                         <td>{{$res[$i][7]}}</td>
                                                                     </tr>
                                                                 </table>
-
                                                             </div>
                                                         </div>
-
                                                     </div>
+                                                </div>
+                                                @php 
+                                                }
+                                                @endphp
                                             </div>
                                         </div>
-                                        @php }
-                                        @endphp
                                     </div>
-
                                     <div id="menu3" class="container tab-pane fade pd_0"><br>
                                         <div class="card-content collapse show">
                                             <div class="card-body pd_0">
