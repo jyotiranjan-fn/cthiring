@@ -81,7 +81,7 @@
 
 
                                        
-                                        <input class="form-control" name="otp" id="uname" type="text"
+                                        <input class="form-control" name="otp" id="uname" type="password"
                                             placeholder="Enter Your OTP">
                                     </div>
                                 </div>

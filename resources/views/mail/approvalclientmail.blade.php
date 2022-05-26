@@ -11,7 +11,7 @@
             <tr>
                 <td colspan="2"
                     style="background-color: #f2f2f2;text-align: center;border-top-left-radius: 3px;border-top-right-radius: 3px;">
-                    <img src="careertree.png" style="max-width:238px;margin-left: 6px;margin-bottom: 13px;">
+                    <img src="https://ct-hiring.mobbsr.in/assets/images/am.jpg" style="max-width:238px;margin-left: 6px;margin-bottom: 13px;">
                 </td>
             </tr>
         </table>
@@ -21,14 +21,17 @@
                 <td colspan="2">
                     <p
                         style="font-family: verdana;text-align: left;font-size: 14px;margin: 0px;color: #484546;line-height: 140%;word-wrap: break-word;padding-top: 6px;padding-left: 12px;font-weight:600;">
-                        Dear {{$fname[0]}} {{$lname[0]}},</p>
+                        Dear {{$fname}} {{$lname}},</p>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <p
-                        style="font-family: verdana;text-align: left;font-size: 12px;margin: 0px;color: #;line-height: 140%;margin-top: 0px;word-wrap: break-word;padding-top: 6px;padding-left: 12px;">
-                        The following client is created by <span style="font-weight:600;">{{$createby}}</span>.
+                    @php
+                        $create=App\Models\User::where('id','=',$createby)->get();
+                    @endphp
+                    
+                    <p style="font-family: verdana;text-align: left;font-size: 12px;margin: 0px;color: #484546;line-height: 140%;margin-top: 0px;word-wrap: break-word;padding-top: 6px;padding-left: 12px;">
+                        The following client is created by <span style="font-weight:600;">{{$create[0]->name}}</span>.
                     </p>
                 </td>
             </tr>
@@ -38,7 +41,7 @@
             <tr>
                 <td colspan="2">
                     <p
-                        style="font-family: verdana;text-align: left;font-size: 12px;margin: 0px;color: #;line-height: 140%;margin-top: 10px;word-wrap: break-word;padding-top: 6px;padding-left: 12px;">
+                        style="font-family: verdana;text-align: left;font-size: 12px;margin: 0px;color: #484546;line-height: 140%;margin-top: 10px;word-wrap: break-word;padding-top: 6px;padding-left: 12px;">
                         Please check the details below.
                     </p>
                 </td>
@@ -61,9 +64,12 @@
                         Location</p>
                 </td>
                 <td>
-                    <p
-                        style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;margin-right: 12px;">
-                        {{$cityname}}
+                    @php
+                        $location=App\Models\city::where('id','=',$cityname)->get();
+                    @endphp
+                    
+                    <p style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;margin-right: 12px;">
+                        {{$location[0]->name}}
                     </p>
                 </td>
             </tr>
@@ -74,10 +80,20 @@
                         CRM</p>
                 </td>
                 <td>
-                    <p
-                        style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;">
-                        {{$crmid}}
-                    </p>
+                    @php
+                        $crm=json_decode($crmid);
+                        $count=count($crm);
+                    @endphp
+                    @for ($i=0;$i<$count;$i++)
+                        @php
+                        $crmname=App\Models\User::where('id','=',$crm[$i])->get();
+                        @endphp
+                    
+                        <p style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;">
+                            {{$crmname[0]->name}}
+                        </p>
+                    @endfor
+                    
                 </td>
                 <td>
                     <p
@@ -85,9 +101,12 @@
                         Created By</p>
                 </td>
                 <td>
+                    @php
+                        $create=App\Models\User::where('id','=',$createby)->get();
+                    @endphp
                     <p
                         style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;margin-right: 12px;">
-                        {{$createby}}
+                        {{$create[0]->name}}
                     </p>
                 </td>
             </tr>

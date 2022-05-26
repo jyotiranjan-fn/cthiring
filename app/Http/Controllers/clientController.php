@@ -52,15 +52,17 @@ class clientController extends Controller
             'streetname' => 'required',
             'area' => 'required',
             'pincode' => 'required|max:999999|integer',
-            'client_logo'=>'required|image|mimes:jpeg,png,jpg,gif,svg',
+            // 'client_logo'=>'required|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
         
-        
+        if($request->client_logo != ''){
         $imageName = time() . '.' . $request->client_logo->extension();
         // dd($imageName);
         $randimg =  $request->client_logo->move(('clients/'), $imageName);
         // dd($randimg);
-        
+        }else{
+            $imageName = null;
+        }
         
         $test = [
             'CLIENT_FULLNAME' => $request->clientname,
@@ -135,7 +137,6 @@ class clientController extends Controller
 
             $role1 = new ClientContact;
 
-
             $role1->client_id = $LastInsertId;
             $role1->contact_name = $request->data[$i]['contactname'];
             $role1->mobile = $request->data[$i]['contactphone'];
@@ -166,7 +167,7 @@ class clientController extends Controller
             $role1->save();
 
         }
-         $this->mail_send($role1->created_by, $role1->client_name, $role1->city_id, $role1->crm_id);
+         $this->mail_send($role1->created_by, $role->client_name, $role1->city_id, $role->crm_id);
          
         $request->session()->forget('client');
 
@@ -180,32 +181,28 @@ class clientController extends Controller
      public function mail_send($created,$client_name,$city_id,$crm_id)
     {
         // echo "hyy";
+        
         $user = User::where('role_id', '2')->get();
         
         $count = count($user);
         for ($i = 0; $i < $count; $i++) {
-            $result[] = $user[$i]->email;
-            $fname[] = $user[$i]->fname;
-            $lname[] = $user[$i]->lname;
 
-        }
-        
-        
-        // dd($result);
-
-        // dd('hi');
-        $data = ['createby' => $created, 'nameclient' => $client_name, 'cityname' => $city_id, 'crmid' => $crm_id,'fname' => $fname,'lname' => $lname];
+        $data = ['createby' => $created, 'nameclient' => $client_name, 'cityname' => $city_id, 'crmid' => $crm_id,'fname' => $user[$i]->fname,'lname' => $user[$i]->lname];
         
         // dd($data);
-        // $data = ['name' => $fname, 'password' => $password];
-        // $smail = $email;
-        $clientmail['to'] = $result;
+        $create = client::all('created_by');
+        //  dd($create[$i]->created_by);
+        $user1 = User::where('id','=',$create[$i]->created_by)->get();
 
-        FacadesMail::send('mail.approvalclientmail', $data, function ($messages) use ($clientmail) {
+        //  dd($user1[0]->name);
+        $clientmail['to'] = $user[$i]->email;
+
+        FacadesMail::send('mail.approvalclientmail', $data, function ($messages) use ($clientmail,$user1) {
             $messages->to($clientmail['to']);
 
-            $messages->subject('CT-HIRING OTP');
+            $messages->subject('CT Hiring - Client created by '.$user1[0]->name);
         });
+    }
     }
 
     //viewclient page
@@ -257,31 +254,41 @@ class clientController extends Controller
         $role->is_approve = "1";
         $role->save();
         
+
+
         $role = client :: where('id',"=",$request->c_id)->get();
         $array=json_decode($role[0]->crm_id);
         $client_createdby= $role[0]->created_by;        
         array_push($array,$client_createdby);
-
+        // dd($client_createdby);
         $client_name= $role[0]->client_name; 
         $city_id= $role[0]->city_id; 
         $remarks= $role[0]->remarks; 
         $approved_by= $role[0]->approved_by; 
          
-
-        
         //dd($role[0]->created_by,json_decode($role[0]->crm_id),$array);
 
         $user_mail = User::whereIn('id', $array)->pluck('email')->toArray();
-      
-        //dd($user_mail,$count);
+        $username = User::whereIn('id',$array)->pluck('name')->toarray();
+        // dd($username);
+        $count= count($user_mail);
+        // dd($user_mail);
+        for($i = 0; $i < $count; $i++){
 
-        $data = ['created_by' => $client_createdby, 'client_name' => $client_name, 'city_id' => $city_id, 'crm_id' => $array,'remarks' => $remarks,'approved_by' => $approved_by];
+        
 
-        FacadesMail::send('mail.afterapproval_client', $data, function ($messages) use ($user_mail) {
+
+        $create = client::all('approved_by');
+          //dd($create[$i]->approved_by);
+        $user1 = User::where('id','=',$create[0]->approved_by)->get();
+         //dd($user1[0]->name);
+         $data = ['created_by' => $client_createdby, 'client_name' => $client_name, 'city_id' => $city_id, 'crm_id' => $array[$i],'remarks' => $remarks,'approved_by' => $user1[0]->name,'username' => $username[$i]];
+        FacadesMail::send('mail.afterapproval_client', $data, function ($messages) use ($user_mail,$user1) {
             $messages->to($user_mail);
 
-            $messages->subject('CT-HIRING OTP');
+            $messages->subject('CT Hiring - Client approved by '.$user1[0]->name);
         });
+    }
         return redirect('/approveclient');
 
     }
@@ -312,122 +319,26 @@ class clientController extends Controller
         $location = client_location::all();
         $role_id = role::where('is_crm', '1')->pluck('id')->all();
         //dd($role_id);
-        $crm_user = User::whereIn('role_id', $role_id)
-                           ->where('is_deleted', '=', 'N')
-                           ->get();
+        $crm_user = User::whereIn('role_id', $role_id)->get();
         // dd($crm_user);
-        //die;
         //dd($view);
         return view('client.editclient', compact('view', 'state_name', 'crm_user', 'view2','district','city','location'));
 
     }
     
-    // public function client_update(Request $request,$id)
-    // {  
-    //   // dd($request->all());
-    //     // $client = $request->validate([
-    //     //     'clientname' => 'required',
-    //     //     'phone' => 'numeric|required|min:10|max:10',
-    //     //     'doorno' => 'required',
-    //     //     'streetname' => 'required',
-    //     //     'area' => 'required',
-    //     //     'pincode' => 'required|max:999999|integer',
-    //     //     'client_logo'=>'required|image|mimes:jpeg,png,jpg,gif,svg',
-    //     // ]);
-    //     //  dd($request->all());
-    //     $role = client::findorfail($id);
-    //     $role->client_name = $request->fullname;
-    //     $role->mobile = $request->phone;
-    //     $role->door_no = $request->doorno;
-    //     $role->street_name = $request->streetname;
-
-    //     $role->area_name = $request->area;
-    //     $role->city_id = $request->cityname;
-    //     $role->district_id = $request->districtname;
-    //     $role->state_id = $request->State;
-
-    //     $role->pincode = $request->pincode;
-    //     $role->crm_id = json_encode($request->crm);
-    //     $role->status = $request->status;
-    //     $role->edit_remark = $request->edit_remarks;
-
-        
-    //     $role->modified_by = session('USER_ID');
-    //     $role->is_approve = 0;
-    //      if ($request->hasfile('client_logo')) 
-    //      {
-    //         $destination = 'clients/' . $role->logo;
-    //         if (File::exists($destination)) {
-    //         File::delete($destination);
-    //           }
-    //         $file = $request->file('client_logo');
-    //         $extention = $file->getClientOriginalExtension();
-    //         $filename = time() . '.' . $extention;
-    //         $file->move('clients/', $filename);
-    //         $role->logo = $filename;
-                    
-    //     }
-    //     $role->save();
-        
-    //     $LastInsertId = $role->id;
-    //     //  dd($LastInsertId);
-        
-    //     //client contact update 
-    //     $count = count($request->data);
-       
-        
-    //      for ($i = 0; $i < $count; $i++) {
-    //          dd($count);
-
-    //         // $role1 = ClientContact::findorfail($LastInsertId);
-            
-    //         $role1 = ClientContact::where('client_id',$LastInsertId)->update([
-
-                
-            
-    //         'client_id'=> $LastInsertId,
-    //         'contact_name' => $request->data[$i]['contactname'],
-    //         'mobile' => $request->data[$i]['contactphone'],
-    //         'email' => $request->data[$i]['contactmail'],
-    //         'designation' => $request->data[$i]['designation'],
-    //         'client_branch' => $request->data[$i]['client_branch'],
-
-    //         'door_no' => $request->data[$i]['doorno'],
-    //         'street_name' => $request->data[$i]['streetname'],
-
-    //         'area_name' => $request->data[$i]['area'],
-    //         'state_id' => $request->data[$i]['State'],
-    //         // $role1->state_id = "1";
-
-    //         'district_id' => $request->data[$i]['districtname'],
-    //         // $role1->district_id = "1";
-
-    //         'city_id' => $request->data[$i]['cityname'],
-
-    //         // $role1->city_id = "1";
-
-    //         'pincode' => $request->data[$i]['pincode'],
-
-    //         'status' => $request->data[$i]['status'],
-    //         'created_by' => session('USER_ID'),
-            
-            
-    //         ]);
-    //     // dd($role);
-            
-
-        
-    //     }
-    //     return redirect('/viewclient')->with('msg', 'Client Updated successfully.');
-    // }
-
     public function client_update(Request $request,$id)
-    { //dd($request->all(),$request->data[0]['client_contact_primary_spoc'][0]);
-       //dd((($request->data)[0]['client_contact_primary_spoc']))
-         $role = client::findorfail($id);
-        //  $role = new client;
-         
-
+    {
+        // $client = $request->validate([
+        //     'clientname' => 'required',
+        //     'phone' => 'numeric|required|min:10|max:10',
+        //     'doorno' => 'required',
+        //     'streetname' => 'required',
+        //     'area' => 'required',
+        //     'pincode' => 'required|max:999999|integer',
+        //     'client_logo'=>'required|image|mimes:jpeg,png,jpg,gif,svg',
+        // ]);
+        //  dd($request->all());
+        $role = client::findorfail($id);
         $role->client_name = $request->fullname;
         $role->mobile = $request->phone;
         $role->door_no = $request->doorno;
@@ -441,10 +352,8 @@ class clientController extends Controller
         $role->pincode = $request->pincode;
         $role->crm_id = json_encode($request->crm);
         $role->status = $request->status;
-        $role->edit_remark = $request->edit_remarks;
-
         
-        $role->modified_by = session('USER_ID');
+        $role->created_by = session('USER_ID');
         $role->is_approve = 0;
          if ($request->hasfile('client_logo')) 
          {
@@ -461,54 +370,51 @@ class clientController extends Controller
         }
         $role->save();
         
-        // $LastInsertId = $role->id;
+        $LastInsertId = $role->id;
         //  dd($LastInsertId);
         
         //client contact update 
         $count = count($request->data);
         // dd($count);
-        // ClientContact::where('client_id',$id)->delete();
-
-          for ($i = 0; $i < $count; $i++) {
-            $role1 = ClientContact::findOrNew((($request->data)[$i]['client_contact_id']));
-           // $role1 = new ClientContact;
+        
+    for ($i = 0; $i < $count; $i++) {
             //dd($count);
-            $role1->client_id = $id;
-            $role1->contact_name = $request->data[$i]['contactname'];
-            $role1->mobile = $request->data[$i]['contactphone'];
-            $role1->email = $request->data[$i]['contactmail'];
 
-            // if(isNotEmpty(data[$i]['client_contact_primary_spoc'])){
-            // $role1->spoc_checked = $request->data[$i]['client_contact_primary_spoc'][0];
-            // }
+            // $role1 = ClientContact::findorfail($LastInsertId);
+            
+            $role1 = ClientContact::where('client_id',$LastInsertId)->update([
+            
+            'client_id'=> $LastInsertId,
+            'contact_name' => $request->data[$i]['contactname'],
+            'mobile' => $request->data[$i]['contactphone'],
+            'email' => $request->data[$i]['contactmail'],
+            'designation' => $request->data[$i]['designation'],
+            'client_branch' => $request->data[$i]['client_branch'],
 
-            $role1->designation = $request->data[$i]['designation'];
-            $role1->client_branch = $request->data[$i]['client_branch'];
+            'door_no' => $request->data[$i]['doorno'],
+            'street_name' => $request->data[$i]['streetname'],
 
-            $role1->door_no = $request->data[$i]['doorno'];
-            $role1->street_name = $request->data[$i]['streetname'];
-
-            $role1->area_name = $request->data[$i]['area'];
-            $role1->state_id = $request->data[$i]['State'];
+            'area_name' => $request->data[$i]['area'],
+            'state_id' => $request->data[$i]['State'],
             // $role1->state_id = "1";
 
-            $role1->district_id = $request->data[$i]['districtname'];
+            'district_id' => $request->data[$i]['districtname'],
             // $role1->district_id = "1";
 
-            $role1->city_id = $request->data[$i]['cityname'];
+            'city_id' => $request->data[$i]['cityname'],
 
             // $role1->city_id = "1";
 
-            $role1->pincode = $request->data[$i]['pincode'];
+            'pincode' => $request->data[$i]['pincode'],
 
-            $role1->status = $request->data[$i]['status'];
-            $role1->created_by = session('USER_ID');
+            'status' => $request->data[$i]['status'],
+            'created_by' => session('USER_ID'),
             
-            // dd($role);
-            $role1->save();
-         }
-         return redirect('/viewclient')->with('msg', 'Client Updated successfully.');
-
+            
+            ]);
+        
+        }
+        return redirect('/viewclient')->with('msg', 'Client Updated successfully.');
     }
 
 }

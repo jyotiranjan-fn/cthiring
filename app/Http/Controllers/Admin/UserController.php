@@ -162,7 +162,7 @@ class UserController extends Controller
        }
 
 
- Cache::flush();
+        Cache::flush();
 
         // $request->session()->flash('roleinster', 'User Inserted Successflly');
          return redirect()->back()->with('msg', 'User Inserted Successflly');
