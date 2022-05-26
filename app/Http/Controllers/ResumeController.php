@@ -721,7 +721,7 @@ class ResumeController extends Controller
     public function approve_cv($id){
         
      //  dd($id);
-       $position_id=Resume::where('id',$id)->get('position_id');
+        $position_id=Resume::where('id',$id)->get('position_id');
       
         
         $cv_approve=Resume::where('id',$id)->update(['crm_status' => 1]);

@@ -93,26 +93,30 @@ class UserController extends Controller
     {
         // $created_by = session('USER_ID');
     //     // dd($request);
-    //     $user = $request->validate([
-    //         'fname' => 'required',
-    // 		'lname' => 'required',
-    // 		'email' => 'required',
-    //         'mobile' => 'numeric|required|min:10|max:10',
-    //         'gender' => 'required',
-    //         'designation' => 'required',
-    //         'role' => 'required',
-    // 		'user_location' => 'required',
-    // 		'label_1' => 'required',
-    // 		'label_2' => 'required',
-    // 		'status' => 'required',
-    //         'editer' => 'required ',
-    //         'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg',
-    //     ]);
+        //  $user = $request->validate([
+        //      'fname' => 'required',
+     	// 	'lname' => 'required',
+     	// 	'email' => 'required|email|unique:users',
+        //      'mobile' => 'numeric|required|size:10',
+        //      'gender' => 'required',
+        //      'designation' => 'required',
+        //      'role' => 'required',
+     	// 	'user_location' => 'required',
+     	// 	'label_1' => 'required',
+     	// 	'label_2' => 'required',
+     	// 	'status' => 'required',
+        //      'editer' => 'required ',
+        //  ]);
         //image
-        $imageName = time() . '.' . $request->image->extension();
-        // dd($imageName);
 
-        $randimg = $request->image->move(('images/'), $imageName);
+        if($request->image != ''){
+            $imageName = time() . '.' . $request->image->extension();
+            // dd($imageName);
+            $randimg =  $request->image->move(('images/'), $imageName);
+            // dd($randimg);
+            }else{
+                $imageName = null;
+            }
 
         $role = new user;
         $role->fname = request('fname');

@@ -3,13 +3,6 @@
     body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
         margin-left: 0px;
     }
-    </style>
-
-
-    <style>
-    body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
-        margin-left: 0px;
-    }
 
     .box {
         display: none;
@@ -586,12 +579,8 @@
                                                         </div>
                                                     </form>
                                                     <!-- Send CV to Client form modal  start -->
-
-
-
-
                                                 </td>
-                                                <td>23-Apr-2022</td>
+                                                <td>$view->created_at</td>
                                             </tr>
                                             @php
                                             $i++;
