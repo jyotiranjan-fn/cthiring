@@ -117,7 +117,7 @@ class UserController extends Controller
         $role = new user;
         $role->fname = request('fname');
         $role->lname = request('lname');
-        //$role->username =  request('fname')  . " " . request('lname');
+        $role->username =  request('fname')  . " " . request('lname');
         $role->name= request('fname') . " " . request('lname');
         $randompassword=Str::random(10);
         $role->temp_password = $this->attributes['password'] = Hash::make($randompassword);
@@ -134,7 +134,7 @@ class UserController extends Controller
         $role->signature = request('editor');
         $role->created_by = session('USER_ID');
         $role->save();
-        $this->mail_send( $randompassword ,$role->email ,$username,'abinash889@gmail.com'); 
+        $this->mail_send( $randompassword ,$role->email ,$role->username,'abinash889@gmail.com'); 
 
         $last_user_id=$role->id;
 
