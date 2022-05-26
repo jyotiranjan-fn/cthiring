@@ -11,7 +11,7 @@
             <tr>
                 <td colspan="2"
                     style="background-color: #f2f2f2;text-align: center;border-top-left-radius: 3px;border-top-right-radius: 3px;">
-                    <img src="careertree.png" style="max-width:238px;margin-left: 6px;margin-bottom: 13px;">
+                    <img src="https://ct-hiring.mobbsr.in/assets/images/am.jpg" style="max-width:238px;margin-left: 6px;margin-bottom: 13px;">
                 </td>
             </tr>
         </table>
@@ -21,14 +21,16 @@
                 <td colspan="2">
                     <p
                         style="font-family: verdana;text-align: left;font-size: 14px;margin: 0px;color: #484546;line-height: 140%;word-wrap: break-word;padding-top: 6px;padding-left: 12px;font-weight:600;">
-                        Dear Abinash Bhatta,</p>
+                        Dear {{$username}},</p>
+                        
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
+                    
                     <p
-                        style="font-family: verdana;text-align: left;font-size: 12px;margin: 0px;color: #;line-height: 140%;margin-top: 0px;word-wrap: break-word;padding-top: 6px;padding-left: 12px;">
-                        The following client is approved by <span style="font-weight:600;">Business Head</span>. Please
+                        style="font-family: verdana;text-align: left;font-size: 12px;margin: 0px;color: #484546;line-height: 140%;margin-top: 0px;word-wrap: break-word;padding-top: 6px;padding-left: 12px;">
+                        The following client is approved by <span style="font-weight:600;">{{$approved_by}}</span>. Please
                         login to CT Hiring and start creating the requirements for this client.
                     </p>
                 </td>
@@ -39,7 +41,7 @@
             <tr>
                 <td colspan="2">
                     <p
-                        style="font-family: verdana;text-align: left;font-size: 12px;margin: 0px;color: #;line-height: 140%;margin-top: 10px;word-wrap: break-word;padding-top: 6px;padding-left: 12px;">
+                        style="font-family: verdana;text-align: left;font-size: 12px;margin: 0px;color: #484546;line-height: 140%;margin-top: 10px;word-wrap: break-word;padding-top: 6px;padding-left: 12px;">
                         Please check the details below.
                     </p>
                 </td>
@@ -53,7 +55,7 @@
                 <td>
                     <p
                         style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;">
-                        Ampilogy
+                        {{$client_name}}
                     </p>
                 </td>
                 <td>
@@ -62,9 +64,12 @@
                         Location</p>
                 </td>
                 <td>
-                    <p
-                        style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;margin-right: 12px;">
-                        BBSR
+                    @php
+                        $location=App\Models\city::where('id','=',$city_id)->get();
+                    @endphp
+                    
+                    <p style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;margin-right: 12px;">
+                        {{$location[0]->name}}
                     </p>
                 </td>
             </tr>
@@ -75,10 +80,15 @@
                         CRM</p>
                 </td>
                 <td>
-                    <p
-                        style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;">
-                        Vertical
-                    </p>
+                    
+                        @php
+                        $crmname=App\Models\User::where('id','=',$crm_id)->get();
+                        @endphp
+                    
+                        <p style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;">
+                            {{$crmname[0]->name}}
+                        </p>
+                    
                 </td>
                 <td>
                     <p
@@ -86,9 +96,12 @@
                         Created By</p>
                 </td>
                 <td>
-                    <p
-                        style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;margin-right: 12px;">
-                        Busines Head
+                @php
+                        $create=App\Models\User::where('id','=',$created_by)->get();
+                    @endphp
+                    
+                    <p style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px;padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;">
+                       {{$create[0]->name}}
                     </p>
                 </td>
             </tr>

@@ -13,7 +13,7 @@
 			<table style="width: 553px;margin-right: auto;margin-left: auto;">
 				<tr>
 					<td colspan="2" style="background-color: #f2f2f2;text-align: center;border-top-left-radius: 3px;border-top-right-radius: 3px;">
-						<img src="{{asset('assets/images/careertree.png')}}" style="max-width:238px;margin-left: 6px;margin-bottom: 13px;">
+						<img src="https://ct-hiring.mobbsr.in/assets/images/am.jpg" style="max-width:238px;margin-left: 6px;margin-bottom: 13px;">
 					</td>
 				</tr>
 			</table>
