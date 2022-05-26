@@ -44,7 +44,6 @@
     </div>
 
     @if ($message = Session::get('msg'))
-
     <div class="alert alert-success alert-dismissible bg-success text-white border-0 fade show" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -52,6 +51,17 @@
         {{$message}}
     </div>
     @endif
+
+    <!-- for delete -->
+        @if(session()->has('delt'))
+        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{session('delt')}}
+        </div>
+        @endif
+        
     <!-- Form wizard with icon tabs section start -->
     <div class="row match-height">
         <div class="col-md-12">
@@ -430,6 +440,9 @@
                                                         </ul>
                                                     </div>
                                                 </td>
+
+                                                <!-- resume approve and reject ,send cv popup modal inside thid td -->
+
                                                 <td>
                                                     @php
                                                     $fetch_crm=App\Models\Client::where('id',$res_show->client_id)->get();
@@ -448,33 +461,95 @@
                                                                         src="../assets/position/shortlist.png"
                                                                         class="hi8">Approve</a>
                                                             </li>
-                                                            <li data-toggle="modal" data-target="#sendcv"><a
-                                                                    href="#"><img src="../assets/position/rejected.png"
-                                                                        class="hi8">Rejected</a>
+                                                            <li data-toggle="modal" data-target="#rejectcv{{$res_show->id}}">
+                                                                    <img src="../assets/position/rejected.png"
+                                                                        class="hi8">Rejected
                                                             </li>
                                                         </ul>
                                                     </div>
                                                     @elseif($res_show->crm_status==1 && $res_show->cv_status==1)<span
                                                         class="badge badge-success" data-toggle="tooltip"
                                                         data-placement="top" title="Billing Pending">CV Sent</span>
+                                                            @elseif($res_show->crm_status==2 )
+                                                            <span class="badge badge-danger" data-toggle="tooltip"
+                                                        data-placement="top" title="Billing Pending">Rejected</span>
                                                     @else<span class="badge badge-success" data-toggle="tooltip"
                                                         data-placement="top" title="Billing Pending">Approved</span>
-
-
+                                                      
                                                     @endif
+
+                                                       @if($res_show->crm_status==1 && $res_show->cv_status==0) <a
+                                                            href="#"><img src="../assets/position/next.png" class="hi8"
+                                                                data-toggle="modal"
+                                                                data-target="#sendcv{{$res_show->id}}"></a> 
+                                                        @endif
                                                     @endif
+
                                                     @if(!in_array(session('USER_ID'),json_decode($fetch_crm[0]->crm_id)))
-                                                    @if($res_show->crm_status==0)
-                                                    <span class="badge badge-warning" data-toggle="tooltip"
-                                                        data-placement="top" title="Billing Pending">CRM
-                                                        Pending</span>
-                                                    @endif
+                                                        @if($res_show->crm_status==0)
+                                                        <span class="badge badge-warning" data-toggle="tooltip"
+                                                            data-placement="top" title="Billing Pending">CRM
+                                                            Pending</span>
+                                                        @elseif($res_show->crm_status==1 && $res_show->cv_status==1)<span
+                                                            class="badge badge-success" data-toggle="tooltip"
+                                                            data-placement="top" title="Billing Pending">CV Sent</span>
+                                                                @elseif($res_show->crm_status==2 )
+                                                                <span class="badge badge-danger" data-toggle="tooltip"
+                                                            data-placement="top" title="Billing Pending">Rejected</span>
+                                                        @else<span class="badge badge-success" data-toggle="tooltip"
+                                                            data-placement="top" title="Billing Pending">Approved</span>
+                                                        
+                                                        @endif
                                                     @endif<br>
 
-                                                    @if($res_show->crm_status==1 && $res_show->cv_status==0) <a
-                                                        href="#"><img src="../assets/position/next.png" class="hi8"
-                                                            data-toggle="modal"
-                                                            data-target="#sendcv{{$res_show->id}}"></a> @endif
+                                                    
+
+                                                    <!-- reject cv by crm from cv uploaded tab start -->
+                                                        <form action="{{ url('reject_cv',$res_show->id)}}" method="post" class="form"
+                                                            enctype="multipart/form-data">
+                                                            @csrf
+                                                            <div class="modal fade" id="rejectcv{{$res_show->id}}" tabindex="-1" role="dialog"
+                                                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header cnt223">
+                                                                            <h1 class="modal-title" id="exampleModalLongTitle">Reject CV
+                                                                            </h1>
+                                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                                aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="">
+                                                                                <table class="table table-bordered wd_21 t_left">
+                                                                                    <tr>
+                                                                                        <th class="pd_410">Candidate Name
+                                                                                        </th>
+                                                                                        <td class="pd_410"><input type="text"
+                                                                                                class="form-control"
+                                                                                                name="resume_candidate_name"
+                                                                                                value="{{$res_show->name}}" readonly></td>
+                                                                                    </tr>                      
+                                                                                    <tr>
+                                                                                        <th class="pd_410">Remarks</th>
+                                                                                        <td class="pd_410"><textarea name="reject_cvremark"
+                                                                                                class="form-control" id="" cols="30"
+                                                                                                rows="2"></textarea></td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                                            <button type="button" class="btn btn-danger"
+                                                                                data-dismiss="modal">Cancel</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <!-- reject cv by crm from cv uploaded tab end -->
 
 
                                                     <!-- Send CV to Client form  modal start -->
@@ -586,11 +661,8 @@
                                                         </div>
                                                     </form>
                                                     <!-- Send CV to Client form modal  start -->
-
-
-
-
                                                 </td>
+                                                <!-- end -->
                                                 <td>23-Apr-2022</td>
                                             </tr>
                                             @php
@@ -681,7 +753,7 @@
                                     </table>
                                 </div>
 
-                                <!-- cv status -->
+                                <!-- cv status 3tab form-->
                                 <div id="menu3" class="tab-pane fade pd_0"><br>
                                     <table class="table table-striped w_100">
                                         <thead>
@@ -725,7 +797,8 @@
 
 
                                                     @endif
-                                                    @if($res_show->cv_status<2) <div class="dropdown d_inblk">
+                                                    @if($res_show->cv_status< 2)
+                                                        <div class="dropdown d_inblk">
                                                         <button class="btn btn-primary pd_5" type="button"
                                                             data-toggle="dropdown">
 
@@ -735,7 +808,7 @@
                                                             <li>
                                                                 <button type="button" class="btn pd_slst"
                                                                     data-toggle="modal"
-                                                                    data-target="#shortlistcv{{$res_show->id}}">
+                                                                    data-target="#screeningstatus_shortlistcv{{$res_show->id}}">
 
                                                                     <img src="../assets/position/shortlist.png"
                                                                         class="hi8">Shortlisted
@@ -744,7 +817,7 @@
                                                             <li>
                                                                 <button type="button" class="btn pd_slst"
                                                                     data-toggle="modal"
-                                                                    data-target="#rejectcv{{$res_show->id}}">
+                                                                    data-target="#screeningstatus_rejectcv{{$res_show->id}}">
 
                                                                     <img src="../assets/position/rejected.png"
                                                                         class="hi8">Rejected
@@ -757,7 +830,7 @@
                                 <form action="{{ url('screening_status',$res_show->id)}}" method="post" class="form"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    <div class="modal fade" id="shortlistcv{{$res_show->id}}" tabindex="-1"
+                                    <div class="modal fade" id="screeningstatus_shortlistcv{{$res_show->id}}" tabindex="-1"
                                         role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
@@ -810,7 +883,7 @@
                                 <form action="{{ url('screening_stat',$res_show->id)}}" method="post" class="form"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    <div class="modal fade" id="rejectcv{{$res_show->id}}" tabindex="-1" role="dialog"
+                                    <div class="modal fade" id="screeningstatus_rejectcv{{$res_show->id}}" tabindex="-1" role="dialog"
                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
@@ -912,9 +985,9 @@
                                     </div>
                                     @endif
                                     <!-- ISA code end -->
-<input type="hidden" id="">
+
                                     <!-- first interview schedule start -->
-                                    @if($res_show->cv_status==4)
+                                    @if($res_show->cv_status==4 || $res_show->cv_status==5)
                                     <span class="p_d" data-toggle="tooltip" data-placement="top"
                                         title="First Interview Scheduled">1 IS</span>
                                     <div class="dropdown d_inblk">
@@ -928,6 +1001,7 @@
                                                     View Interview Details
                                                 </button>
                                             </li>
+
                                             <li>
                                                 <button type="button" class="btn pd_slst" data-toggle="modal"
                                                     data-target="#rescheduleinterview{{$res_show ->id}}">
@@ -2209,6 +2283,7 @@
                                     </div>
                                     <!-- interview select popup form end -->
 
+                                    <!-- interview rejected form start -->
                                     <div class="modal fade" id="interviewreject{{$res_show ->id}}" tabindex="-1"
                                         role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -2284,6 +2359,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- interview rejected form end -->
 
                                 </td>
                                 <td class="t_c">

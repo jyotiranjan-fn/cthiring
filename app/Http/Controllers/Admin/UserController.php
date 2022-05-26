@@ -93,10 +93,10 @@ class UserController extends Controller
     {
         // $created_by = session('USER_ID');
     //     // dd($request);
-    //     $user = $request->validate([
-    //         'fname' => 'required',
-    // 		'lname' => 'required',
-    // 		'email' => 'required',
+       $user = $request->validate([
+           'fname' => 'required',
+    	'lname' => 'required',
+     		'email' => 'required|email|unique:users',
     //         'mobile' => 'numeric|required|min:10|max:10',
     //         'gender' => 'required',
     //         'designation' => 'required',
@@ -107,7 +107,7 @@ class UserController extends Controller
     // 		'status' => 'required',
     //         'editer' => 'required ',
     //         'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg',
-    //     ]);
+        ]);
         //image
         $imageName = time() . '.' . $request->image->extension();
         // dd($imageName);
