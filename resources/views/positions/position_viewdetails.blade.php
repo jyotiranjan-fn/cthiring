@@ -1,12 +1,12 @@
 <x-admin-layout>
     <style>
-    body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
-        margin-left: 0px;
-    }
+        body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
+            margin-left: 0px;
+        }
 
-    .box {
-        display: none;
-    }
+        .box {
+            display: none;
+        }
     </style>
     <script src="https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
     @php
@@ -46,15 +46,15 @@
     @endif
 
     <!-- for delete -->
-        @if(session()->has('delt'))
-        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            {{session('delt')}}
-        </div>
-        @endif
-        
+    @if(session()->has('delt'))
+    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{session('delt')}}
+    </div>
+    @endif
+
     <!-- Form wizard with icon tabs section start -->
     <div class="row match-height">
         <div class="col-md-12">
@@ -78,12 +78,10 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#home"><img
-                                            src="../assets/position/business.png" class="hi8">Basic Details</a>
+                                    <a class="nav-link active" data-toggle="tab" href="#home"><img src="../assets/position/business.png" class="hi8">Basic Details</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#menu1"><img
-                                            src="../assets/position/job-offer.png" class="hi8">Job Description</a>
+                                    <a class="nav-link" data-toggle="tab" href="#menu1"><img src="../assets/position/job-offer.png" class="hi8">Job Description</a>
                                 </li>
                             </ul>
 
@@ -216,8 +214,7 @@
 
                                                                     <td>
                                                                         @php
-                                                                        for($i=0;$i<$count;$i++){ @endphp <span
-                                                                            class="badge badge-primary">
+                                                                        for($i=0;$i<$count;$i++){ @endphp <span class="badge badge-primary">
                                                                             {{$test[$i]}}</span>
 
                                                                             @php
@@ -238,8 +235,7 @@
 
                                                                     <td>
                                                                         @php
-                                                                        for($i=0;$i<$count;$i++){ @endphp <span
-                                                                            class="badge badge-secondary">
+                                                                        for($i=0;$i<$count;$i++){ @endphp <span class="badge badge-secondary">
                                                                             {{$test1[$i]}}
                                                                             </span>
                                                                             @php
@@ -253,19 +249,19 @@
                                                                     <td>{{$view->total_opening}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                        @php
-                                                                           $recruiter_id=App\Models\Position::where('position_id', $view->position_id)->get('recruiters');
-                                                                        @endphp
+                                                                    @php
+                                                                    $recruiter_id=App\Models\Position::where('position_id', $view->position_id)->get('recruiters');
+                                                                    @endphp
 
                                                                     <th>Recruiters</th>
                                                                     <td>
-                                                                         @foreach($recruiter_id as $recruiter_name)
-                                                                            <span class="badge badge-primary">
-                                                                        
-                                                                                {{optional ($recruiter_name->client_requiter)->fname}}{{optional ($recruiter_name->client_requiter)->lname}}
-                                                                            </span>
-                                                                         @endforeach
-                                                                       
+                                                                        @foreach($recruiter_id as $recruiter_name)
+                                                                        <span class="badge badge-primary">
+
+                                                                            {{optional ($recruiter_name->client_requiter)->fname}}{{optional ($recruiter_name->client_requiter)->lname}}
+                                                                        </span>
+                                                                        @endforeach
+
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -295,14 +291,12 @@
                                                                 <tr>
                                                                     <th>Status</th>
                                                                     @if ($view->status == 1)
-                                                                    <td><span
-                                                                            class="badge badge-default badge-success">Assigned</span>
+                                                                    <td><span class="badge badge-default badge-success">Assigned</span>
                                                                     </td>
 
                                                                     @else
 
-                                                                    <td><span
-                                                                            class="badge badge-default badge-danger">Inactive</span>
+                                                                    <td><span class="badge badge-default badge-danger">Inactive</span>
                                                                     </td>
 
                                                                     @endif
@@ -350,9 +344,7 @@
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#home2"><img
-                                            src="../assets/position/resume.png" class="hi8">CV Uploaded <span
-                                            class="clr">
+                                    <a class="nav-link active" data-toggle="tab" href="#home2"><img src="../assets/position/resume.png" class="hi8">CV Uploaded <span class="clr">
 
                                             {{count($resume_delts)}}
 
@@ -360,22 +352,18 @@
                                 </li>
                                 @php
                                 $cv_send_count=count(App\Models\Resume::where('cv_status','>=',1)
-                                                                        ->where('position_id','=',$view->position_id)
-                                                                      ->get());
+                                ->where('position_id','=',$view->position_id)
+                                ->get());
                                 @endphp
-                               
+
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#menu2"><img
-                                            src="../assets/position/completed-task.png" class="hi8">CV Sent <span
-                                            class="clr_green">{{$cv_send_count}}</span></a>
+                                    <a class="nav-link" data-toggle="tab" href="#menu2"><img src="../assets/position/completed-task.png" class="hi8">CV Sent <span class="clr_green">{{$cv_send_count}}</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#menu3"><img
-                                            src="../assets/position/employee.png" class="hi8">CV Status</a>
+                                    <a class="nav-link" data-toggle="tab" href="#menu3"><img src="../assets/position/employee.png" class="hi8">CV Status</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#menu4"><img
-                                            src="../assets/position/check-list.png" class="hi8">Overall Status</a>
+                                    <a class="nav-link" data-toggle="tab" href="#menu4"><img src="../assets/position/check-list.png" class="hi8">Overall Status</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -404,8 +392,7 @@
                                             @endphp
                                             @foreach($resume_delts as $res_show)
                                             <tr>
-                                                <td class="pd_20"><input type="checkbox"
-                                                        class="m_r">{{$res_show ->resume_code}}</td>
+                                                <td class="pd_20"><input type="checkbox" class="m_r">{{$res_show ->resume_code}}</td>
                                                 <td><a href="">{{$res_show ->name}}</a></td>
                                                 <td>{{$res_show ->mobile}}</td>
                                                 <td>{{$res_show ->email}}</td>
@@ -423,10 +410,8 @@
                                                 <td>{{$creatby_name[0]->fname}}</td>
                                                 <td class="t_c">
                                                     <div class="dropdown">
-                                                        <button class="btn btn-primary pd_5" type="button"
-                                                            data-toggle="dropdown">
-                                                            <span class="caret"><i class="fa fa-angle-down"
-                                                                    aria-hidden="true"></i></span></button>
+                                                        <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
+                                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                                         <ul class="dropdown-menu t_c">
                                                             <li><a href="#">Download Resume</a></li>
                                                             <li><a href="#">View Resume</a></li>
@@ -444,124 +429,91 @@
                                                     @if(in_array(session('USER_ID'),json_decode($fetch_crm[0]->crm_id)))
                                                     @if($res_show->crm_status==0)
                                                     <div class="dropdown">
-                                                        <button class="btn pd_slst" type="button"
-                                                            data-toggle="dropdown">
-                                                            <span class="caret"><img src="../assets/position/gear.png"
-                                                                    class="hi8"></span></button>
+                                                        <button class="btn pd_slst" type="button" data-toggle="dropdown">
+                                                            <span class="caret"><img src="../assets/position/gear.png" class="hi8"></span></button>
                                                         <ul class="dropdown-menu t_c">
-                                                            <li data-toggle="modal"><a
-                                                                    href="{{url('approve_cv',$res_show->id)}}"><img
-                                                                        src="../assets/position/shortlist.png"
-                                                                        class="hi8">Approve</a>
+                                                            <li data-toggle="modal"><a href="{{url('approve_cv',$res_show->id)}}"><img src="../assets/position/shortlist.png" class="hi8">Approve</a>
                                                             </li>
                                                             <li data-toggle="modal" data-target="#rejectcv{{$res_show->id}}">
-                                                                    <img src="../assets/position/rejected.png"
-                                                                        class="hi8">Rejected
+                                                                <img src="../assets/position/rejected.png" class="hi8">Rejected
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                    @elseif($res_show->crm_status==1 && $res_show->cv_status==1)<span
-                                                        class="badge badge-success" data-toggle="tooltip"
-                                                        data-placement="top" title="Billing Pending">CV Sent</span>
-                                                            @elseif($res_show->crm_status==2 )
-                                                            <span class="badge badge-danger" data-toggle="tooltip"
-                                                        data-placement="top" title="Billing Pending">Rejected</span>
-                                                    @else<span class="badge badge-success" data-toggle="tooltip"
-                                                        data-placement="top" title="Billing Pending">Approved</span>
-                                                      
+                                                    @elseif($res_show->crm_status==1 && $res_show->cv_status==1)<span class="badge badge-success" data-toggle="tooltip" data-placement="top" title="Billing Pending">CV Sent</span>
+                                                    @elseif($res_show->crm_status==2 )
+                                                    <span class="badge badge-danger" data-toggle="tooltip" data-placement="top" title="Billing Pending">Rejected</span>
+                                                    @else<span class="badge badge-success" data-toggle="tooltip" data-placement="top" title="Billing Pending">Approved</span>
+
                                                     @endif
 
-                                                       @if($res_show->crm_status==1 && $res_show->cv_status==0) <a
-                                                            href="#"><img src="../assets/position/next.png" class="hi8"
-                                                                data-toggle="modal"
-                                                                data-target="#sendcv{{$res_show->id}}"></a> 
-                                                        @endif
+                                                    @if($res_show->crm_status==1 && $res_show->cv_status==0) <a href="#"><img src="../assets/position/next.png" class="hi8" data-toggle="modal" data-target="#sendcv{{$res_show->id}}"></a>
+                                                    @endif
                                                     @endif
 
                                                     @if(!in_array(session('USER_ID'),json_decode($fetch_crm[0]->crm_id)))
-                                                        @if($res_show->crm_status==0)
-                                                        <span class="badge badge-warning" data-toggle="tooltip"
-                                                            data-placement="top" title="Billing Pending">CRM
-                                                            Pending</span>
-                                                        @elseif($res_show->crm_status==1 && $res_show->cv_status==1)<span
-                                                            class="badge badge-success" data-toggle="tooltip"
-                                                            data-placement="top" title="Billing Pending">CV Sent</span>
-                                                                @elseif($res_show->crm_status==2 )
-                                                                <span class="badge badge-danger" data-toggle="tooltip"
-                                                            data-placement="top" title="Billing Pending">Rejected</span>
-                                                        @else<span class="badge badge-success" data-toggle="tooltip"
-                                                            data-placement="top" title="Billing Pending">Approved</span>
-                                                        
-                                                        @endif
+                                                    @if($res_show->crm_status==0)
+                                                    <span class="badge badge-warning" data-toggle="tooltip" data-placement="top" title="Billing Pending">CRM
+                                                        Pending</span>
+                                                    @elseif($res_show->crm_status==1 && $res_show->cv_status==1)<span class="badge badge-success" data-toggle="tooltip" data-placement="top" title="Billing Pending">CV Sent</span>
+                                                    @elseif($res_show->crm_status==2 )
+                                                    <span class="badge badge-danger" data-toggle="tooltip" data-placement="top" title="Billing Pending">Rejected</span>
+                                                    @else<span class="badge badge-success" data-toggle="tooltip" data-placement="top" title="Billing Pending">Approved</span>
+
+                                                    @endif
                                                     @endif<br>
 
-                                                    
+
 
                                                     <!-- reject cv by crm from cv uploaded tab start -->
-                                                        <form action="{{ url('reject_cv',$res_show->id)}}" method="post" class="form"
-                                                            enctype="multipart/form-data">
-                                                            @csrf
-                                                            <div class="modal fade" id="rejectcv{{$res_show->id}}" tabindex="-1" role="dialog"
-                                                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header cnt223">
-                                                                            <h1 class="modal-title" id="exampleModalLongTitle">Reject CV
-                                                                            </h1>
-                                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                                aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
+                                                    <form action="{{ url('reject_cv',$res_show->id)}}" method="post" class="form" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <div class="modal fade" id="rejectcv{{$res_show->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header cnt223">
+                                                                        <h1 class="modal-title" id="exampleModalLongTitle">Reject CV
+                                                                        </h1>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="">
+                                                                            <table class="table table-bordered wd_21 t_left">
+                                                                                <tr>
+                                                                                    <th class="pd_410">Candidate Name
+                                                                                    </th>
+                                                                                    <td class="pd_410"><input type="text" class="form-control" name="resume_candidate_name" value="{{$res_show->name}}" readonly></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th class="pd_410">Remarks</th>
+                                                                                    <td class="pd_410"><textarea name="reject_cvremark" class="form-control" id="" cols="30" rows="2"></textarea></td>
+                                                                                </tr>
+                                                                            </table>
                                                                         </div>
-                                                                        <div class="modal-body">
-                                                                            <div class="">
-                                                                                <table class="table table-bordered wd_21 t_left">
-                                                                                    <tr>
-                                                                                        <th class="pd_410">Candidate Name
-                                                                                        </th>
-                                                                                        <td class="pd_410"><input type="text"
-                                                                                                class="form-control"
-                                                                                                name="resume_candidate_name"
-                                                                                                value="{{$res_show->name}}" readonly></td>
-                                                                                    </tr>                      
-                                                                                    <tr>
-                                                                                        <th class="pd_410">Remarks</th>
-                                                                                        <td class="pd_410"><textarea name="reject_cvremark"
-                                                                                                class="form-control" id="" cols="30"
-                                                                                                rows="2"></textarea></td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                                                            <button type="button" class="btn btn-danger"
-                                                                                data-dismiss="modal">Cancel</button>
-                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </form>
-                                                        <!-- reject cv by crm from cv uploaded tab end -->
+                                                        </div>
+                                                    </form>
+                                                    <!-- reject cv by crm from cv uploaded tab end -->
 
 
                                                     <!-- Send CV to Client form  modal start -->
 
-                                                    <form action="{{ url('send-resume',$res_show->id)}}" method="post"
-                                                        class="form" enctype="multipart/form-data">
+                                                    <form action="{{ url('send-resume',$res_show->id)}}" method="post" class="form" enctype="multipart/form-data">
                                                         @csrf
-                                                        <div class="modal fade text-left" id="sendcv{{$res_show->id}}"
-                                                            tabindex="-1" role="dialog"
-                                                            aria-labelledby="exampleModalCenterTitle"
-                                                            aria-hidden="true">
+                                                        <div class="modal fade text-left" id="sendcv{{$res_show->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                             <div class="modal-dialog modal-lg" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header cnt223">
-                                                                        <h1 class="modal-title"
-                                                                            id="exampleModalLongTitle">Send CV to
+                                                                        <h1 class="modal-title" id="exampleModalLongTitle">Send CV to
                                                                             Client</h1>
-                                                                        <button type="button" class="close"
-                                                                            data-dismiss="modal" aria-label="Close">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                     </div>
@@ -570,44 +522,28 @@
                                                                             <table class="table table-bordered wd_16">
                                                                                 <tr>
                                                                                     <th class="pd_410">Client</th>
-                                                                                    <td class="pd_410"><input
-                                                                                            type="text"
-                                                                                            class="form-control"
-                                                                                            value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>" readonly>       
+                                                                                    <td class="pd_410"><input type="text" class="form-control" value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>" readonly>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th class="pd_410">Cc</th>
-                                                                                    <td class="pd_410"><input
-                                                                                            type="text"
-                                                                                            class="form-control"
-                                                                                            value=""
-                                                                                            placeholder="Add multiple emails separated by comma">
+                                                                                    <td class="pd_410"><input type="text" class="form-control" value="" placeholder="Add multiple emails separated by comma">
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th class="pd_410">Candidate(s)
                                                                                     </th>
-                                                                                    <td class="pd_410"><input
-                                                                                            type="text"
-                                                                                            class="form-control"
-                                                                                            value="{{$res_show ->name}}"
-                                                                                            readonly></td>
+                                                                                    <td class="pd_410"><input type="text" class="form-control" value="{{$res_show ->name}}" readonly></td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th class="pd_410">Subject*</th>
-                                                                                    <td class="pd_410"><input
-                                                                                            type="text"
-                                                                                            class="form-control"
-                                                                                            value="CVs for the Position of {{$view->job_title }},{{ date('j F-Y', time()) }}">
+                                                                                    <td class="pd_410"><input type="text" class="form-control" value="CVs for the Position of {{$view->job_title }},{{ date('j F-Y', time()) }}">
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th class="pd_410">Message*</th>
                                                                                     <td class="pd_410">
-                                                                                        <textarea name="editor1"
-                                                                                            id="editor1" rows="10"
-                                                                                            cols="80" value="">Dear Mr. {{($view->pos_client_cont)->contact_name}} ,</br>
+                                                                                        <textarea name="editor1" id="editor1" rows="10" cols="80" value="">Dear Mr. {{($view->pos_client_cont)->contact_name}} ,</br>
 
                                                                                                                     @php
                                                                                                                     $crm_name=App\Models\User::where('id',session('USER_ID'))->get(['fname','lname']);
@@ -628,26 +564,22 @@
 
                                                                                                     </textarea>
                                                                                         <script>
-                                                                                        CKEDITOR.replace('editor1');
+                                                                                            CKEDITOR.replace('editor1');
                                                                                         </script>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th class="pd_410">Attachment
                                                                                     </th>
-                                                                                    <td class="pd_410"><input
-                                                                                            type="file"
-                                                                                            class="form-control">
+                                                                                    <td class="pd_410"><input type="file" class="form-control">
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="submit"
-                                                                            class="btn btn-primary">Submit</button>
-                                                                        <button type="button" class="btn btn-danger"
-                                                                            data-dismiss="modal">Cancel</button>
+                                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -655,7 +587,7 @@
                                                     </form>
                                                     <!-- Send CV to Client form modal  start -->
                                                 </td>
-                                                <td>$view->created_at</td>
+                                                <td>{{date('d-F-Y', strtotime($view->created_at))}}</td>
                                             </tr>
                                             @php
                                             $i++;
@@ -665,8 +597,7 @@
                                     </table>
                                     <div class="dropdown">
                                         <button class="btn btn-primary" type="button" data-toggle="dropdown">
-                                            <span class="caret">Action <i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret">Action <i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li data-toggle="modal" data-target="#sendcv"><a href="#">Send CV</a>
                                             </li>
@@ -701,14 +632,13 @@
                                             <!-- CV Send data -->
                                             @php
                                             $cv_details=App\Models\Resume::where('cv_status','>=','1')
-                                                                          ->where('position_id',$view->position_id)
-                                                                          ->get();
-                                                                          @endphp
+                                            ->where('position_id',$view->position_id)
+                                            ->get();
+                                            @endphp
 
                                             @foreach($cv_details as $res_show)
                                             <tr>
-                                                <td class="pd_20"><input type="checkbox"
-                                                        class="m_r">{{$res_show ->resume_code}}</td>
+                                                <td class="pd_20"><input type="checkbox" class="m_r">{{$res_show ->resume_code}}</td>
                                                 <td><a href="">{{$res_show ->name}}</a></td>
                                                 <td>{{$res_show ->mobile}}</td>
                                                 <td>{{$res_show ->email}}</td>
@@ -727,18 +657,16 @@
 
                                                 <td class="t_c">
                                                     <div class="dropdown">
-                                                        <button class="btn btn-primary pd_5" type="button"
-                                                            data-toggle="dropdown">
-                                                            <span class="caret"><i class="fa fa-angle-down"
-                                                                    aria-hidden="true"></i></span></button>
+                                                        <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
+                                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                                         <ul class="dropdown-menu t_c">
                                                             <li><a href="#">Download Resume</a></li>
                                                             <li><a href="#">View Resume</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
-                                                <td>{{$res_show ->created_at}}</td>
-                                                <td>{{$res_show ->cv_send_date}}</td>
+                                                <td>{{date('d-F-Y', strtotime($res_show ->created_at))}}</td>
+                                                <td>{{date('d-F-Y', strtotime($res_show ->cv_send_date))}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -751,7 +679,7 @@
                                         <thead>
                                             @php
                                             $cv_status=App\Models\Resume::where('cv_status','>=',1)
-                                             ->where('position_id',$view->position_id)
+                                            ->where('position_id',$view->position_id)
                                             ->get();@endphp
 
 
@@ -775,95 +703,71 @@
                                                 </td>
                                                 <td class="t_c">
                                                     @if($res_show->cv_status==1)
-                                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                                        title="CV Feedback Awaiting">FA</span>
+                                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="CV Feedback Awaiting">FA</span>
                                                     @elseif ($res_show->cv_status>=2 && $res_show->cv_status !=3)
 
-                                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                                        title="Shortlisted" style="background-color: #c3facb;">S</span>
+                                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">S</span>
 
                                                     @elseif ($res_show->cv_status==3)
 
-                                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                                        title="Reject" style="background-color: #edd4d0;">R</span>
+                                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Reject" style="background-color: #edd4d0;">R</span>
 
 
                                                     @endif
-                                                    @if($res_show->cv_status< 2)
-                                                        <div class="dropdown d_inblk">
-                                                        <button class="btn btn-primary pd_5" type="button"
-                                                            data-toggle="dropdown">
+                                                    @if($res_show->cv_status< 2) <div class="dropdown d_inblk">
+                                                        <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
 
-                                                            <span class="caret"><i class="fa fa-angle-down"
-                                                                    aria-hidden="true"></i></span></button>
+                                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                                         <ul class="dropdown-menu t_c">
                                                             <li>
-                                                                <button type="button" class="btn pd_slst"
-                                                                    data-toggle="modal"
-                                                                    data-target="#screeningstatus_shortlistcv{{$res_show->id}}">
+                                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#screeningstatus_shortlistcv{{$res_show->id}}">
 
-                                                                    <img src="../assets/position/shortlist.png"
-                                                                        class="hi8">Shortlisted
+                                                                    <img src="../assets/position/shortlist.png" class="hi8">Shortlisted
                                                                 </button>
                                                             </li>
                                                             <li>
-                                                                <button type="button" class="btn pd_slst"
-                                                                    data-toggle="modal"
-                                                                    data-target="#screeningstatus_rejectcv{{$res_show->id}}">
+                                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#screeningstatus_rejectcv{{$res_show->id}}">
 
-                                                                    <img src="../assets/position/rejected.png"
-                                                                        class="hi8">Rejected
+                                                                    <img src="../assets/position/rejected.png" class="hi8">Rejected
                                                                 </button>
                                                             </li>
                                                         </ul>
                                 </div>
                                 @endif
                                 <!-- Shortlist CV Modal start -->
-                                <form action="{{ url('screening_status',$res_show->id)}}" method="post" class="form"
-                                    enctype="multipart/form-data">
+                                <form action="{{ url('screening_status',$res_show->id)}}" method="post" class="form" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="modal fade" id="screeningstatus_shortlistcv{{$res_show->id}}" tabindex="-1"
-                                        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="screeningstatus_shortlistcv{{$res_show->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Shortlist CV
                                                     </h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <input type="text" value="{{$res_show ->id}}" id="resume_id_ajax" name="candidate_id"
-                                                        hidden>
-                                                    <input type="text" value="{{$res_show ->position_id}}" name="pos_id"
-                                                        hidden>
-                                                    <input type="text" value="{{$res_show ->client_id}}"
-                                                        name="client_id" hidden>
+                                                    <input type="text" value="{{$res_show ->id}}" id="resume_id_ajax" name="candidate_id" hidden>
+                                                    <input type="text" value="{{$res_show ->position_id}}" name="pos_id" hidden>
+                                                    <input type="text" value="{{$res_show ->client_id}}" name="client_id" hidden>
                                                     <div class="">
                                                         <table class="table table-bordered wd_21 t_left">
                                                             <tr>
                                                                 <th class="pd_410">Candidate Name
                                                                 </th>
-                                                                <td class="pd_410"><input type="text"
-                                                                        class="form-control"
-                                                                        name="resume_candidate_name"
-                                                                        value="{{$res_show->name}}" readonly></td>
+                                                                <td class="pd_410"><input type="text" class="form-control" name="resume_candidate_name" value="{{$res_show->name}}" readonly></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Remarks</th>
-                                                                <td class="pd_410"><textarea name="remarks"
-                                                                        class="form-control" id="" cols="30"
-                                                                        rows="2"></textarea></td>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary">Submit</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -872,37 +776,28 @@
                                 <!--    Shortlist CV Modal end Modal -->
 
                                 <!--reject interview  Modal start-->
-                                <form action="{{ url('screening_stat',$res_show->id)}}" method="post" class="form"
-                                    enctype="multipart/form-data">
+                                <form action="{{ url('screening_stat',$res_show->id)}}" method="post" class="form" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="modal fade" id="screeningstatus_rejectcv{{$res_show->id}}" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="screeningstatus_rejectcv{{$res_show->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Reject CV
                                                     </h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <input type="text" value="{{$res_show ->id}}" name="candidate_id"
-                                                        hidden>
-                                                    <input type="text" value="{{$res_show ->position_id}}" name="pos_id"
-                                                        hidden>
-                                                    <input type="text" value="{{$res_show ->client_id}}"
-                                                        name="client_id" hidden>
+                                                    <input type="text" value="{{$res_show ->id}}" name="candidate_id" hidden>
+                                                    <input type="text" value="{{$res_show ->position_id}}" name="pos_id" hidden>
+                                                    <input type="text" value="{{$res_show ->client_id}}" name="client_id" hidden>
                                                     <div class="">
                                                         <table class="table table-bordered wd_21 t_left">
                                                             <tr>
                                                                 <th class="pd_410">Candidate Name
                                                                 </th>
-                                                                <td class="pd_410"><input type="text"
-                                                                        class="form-control"
-                                                                        name="resume_candidate_name"
-                                                                        value="{{$res_show->name}}" readonly></td>
+                                                                <td class="pd_410"><input type="text" class="form-control" name="resume_candidate_name" value="{{$res_show->name}}" readonly></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Reject Reason*
@@ -933,17 +828,14 @@
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Remarks</th>
-                                                                <td class="pd_410"><textarea name="remarks"
-                                                                        class="form-control" id="" cols="30"
-                                                                        rows="2"></textarea></td>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary">Submit</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -958,8 +850,7 @@
                                 <!-- ISA code start -->
                                 <td class="t_c">
                                     @if($res_show->cv_status==2)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Interview Schedule Awaited">ISA</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Interview Schedule Awaited">ISA</span>
 
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
@@ -968,8 +859,7 @@
                                         </button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#scheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#scheduleinterview{{$res_show ->id}}">
                                                     Schedule Interview
                                                 </button>
                                             </li>
@@ -980,36 +870,30 @@
 
                                     <!-- first interview schedule start -->
                                     @if($res_show->cv_status==4 || $res_show->cv_status==5)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="First Interview Scheduled">1 IS</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="First Interview Scheduled">1 IS</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
 
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#rescheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#rescheduleinterview{{$res_show ->id}}">
                                                     Re-Schedule Interview
                                                 </button>
                                             </li><br>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewselected{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewselected{{$res_show ->id}}">
                                                     <img src="../assets/position/shortlist.png" class="hi8">Interview
                                                     Selected
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewreject{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewreject{{$res_show ->id}}">
                                                     <img src="../assets/position/rejected.png" class="hi8">Interview
                                                     Rejected
                                                 </button>
@@ -1019,13 +903,11 @@
                                     @endif
                                     <!-- first interview schedule end -->
                                     @if($res_show->cv_status==7)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected"
-                                        style="background-color: #edd4d0;">R</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected" style="background-color: #edd4d0;">R</span>
                                     @endif
                                     <!-- second interview schedule start -->
                                     @if($res_show->cv_status==6)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Interview Schedule Awaited">2 ISA</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Interview Schedule Awaited">2 ISA</span>
 
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
@@ -1034,14 +916,12 @@
                                         </button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#scheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#scheduleinterview{{$res_show ->id}}">
                                                     Schedule Interview
                                                 </button>
                                             </li>
@@ -1051,35 +931,29 @@
                                     <!-- second interview schedule end -->
                                     <!-- 2nd interview schedule start -->
                                     @if($res_show->cv_status==8)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="First Interview Scheduled">2 IS</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="First Interview Scheduled">2 IS</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#rescheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#rescheduleinterview{{$res_show ->id}}">
                                                     Re-Schedule Interview
                                                 </button>
                                             </li><br>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewselected{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewselected{{$res_show ->id}}">
                                                     <img src="../assets/position/shortlist.png" class="hi8">Interview
                                                     Selected
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewreject{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewreject{{$res_show ->id}}">
                                                     <img src="../assets/position/rejected.png" class="hi8">Interview
                                                     Rejected
                                                 </button>
@@ -1090,8 +964,7 @@
                                     <!-- 2nd interview schedule end -->
                                     <!-- 3rd interview schedule start -->
                                     @if($res_show->cv_status==10)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Interview Schedule Awaited">3 ISA</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Interview Schedule Awaited">3 ISA</span>
 
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
@@ -1100,14 +973,12 @@
                                         </button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#scheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#scheduleinterview{{$res_show ->id}}">
                                                     Schedule Interview
                                                 </button>
                                             </li>
@@ -1116,42 +987,35 @@
                                     @endif
 
                                     @if($res_show->cv_status==11)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected"
-                                        style="background-color: #edd4d0;">R</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected" style="background-color: #edd4d0;">R</span>
                                     @endif
                                     <!-- 3rd interview schedule end -->
 
                                     <!-- 3rd interview schedule start -->
                                     @if($res_show->cv_status==12)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="First Interview Scheduled">3 IS</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="First Interview Scheduled">3 IS</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#rescheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#rescheduleinterview{{$res_show ->id}}">
                                                     Re-Schedule Interview
                                                 </button>
                                             </li><br>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewselected{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewselected{{$res_show ->id}}">
                                                     <img src="../assets/position/shortlist.png" class="hi8">Interview
                                                     Selected
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewreject{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewreject{{$res_show ->id}}">
                                                     <img src="../assets/position/rejected.png" class="hi8">Interview
                                                     Rejected
                                                 </button>
@@ -1163,8 +1027,7 @@
 
                                     <!-- 4th interview schedule start -->
                                     @if($res_show->cv_status==14)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Interview Schedule Awaited">4 ISA</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Interview Schedule Awaited">4 ISA</span>
 
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
@@ -1173,14 +1036,12 @@
                                         </button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#scheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#scheduleinterview{{$res_show ->id}}">
                                                     Schedule Interview
                                                 </button>
                                             </li>
@@ -1190,41 +1051,34 @@
                                     <!-- 4th interview schedule end -->
 
                                     @if($res_show->cv_status==15)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected"
-                                        style="background-color: #edd4d0;">R</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected" style="background-color: #edd4d0;">R</span>
                                     @endif
 
                                     <!-- 4th interview schedule start -->
                                     @if($res_show->cv_status==16)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="First Interview Scheduled">4 IS</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="First Interview Scheduled">4 IS</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#rescheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#rescheduleinterview{{$res_show ->id}}">
                                                     Re-Schedule Interview
                                                 </button>
                                             </li><br>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewselected{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewselected{{$res_show ->id}}">
                                                     <img src="../assets/position/shortlist.png" class="hi8">Interview
                                                     Selected
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewreject{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewreject{{$res_show ->id}}">
                                                     <img src="../assets/position/rejected.png" class="hi8">Interview
                                                     Rejected
                                                 </button>
@@ -1236,22 +1090,18 @@
 
                                     <!-- final interview -->
                                     @if($res_show->cv_status==18)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="First Interview Scheduled">FISA</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="First Interview Scheduled">FISA</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#scheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#scheduleinterview{{$res_show ->id}}">
                                                     Schedule Interview
                                                 </button>
                                             </li>
@@ -1261,43 +1111,36 @@
                                     <!--  final interview end-->
 
                                     @if($res_show->cv_status==19)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected"
-                                        style="background-color: #edd4d0;">R</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected" style="background-color: #edd4d0;">R</span>
                                     @endif
 
                                     <!-- final interview schedule start -->
                                     @if($res_show->cv_status==20)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="First Interview Scheduled">FIS
-                                    
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="First Interview Scheduled">FIS
+
                                     </span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#rescheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#rescheduleinterview{{$res_show ->id}}">
                                                     Re-Schedule Interview
                                                 </button>
                                             </li><br>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewselected{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewselected{{$res_show ->id}}">
                                                     <img src="../assets/position/shortlist.png" class="hi8">Interview
                                                     Selected
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewreject{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewreject{{$res_show ->id}}">
                                                     <img src="../assets/position/rejected.png" class="hi8">Interview
                                                     Rejected
                                                 </button>
@@ -1308,59 +1151,47 @@
                                     <!-- final interview schedule end -->
 
                                     @if($res_show->cv_status==22)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted"
-                                        style="background-color: #c3facb;">S</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">S</span>
                                     @endif
                                     <!-- final rejected start -->
                                     @if($res_show->cv_status==23)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected"
-                                        style="background-color: #edd4d0;">R</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected" style="background-color: #edd4d0;">R</span>
                                     @endif
                                     <!-- final rejected start -->
 
                                     <!-- scheduleinterview form start -->
-                                    <div class="modal fade bd-example-modal-lg" id="scheduleinterview{{$res_show ->id}}"
-                                        tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                                        aria-hidden="true">
+                                    <div class="modal fade bd-example-modal-lg" id="scheduleinterview{{$res_show ->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Schedule
                                                         Interview </h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
 
                                                 <!-- interview schedule form start  -->
-                                             <form action="{{url('/schedule_interview',$res_show ->id)}}"
-                                                    method='post'>
+                                                <form action="{{url('/schedule_interview',$res_show ->id)}}" method='post'>
                                                     @csrf
                                                     <div class="modal-body">
 
 
-                                                        <input type="text" value="{{$res_show ->id}}" name="candidate_id"
-                                                            hidden>
-                                                        <input type="text" value="{{$res_show ->position_id}}" name="pos_id"
-                                                            hidden>
-                                                        <input type="text" value="{{$res_show ->client_id}}"
-                                                            name="client_id" hidden>
+                                                        <input type="text" value="{{$res_show ->id}}" name="candidate_id" hidden>
+                                                        <input type="text" value="{{$res_show ->position_id}}" name="pos_id" hidden>
+                                                        <input type="text" value="{{$res_show ->client_id}}" name="client_id" hidden>
 
 
                                                         <ul class="nav nav-tabs" role="tablist">
                                                             <li class="nav-item">
-                                                                <a class="nav-link active" data-toggle="tab"
-                                                                    href="#ID">Interview Details</a>
+                                                                <a class="nav-link active" data-toggle="tab" href="#ID">Interview Details</a>
                                                             </li>
                                                             <li class="nav-item">
-                                                                <a class="nav-link" data-toggle="tab"
-                                                                    href="#ICclient">Interview
+                                                                <a class="nav-link" data-toggle="tab" href="#ICclient">Interview
                                                                     Confirmation to Clients</a>
                                                             </li>
                                                             <li class="nav-item">
-                                                                <a class="nav-link" data-toggle="tab"
-                                                                    href="#ICcandidate">Interview
+                                                                <a class="nav-link" data-toggle="tab" href="#ICcandidate">Interview
                                                                     Confirmation to Candidate</a>
                                                             </li>
                                                         </ul>
@@ -1370,28 +1201,20 @@
                                                                 <table class="table table-bordered wd_21 t_left">
                                                                     <tr>
                                                                         <th class="pd_410">Client</th>
-                                                                            <td class="pd_410">
-                                                                              <input type="text"
-                                                                                class="form-control"
-                                                                                value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>"
-                                                                                name="client_data_interview"
-                                                                                readonly>
-                                                                            </td>
+                                                                        <td class="pd_410">
+                                                                            <input type="text" class="form-control" value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>" name="client_data_interview" readonly>
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th class="pd_410">Cc</th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control" name="gmail_name_cc"
-                                                                                placeholder="Add multiple emails separated by comma">
+                                                                        <td class="pd_410"><input type="text" class="form-control" name="gmail_name_cc" placeholder="Add multiple emails separated by comma">
                                                                         </td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <th class="pd_410">Candidate(s)
                                                                         </th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control" name="cand_name_interview"
-                                                                                value="{{$res_show->name}}" readonly>
+                                                                        <td class="pd_410"><input type="text" class="form-control" name="cand_name_interview" value="{{$res_show->name}}" readonly>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1401,73 +1224,41 @@
                                                                             <ul>
                                                                                 @if($res_show->cv_status==2)
                                                                                 <li class="d_inblk li_rdo">
-                                                                                    <label class="form-check-label"
-                                                                                        for="radio1">
-                                                                                        <input type="radio"
-                                                                                            class="form-check-input"
-                                                                                            id="first"
-                                                                                            name="interview_level"
-                                                                                            value="1">First
+                                                                                    <label class="form-check-label" for="radio1">
+                                                                                        <input type="radio" class="form-check-input" id="first" name="interview_level" value="1">First
                                                                                         Interview
                                                                                     </label>
                                                                                 </li>
                                                                                 @endif
-                                                                                @if($res_show->cv_status<=4 ) <li
-                                                                                    class="d_inblk li_rdo">
-                                                                                    <label class="form-check-label"
-                                                                                        for="radio2">
-                                                                                        <input type="radio"
-                                                                                            class="form-check-input"
-                                                                                            id="first"
-                                                                                            name="interview_level"
-                                                                                            value="2">Second
+                                                                                @if($res_show->cv_status<=4 ) <li class="d_inblk li_rdo">
+                                                                                    <label class="form-check-label" for="radio2">
+                                                                                        <input type="radio" class="form-check-input" id="first" name="interview_level" value="2">Second
                                                                                         Interview
                                                                                     </label>
                                                                                     </li>
                                                                                     @endif
-                                                                                    @if($res_show->cv_status<=5) <li
-                                                                                        class="d_inblk li_rdo">
-                                                                                        <label class="form-check-label"
-                                                                                            for="radio3">
-                                                                                            <input type="radio"
-                                                                                                class="form-check-input"
-                                                                                                id="first"
-                                                                                                name="interview_level"
-                                                                                                value="3">Third
+                                                                                    @if($res_show->cv_status<=5) <li class="d_inblk li_rdo">
+                                                                                        <label class="form-check-label" for="radio3">
+                                                                                            <input type="radio" class="form-check-input" id="first" name="interview_level" value="3">Third
                                                                                             Interview
                                                                                         </label>
                                                                                         </li>
                                                                                         @endif
-                                                                                        @if($res_show->cv_status<=6) <li
-                                                                                            class="d_inblk li_rdo">
-                                                                                            <label
-                                                                                                class="form-check-label"
-                                                                                                for="radio4">
-                                                                                                <input type="radio"
-                                                                                                    class="form-check-input"
-                                                                                                    id="first"
-                                                                                                    name="interview_level"
-                                                                                                    value="4">Fourth
+                                                                                        @if($res_show->cv_status<=6) <li class="d_inblk li_rdo">
+                                                                                            <label class="form-check-label" for="radio4">
+                                                                                                <input type="radio" class="form-check-input" id="first" name="interview_level" value="4">Fourth
                                                                                                 Interview
                                                                                             </label>
                                                                                             </li>
                                                                                             @endif
-                                                                                            @if($res_show->cv_status<=7)
-                                                                                                <li
-                                                                                                class="d_inblk li_rdo">
-                                                                                                <label
-                                                                                                    class="form-check-label"
-                                                                                                    for="radio5">
-                                                                                                    <input type="radio"
-                                                                                                        class="form-check-input"
-                                                                                                        id="first"
-                                                                                                        name="interview_level"
-                                                                                                        value="5">Final
+                                                                                            @if($res_show->cv_status<=7) <li class="d_inblk li_rdo">
+                                                                                                <label class="form-check-label" for="radio5">
+                                                                                                    <input type="radio" class="form-check-input" id="first" name="interview_level" value="5">Final
                                                                                                     Interview
                                                                                                 </label>
                                                                                                 </li>
                                                                                                 @endif
-                                                                                </ul>
+                                                                            </ul>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1476,40 +1267,25 @@
                                                                         <td class="pd_410">
                                                                             <ul>
                                                                                 <li class="d_inblk li_rdo">
-                                                                                    <label class="form-check-label"
-                                                                                        for="radio6">
+                                                                                    <label class="form-check-label" for="radio6">
                                                                                         <a href="#!" class="show-btn">
-                                                                                            <input type="radio"
-                                                                                                class="form-check-input"
-                                                                                                id="f2f"
-                                                                                                name="interview_mode"
-                                                                                                value="Face to Face">
+                                                                                            <input type="radio" class="form-check-input" id="f2f" name="interview_mode" value="Face to Face">
                                                                                         </a>
                                                                                         Face to Face
                                                                                     </label>
                                                                                 </li>
                                                                                 <li class="d_inblk li_rdo">
-                                                                                    <label class="form-check-label"
-                                                                                        for="radio7">
+                                                                                    <label class="form-check-label" for="radio7">
                                                                                         <a href="#!" class="hide-btn">
-                                                                                            <input type="radio"
-                                                                                                class="form-check-input"
-                                                                                                id="telecon"
-                                                                                                name="interview_mode"
-                                                                                                value="telecon">
+                                                                                            <input type="radio" class="form-check-input" id="telecon" name="interview_mode" value="telecon">
                                                                                         </a>
                                                                                         TeleCon
                                                                                     </label>
                                                                                 </li>
                                                                                 <li class="d_inblk li_rdo">
-                                                                                    <label class="form-check-label"
-                                                                                        for="radio8">
+                                                                                    <label class="form-check-label" for="radio8">
                                                                                         <a href="#!" class="hide-btn">
-                                                                                            <input type="radio"
-                                                                                                class="form-check-input"
-                                                                                                id="vc"
-                                                                                                name="interview_mode"
-                                                                                                value="vc">
+                                                                                            <input type="radio" class="form-check-input" id="vc" name="interview_mode" value="vc">
                                                                                         </a>
                                                                                         Video Conference
                                                                                     </label>
@@ -1519,13 +1295,12 @@
                                                                     </tr>
                                                                     <tr class="box">
                                                                         <th class="pd_410">Interview Venue Address </th>
-                                                                         
+
                                                                         <td class="pd_410">
-                                                                            <select class="form-control"
-                                                                                id="get_address" name="interview_venue_adrs">
-                                                                                <option value="0" selected>Choose Interview Venue 
-                                                                                    Address                                                                                                                      
-                                                                                    </option>
+                                                                            <select class="form-control" id="get_address" name="interview_venue_adrs">
+                                                                                <option value="0" selected>Choose Interview Venue
+                                                                                    Address
+                                                                                </option>
                                                                                 <option value="1">Corporate/Plant
                                                                                     Address</option>
                                                                                 <option value="2">Other Location
@@ -1538,16 +1313,11 @@
                                                                             Date*</th>
                                                                         <td class="pd_410">
                                                                             <div class="row">
-                                                                                <div
-                                                                                    class="col-md-8 col-sm-8 col-xs-12">
-                                                                                    <input type="datetime-local"
-                                                                                        class="form-control" id=""
-                                                                                        name="interview_date">
+                                                                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                                                                    <input type="datetime-local" class="form-control" id="" name="interview_date">
                                                                                 </div>
-                                                                                <div
-                                                                                    class="col-md-4 col-sm-4 col-xs-12">
-                                                                                    <select class="form-control" id=""
-                                                                                        name="interview_time_period">
+                                                                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                                                                    <select class="form-control" id="" name="interview_time_period">
                                                                                         <option selected>
                                                                                             Duration
                                                                                         </option>
@@ -1582,8 +1352,7 @@
 
                                                                             @endphp
 
-                                                                            <select class="form-control" id="spoc"
-                                                                                name="spoc_interview">
+                                                                            <select class="form-control" id="spoc" name="spoc_interview">
 
                                                                                 <option>Choose Spoc
                                                                                 </option>
@@ -1600,19 +1369,11 @@
                                                                             Details*</th>
                                                                         <td class="pd_410">
                                                                             <div class="row">
-                                                                                <div
-                                                                                    class="col-md-6 col-sm-6 col-xs-12">
-                                                                                    <input type="text"
-                                                                                        class="form-control"
-                                                                                        id="contact_name" name="client_contact_name"
-                                                                                        placeholder="Contact Person Name">
+                                                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                    <input type="text" class="form-control" id="contact_name" name="client_contact_name" placeholder="Contact Person Name">
                                                                                 </div>
-                                                                                <div
-                                                                                    class="col-md-6 col-sm-6 col-xs-12">
-                                                                                    <input type="text"
-                                                                                        class="form-control"
-                                                                                        id="contact_phone" name="client_contact_number"
-                                                                                        placeholder="Contact Mobile No.">
+                                                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                    <input type="text" class="form-control" id="contact_phone" name="client_contact_number" placeholder="Contact Mobile No.">
                                                                                 </div>
                                                                             </div>
                                                                         </td>
@@ -1620,9 +1381,7 @@
                                                                     <tr>
                                                                         <th class="pd_410">Additional
                                                                             Info</th>
-                                                                        <td class="pd_410"><textarea name="additional_info"
-                                                                                class="form-control" id="" cols="63"
-                                                                                rows="2"></textarea>
+                                                                        <td class="pd_410"><textarea name="additional_info" class="form-control" id="" cols="63" rows="2"></textarea>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -1633,17 +1392,12 @@
                                                                 <table class="table table-bordered wd_16 t_left">
                                                                     <tr>
                                                                         <th class="pd_410">Client</th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control" name="client_name_interview"
-                                                                                value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>"
-                                                                                readonly></td>
+                                                                        <td class="pd_410"><input type="text" class="form-control" name="client_name_interview" value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>" readonly></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <th class="pd_410">Subject*</th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control" name="client_subject_interview"
-                                                                                value="Interview Schedule of Candidates for the Position of {{$view->job_title}}">
+                                                                        <td class="pd_410"><input type="text" class="form-control" name="client_subject_interview" value="Interview Schedule of Candidates for the Position of {{$view->job_title}}">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1654,11 +1408,9 @@
                                                                         <th class="pd_410">Message*</th>
                                                                         @foreach($get_crm_name as $crm_details)
                                                                         <td class="pd_410">
-                                                                            <textarea name="second_msg_interview" id="editor2"
-                                                                                rows="10" cols="80"
-                                                                                value=""><p>Dear {{($view->pos_client_cont)->contact_name}},<br /><br />Greetings from {{$crm_details->fname}} {{$crm_details->lname}}<br /><br />In continuation to our telephonic discussions, I have lined-up the shortlisted candidate(s) for the interview(s) as per the following schedule.<br /><br />POSITION TITLE: {{$view->job_title }}<br /><br />{{$res_show ->name}}<br /><br />Trust this schedule is fine. Please do let me know if there requires any further information about the candidate(s) or the schedule.<br /><br />{{$crm_details->signature}}</p></textarea>
+                                                                            <textarea name="second_msg_interview" id="editor2" rows="10" cols="80" value=""><p>Dear {{($view->pos_client_cont)->contact_name}},<br /><br />Greetings from {{$crm_details->fname}} {{$crm_details->lname}}<br /><br />In continuation to our telephonic discussions, I have lined-up the shortlisted candidate(s) for the interview(s) as per the following schedule.<br /><br />POSITION TITLE: {{$view->job_title }}<br /><br />{{$res_show ->name}}<br /><br />Trust this schedule is fine. Please do let me know if there requires any further information about the candidate(s) or the schedule.<br /><br />{{$crm_details->signature}}</p></textarea>
                                                                             <script>
-                                                                            CKEDITOR.replace('editor2');
+                                                                                CKEDITOR.replace('editor2');
                                                                             </script>
                                                                         </td>
                                                                         @endforeach
@@ -1666,7 +1418,7 @@
 
                                                                 </table>
                                                             </div>
-                                                            <!-- 3rd tab form schudel interview form -->                                 
+                                                            <!-- 3rd tab form schudel interview form -->
                                                             <div id="ICcandidate" class="tab-pane">
                                                                 <br>
 
@@ -1677,25 +1429,19 @@
                                                                     <tr>
                                                                         <th class="pd_410">Candidate(s)
                                                                         </th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control" name="third_candidate_interview"
-                                                                                value="{{$res_show->name}}" readonly>
+                                                                        <td class="pd_410"><input type="text" class="form-control" name="third_candidate_interview" value="{{$res_show->name}}" readonly>
                                                                         </td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <th class="pd_410">Subject*</th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control" name="third_subject_interview"
-                                                                                value="Interview Schedule for the Position of {{$view->job_title}}">
+                                                                        <td class="pd_410"><input type="text" class="form-control" name="third_subject_interview" value="Interview Schedule for the Position of {{$view->job_title}}">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th class="pd_410">Message*</th>
                                                                         <td class="pd_410">
-                                                                            <textarea name="editor3" id="editor3"
-                                                                                rows="10" cols="80" name="third_msg_interview"
-                                                                                value=""><p>Dear&nbsp;{{$res_show->name}}<br /><br /><strong>Greetings from {{($view->pos_client_cont)->contact_name}}&nbsp;</strong><br /><br />In continuation to our telephonic discussions, I am confirming your interview schedule with our client as below:</p>
+                                                                            <textarea name="editor3" id="editor3" rows="10" cols="80" name="third_msg_interview" value=""><p>Dear&nbsp;{{$res_show->name}}<br /><br /><strong>Greetings from {{($view->pos_client_cont)->contact_name}}&nbsp;</strong><br /><br />In continuation to our telephonic discussions, I am confirming your interview schedule with our client as below:</p>
                                                                                         <p>&nbsp;</p>
                                                                                         <table style="width: 500px; border-collapse: collapse; float: left; border:0px;"  cellspacing="4" cellpadding="4">
                                                                                         <tbody>
@@ -1743,9 +1489,9 @@
                                                                                         </table>
 
                                                                                         <p><br />Trust this schedule is fine. Request your confirmation on the receipt of the mail and also your confirmation, through a reply mail, for attending the interview as per the schedule give above in this mail.<br />Please do carry all relevant documents as needed for the interview.<br /><br />Also, do let me know if there requires any further information about the interviewing process or the schedule. &nbsp;For more details about the company do refer to their website [website]<br /><br />Wish you all the best! Thanks.<br />Warm Regards<br /><br />[signature]</p></textarea>
-                                                                                            <script>
-                                                                                            CKEDITOR.replace('editor3');
-                                                                                            </script>
+                                                                            <script>
+                                                                                CKEDITOR.replace('editor3');
+                                                                            </script>
                                                                         </td>
                                                                     </tr>
 
@@ -1755,8 +1501,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-                                                        <button type="button" class="btn btn-danger"
-                                                            data-dismiss="modal">Cancel</button>
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                     </div>
                                             </div>
                                             </form>
@@ -1764,17 +1509,14 @@
                                     </div>
                                     <!-- end scheduleinterview form -->
                                     <!-- Interview view Details form page-->
-                                    <div class="modal fade bd-example-modal-lg" id="viewinterview{{$res_show ->id}}"
-                                        tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                                        aria-hidden="true">
+                                    <div class="modal fade bd-example-modal-lg" id="viewinterview{{$res_show ->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">View
                                                         Interview
                                                         Details</h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -1830,8 +1572,7 @@
                                                     </table>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -1840,34 +1581,29 @@
 
 
                                     <!-- resrescheduleinterview form start -->
-                                    <div class="modal fade bd-example-modal-lg"
-                                        id="rescheduleinterview{{$res_show ->id}}" tabindex="-1" role="dialog"
-                                        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                    <div class="modal fade bd-example-modal-lg" id="rescheduleinterview{{$res_show ->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Reschedule
                                                         {{$res_show ->id}}
-                                                        Interview</h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                        Interview
+                                                    </h1>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <ul class="nav nav-tabs" role="tablist">
                                                         <li class="nav-item">
-                                                            <a class="nav-link active" data-toggle="tab"
-                                                                href="#RID">Interview Details</a>
+                                                            <a class="nav-link active" data-toggle="tab" href="#RID">Interview Details</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" data-toggle="tab"
-                                                                href="#RICclient">Interview
+                                                            <a class="nav-link" data-toggle="tab" href="#RICclient">Interview
                                                                 Confirmation to Clients</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" data-toggle="tab"
-                                                                href="#RICcandidate">Interview
+                                                            <a class="nav-link" data-toggle="tab" href="#RICcandidate">Interview
                                                                 Confirmation to Candidate</a>
                                                         </li>
                                                     </ul>
@@ -1877,24 +1613,17 @@
                                                             <table class="table table-bordered wd_21 t_left">
                                                                 <tr>
                                                                     <th class="pd_410">Client</th>
-                                                                    <td class="pd_410"><input type="text"
-                                                                            class="form-control"
-                                                                            value="Tata Steel <Abraham Linkan> <prasant.edevlop@gmail.com>"
-                                                                            readonly></td>
+                                                                    <td class="pd_410"><input type="text" class="form-control" value="Tata Steel <Abraham Linkan> <prasant.edevlop@gmail.com>" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="pd_410">Cc</th>
-                                                                    <td class="pd_410"><input type="text"
-                                                                            class="form-control"
-                                                                            placeholder="Add multiple emails separated by comma">
+                                                                    <td class="pd_410"><input type="text" class="form-control" placeholder="Add multiple emails separated by comma">
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="pd_410">Candidate(s)
                                                                     </th>
-                                                                    <td class="pd_410"><input type="text"
-                                                                            class="form-control"
-                                                                            value="{{$res_show->name}}" readonly></td>
+                                                                    <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="pd_410">Reason for
@@ -1921,63 +1650,36 @@
                                                                         <ul>
                                                                             @if($res_show->cv_status==2)
                                                                             <li class="d_inblk li_rdo">
-                                                                                <label class="form-check-label"
-                                                                                    for="radio1">
-                                                                                    <input type="radio"
-                                                                                        class="form-check-input"
-                                                                                        id="first" name="optradio"
-                                                                                        value="first">First
+                                                                                <label class="form-check-label" for="radio1">
+                                                                                    <input type="radio" class="form-check-input" id="first" name="optradio" value="first">First
                                                                                     Interview
                                                                                 </label>
                                                                             </li>
                                                                             @endif
-                                                                            @if($res_show->cv_status<=4) <li
-                                                                                class="d_inblk li_rdo">
-                                                                                <label class="form-check-label"
-                                                                                    for="radio2">
-                                                                                    <input type="radio"
-                                                                                        class="form-check-input"
-                                                                                        id="second" name="optradio"
-                                                                                        value="second">Second
+                                                                            @if($res_show->cv_status<=4) <li class="d_inblk li_rdo">
+                                                                                <label class="form-check-label" for="radio2">
+                                                                                    <input type="radio" class="form-check-input" id="second" name="optradio" value="second">Second
                                                                                     Interview
                                                                                 </label>
                                                                                 </li>
                                                                                 @endif
-                                                                                @if($res_show->cv_status<=5) <li
-                                                                                    class="d_inblk li_rdo">
-                                                                                    <label class="form-check-label"
-                                                                                        for="radio3">
-                                                                                        <input type="radio"
-                                                                                            class="form-check-input"
-                                                                                            id="third" name="optradio"
-                                                                                            value="third">Third
+                                                                                @if($res_show->cv_status<=5) <li class="d_inblk li_rdo">
+                                                                                    <label class="form-check-label" for="radio3">
+                                                                                        <input type="radio" class="form-check-input" id="third" name="optradio" value="third">Third
                                                                                         Interview
                                                                                     </label>
                                                                                     </li>
                                                                                     @endif
-                                                                                    @if($res_show->cv_status<=6) <li
-                                                                                        class="d_inblk li_rdo">
-                                                                                        <label class="form-check-label"
-                                                                                            for="radio4">
-                                                                                            <input type="radio"
-                                                                                                class="form-check-input"
-                                                                                                id="fourth"
-                                                                                                name="optradio"
-                                                                                                value="fourth">Fourth
+                                                                                    @if($res_show->cv_status<=6) <li class="d_inblk li_rdo">
+                                                                                        <label class="form-check-label" for="radio4">
+                                                                                            <input type="radio" class="form-check-input" id="fourth" name="optradio" value="fourth">Fourth
                                                                                             Interview
                                                                                         </label>
                                                                                         </li>
                                                                                         @endif
-                                                                                        @if($res_show->cv_status<=7) <li
-                                                                                            class="d_inblk li_rdo">
-                                                                                            <label
-                                                                                                class="form-check-label"
-                                                                                                for="radio5">
-                                                                                                <input type="radio"
-                                                                                                    class="form-check-input"
-                                                                                                    id="final"
-                                                                                                    name="optradio"
-                                                                                                    value="final">Final
+                                                                                        @if($res_show->cv_status<=7) <li class="d_inblk li_rdo">
+                                                                                            <label class="form-check-label" for="radio5">
+                                                                                                <input type="radio" class="form-check-input" id="final" name="optradio" value="final">Final
                                                                                                 Interview
                                                                                             </label>
                                                                                             </li>
@@ -1991,37 +1693,25 @@
                                                                     <td class="pd_410">
                                                                         <ul>
                                                                             <li class="d_inblk li_rdo">
-                                                                                <label class="form-check-label"
-                                                                                    for="radio6">
+                                                                                <label class="form-check-label" for="radio6">
                                                                                     <a href="#!" class="show-btn">
-                                                                                        <input type="radio"
-                                                                                            class="form-check-input"
-                                                                                            id="radio6" name="optradio1"
-                                                                                            value="option6">
+                                                                                        <input type="radio" class="form-check-input" id="radio6" name="optradio1" value="option6">
                                                                                     </a>
                                                                                     Face to Face
                                                                                 </label>
                                                                             </li>
                                                                             <li class="d_inblk li_rdo">
-                                                                                <label class="form-check-label"
-                                                                                    for="radio7">
+                                                                                <label class="form-check-label" for="radio7">
                                                                                     <a href="#!" class="hide-btn">
-                                                                                        <input type="radio"
-                                                                                            class="form-check-input"
-                                                                                            id="radio7" name="optradio1"
-                                                                                            value="option7">
+                                                                                        <input type="radio" class="form-check-input" id="radio7" name="optradio1" value="option7">
                                                                                     </a>
                                                                                     TeleCon
                                                                                 </label>
                                                                             </li>
                                                                             <li class="d_inblk li_rdo">
-                                                                                <label class="form-check-label"
-                                                                                    for="radio8">
+                                                                                <label class="form-check-label" for="radio8">
                                                                                     <a href="#!" class="hide-btn">
-                                                                                        <input type="radio"
-                                                                                            class="form-check-input"
-                                                                                            id="radio8" name="optradio1"
-                                                                                            value="option8">
+                                                                                        <input type="radio" class="form-check-input" id="radio8" name="optradio1" value="option8">
                                                                                     </a>
                                                                                     Video Conference
                                                                                 </label>
@@ -2050,12 +1740,10 @@
                                                                     <td class="pd_410">
                                                                         <div class="row">
                                                                             <div class="col-md-8 col-sm-8 col-xs-12">
-                                                                                <input type="datetime-local"
-                                                                                    class="form-control" id="" name="">
+                                                                                <input type="datetime-local" class="form-control" id="" name="">
                                                                             </div>
                                                                             <div class="col-md-4 col-sm-4 col-xs-12">
-                                                                                <select class="form-control" id=""
-                                                                                    name="">
+                                                                                <select class="form-control" id="" name="">
                                                                                     <option selected>
                                                                                         Duration
                                                                                     </option>
@@ -2077,9 +1765,7 @@
                                                                 <tr>
                                                                     <th class="pd_410">Interview
                                                                         Venue*</th>
-                                                                    <td class="pd_410"><textarea name="remarks"
-                                                                            class="form-control" id="" cols="63"
-                                                                            rows="2"></textarea></textarea>
+                                                                    <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="63" rows="2"></textarea></textarea>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -2099,14 +1785,10 @@
                                                                     <td class="pd_410">
                                                                         <div class="row">
                                                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                                <input type="text" class="form-control"
-                                                                                    id="" name=""
-                                                                                    placeholder="Contact Person Name">
+                                                                                <input type="text" class="form-control" id="" name="" placeholder="Contact Person Name">
                                                                             </div>
                                                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                                <input type="text" class="form-control"
-                                                                                    id="" name=""
-                                                                                    placeholder="Contact Mobile No.">
+                                                                                <input type="text" class="form-control" id="" name="" placeholder="Contact Mobile No.">
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -2114,9 +1796,7 @@
                                                                 <tr>
                                                                     <th class="pd_410">Additional
                                                                         Info</th>
-                                                                    <td class="pd_410"><textarea name="remarks"
-                                                                            class="form-control" id="" cols="63"
-                                                                            rows="2"></textarea>
+                                                                    <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="63" rows="2"></textarea>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -2126,26 +1806,20 @@
                                                             <table class="table table-bordered wd_16 t_left">
                                                                 <tr>
                                                                     <th class="pd_410">Client</th>
-                                                                    <td class="pd_410"><input type="text"
-                                                                            class="form-control"
-                                                                            value="Tata Steel <Abraham Linkan> <prasant.edevlop@gmail.com>"
-                                                                            readonly></td>
+                                                                    <td class="pd_410"><input type="text" class="form-control" value="Tata Steel <Abraham Linkan> <prasant.edevlop@gmail.com>" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
                                                                     <th class="pd_410">Subject*</th>
-                                                                    <td class="pd_410"><input type="text"
-                                                                            class="form-control"
-                                                                            value="Interview Schedule of Candidates for the Position of Hacking">
+                                                                    <td class="pd_410"><input type="text" class="form-control" value="Interview Schedule of Candidates for the Position of Hacking">
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th class="pd_410">Message*</th>
                                                                     <td class="pd_410">
-                                                                        <textarea name="editor4" id="editor4" rows="10"
-                                                                            cols="80" value=""></textarea>
+                                                                        <textarea name="editor4" id="editor4" rows="10" cols="80" value=""></textarea>
                                                                         <script>
-                                                                        CKEDITOR.replace('editor4');
+                                                                            CKEDITOR.replace('editor4');
                                                                         </script>
                                                                     </td>
                                                                 </tr>
@@ -2159,29 +1833,24 @@
                                                                         <th class="pd_410">
                                                                             Candidate(s)
                                                                         </th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control"
-                                                                                value="{{$res_show->name}}" readonly>
+                                                                        <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly>
                                                                         </td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <th class="pd_410">Subject*
                                                                         </th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control"
-                                                                                value="Interview Schedule for the Position of Hacking">
+                                                                        <td class="pd_410"><input type="text" class="form-control" value="Interview Schedule for the Position of Hacking">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th class="pd_410">Message*
                                                                         </th>
                                                                         <td class="pd_410">
-                                                                            <textarea name="editor5" id="editor5"
-                                                                                rows="10" cols="80" value=""></textarea>
+                                                                            <textarea name="editor5" id="editor5" rows="10" cols="80" value=""></textarea>
                                                                             <script>
-                                                                            CKEDITOR.replace(
-                                                                                'editor5');
+                                                                                CKEDITOR.replace(
+                                                                                    'editor5');
                                                                             </script>
                                                                         </td>
                                                                     </tr>
@@ -2193,8 +1862,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-primary">Submit</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -2205,16 +1873,14 @@
 
 
                                     <!-- interview select popup form start -->
-                                    <div class="modal fade" id="interviewselected{{$res_show ->id}}" tabindex="-1"
-                                        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="interviewselected{{$res_show ->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Interview
                                                         Selected
                                                     </h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -2224,16 +1890,12 @@
                                                             <tr>
                                                                 <th class="pd_410">Candidate Name
                                                                 </th>
-                                                                <td class="pd_410"><input type="text"
-                                                                        class="form-control" value="{{$res_show->name}}"
-                                                                        readonly></td>
+                                                                <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly></td>
                                                             </tr>
 
                                                             <tr>
                                                                 <th class="pd_410">Remarks</th>
-                                                                <td class="pd_410"><textarea name="remarks"
-                                                                        class="form-control" id="" cols="30"
-                                                                        rows="2"></textarea></td>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Next Interview*
@@ -2241,21 +1903,13 @@
                                                                 <td>
                                                                     <ul>
                                                                         <li class="d_inblk li_rdo">
-                                                                            <label class="form-check-label"
-                                                                                for="radio1">
-                                                                                <input type="radio"
-                                                                                    class="form-check-input"
-                                                                                    id="applicable" name="optradio3"
-                                                                                    value="applicable">Applicable
+                                                                            <label class="form-check-label" for="radio1">
+                                                                                <input type="radio" class="form-check-input" id="applicable" name="optradio3" value="applicable">Applicable
                                                                             </label>
                                                                         </li>
                                                                         <li class="d_inblk li_rdo">
-                                                                            <label class="form-check-label"
-                                                                                for="radio2">
-                                                                                <input type="radio"
-                                                                                    class="form-check-input"
-                                                                                    id="notapplicable" name="optradio3"
-                                                                                    value="notapplicable">Not
+                                                                            <label class="form-check-label" for="radio2">
+                                                                                <input type="radio" class="form-check-input" id="notapplicable" name="optradio3" value="notapplicable">Not
                                                                                 Applicable
                                                                             </label>
                                                                         </li>
@@ -2267,8 +1921,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-primary">Submit</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -2276,16 +1929,14 @@
                                     <!-- interview select popup form end -->
 
                                     <!-- interview rejected form start -->
-                                    <div class="modal fade" id="interviewreject{{$res_show ->id}}" tabindex="-1"
-                                        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="interviewreject{{$res_show ->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Interview
                                                         Rejected
                                                     </h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -2295,9 +1946,7 @@
                                                             <tr>
                                                                 <th class="pd_410">Candidate Name
                                                                 </th>
-                                                                <td class="pd_410"><input type="text"
-                                                                        class="form-control" value="{{$res_show->name}}"
-                                                                        readonly></td>
+                                                                <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Reject Reason*
@@ -2336,17 +1985,14 @@
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Remarks</th>
-                                                                <td class="pd_410"><textarea name="remarks"
-                                                                        class="form-control" id="" cols="30"
-                                                                        rows="2"></textarea></td>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-primary">Submit</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -2357,22 +2003,18 @@
                                 </td>
                                 <td class="t_c">
                                     @if($res_show->cv_status==22)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Offer Pending">OP</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Offer Pending">OP</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#exampleModalCenter2">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#exampleModalCenter2">
                                                     <img src="../assets/position/shortlist.png" class="hi8">Accepted
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#offerdeclined">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#offerdeclined">
                                                     <img src="../assets/position/rejected.png" class="hi8">Declined
                                                 </button>
                                             </li>
@@ -2381,21 +2023,18 @@
                                     @endif
 
                                     @if($res_show->cv_status==24)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted"
-                                        style="background-color: #c3facb;">OA</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">OA</span>
                                     @endif
 
                                     <!-- offer accepted form start -->
-                                    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Offer
                                                         Accepted
                                                     </h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -2405,52 +2044,42 @@
                                                             <tr>
                                                                 <th class="pd_410">Candidate Name
                                                                 </th>
-                                                                <td class="pd_410"><input type="text"
-                                                                        class="form-control" value="{{$res_show->name}}"
-                                                                        readonly></td>
+                                                                <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Offered Date*
                                                                 </th>
-                                                                <td class="pd_410"><input type="date"
-                                                                        class="form-control" value=""></td>
+                                                                <td class="pd_410"><input type="date" class="form-control" value=""></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Offered CTC*</th>
-                                                                <td class="pd_410"><input type="text"
-                                                                        class="form-control" value=""
-                                                                        placeholder="Write Full Value">
+                                                                <td class="pd_410"><input type="text" class="form-control" value="" placeholder="Write Full Value">
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Remarks</th>
-                                                                <td class="pd_410"><textarea name="remarks"
-                                                                        class="form-control" id="" cols="30"
-                                                                        rows="2"></textarea></td>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-primary">Submit</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!--  offer accepted form end -->
                                     <!-- Modal -->
-                                    <div class="modal fade" id="offerdeclined" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="offerdeclined" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Offer
                                                         Declined
                                                     </h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -2460,9 +2089,7 @@
                                                             <tr>
                                                                 <th class="pd_410">Candidate Name
                                                                 </th>
-                                                                <td class="pd_410"><input type="text"
-                                                                        class="form-control" value="{{$res_show->name}}"
-                                                                        readonly></td>
+                                                                <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Reject Reason*
@@ -2551,17 +2178,14 @@
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Remarks</th>
-                                                                <td class="pd_410"><textarea name="remarks"
-                                                                        class="form-control" id="" cols="30"
-                                                                        rows="2"></textarea></td>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-primary">Submit</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -2570,28 +2194,23 @@
                                 </td>
                                 <td class="t_c">
                                     @if($res_show->cv_status==24)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Joining Awaited">JA</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Joining Awaited">JA</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#exampleModalCenter2">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#exampleModalCenter2">
                                                     Joined
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#notjoined">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#notjoined">
                                                     Not Joined
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#joiningdeferred">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#joiningdeferred">
                                                     Deferred
                                                 </button>
                                             </li>
@@ -2600,33 +2219,27 @@
                                     @endif
 
                                     @if($res_show->cv_status==25)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected"
-                                        style="background-color: #edd4d0;">OR</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected" style="background-color: #edd4d0;">OR</span>
                                     @endif
 
                                     @if($res_show->cv_status==26)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted"
-                                        style="background-color: #c3facb;">Joined</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">Joined</span>
                                     @endif
                                     @if($res_show->cv_status==27)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted"
-                                        style="background-color: #c3facb;">Not Joined</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">Not Joined</span>
                                     @endif
                                     @if($res_show->cv_status==28)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted"
-                                        style="background-color: #c3facb;">Differed</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">Differed</span>
                                     @endif
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Candidate
                                                         Joined
                                                     </h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -2636,43 +2249,35 @@
                                                             <tr>
                                                                 <th class="pd_410">Candidate Name
                                                                 </th>
-                                                                <td class="pd_410"><input type="text"
-                                                                        class="form-control" value="{{$res_show->name}}"
-                                                                        readonly></td>
+                                                                <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Joined On*</th>
-                                                                <td class="pd_410"><input type="date"
-                                                                        class="form-control" value=""></td>
+                                                                <td class="pd_410"><input type="date" class="form-control" value=""></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Remarks</th>
-                                                                <td class="pd_410"><textarea name="remarks"
-                                                                        class="form-control" id="" cols="30"
-                                                                        rows="2"></textarea></td>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-primary">Submit</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- Modal -->
                                     <!-- Modal -->
-                                    <div class="modal fade" id="notjoined" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="notjoined" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Candidate Not
                                                         Joined</h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -2682,9 +2287,7 @@
                                                             <tr>
                                                                 <th class="pd_410">Candidate Name
                                                                 </th>
-                                                                <td class="pd_410"><input type="text"
-                                                                        class="form-control" value="{{$res_show->name}}"
-                                                                        readonly></td>
+                                                                <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Reject Reason*
@@ -2773,33 +2376,28 @@
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Remarks</th>
-                                                                <td class="pd_410"><textarea name="remarks"
-                                                                        class="form-control" id="" cols="30"
-                                                                        rows="2"></textarea></td>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-primary">Submit</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- Modal -->
                                     <!-- Modal -->
-                                    <div class="modal fade" id="joiningdeferred" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="joiningdeferred" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Joining
                                                         Deferred
                                                     </h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -2809,15 +2407,12 @@
                                                             <tr>
                                                                 <th class="pd_410">Candidate Name
                                                                 </th>
-                                                                <td class="pd_410"><input type="text"
-                                                                        class="form-control" value="{{$res_show->name}}"
-                                                                        readonly></td>
+                                                                <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">New Joining Date*
                                                                 </th>
-                                                                <td class="pd_410"><input type="date"
-                                                                        class="form-control"></td>
+                                                                <td class="pd_410"><input type="date" class="form-control"></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Reason*</th>
@@ -2833,17 +2428,14 @@
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Remarks</th>
-                                                                <td class="pd_410"><textarea name="remarks"
-                                                                        class="form-control" id="" cols="30"
-                                                                        rows="2"></textarea></td>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-primary">Submit</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -2852,12 +2444,10 @@
                                 </td>
                                 <td>
                                     @if($res_show->cv_status==26)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Billing Pending">BP</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Billing Pending">BP</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
                                                 <a href="{{url('/addbilling')}}">
@@ -2870,8 +2460,7 @@
                                     </div>
                                     @endif
                                     @if($res_show->cv_status==28)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted"
-                                        style="background-color: #c3facb;">Billed</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">Billed</span>
                                     @endif
                                 </td>
                                 </tr>
@@ -2902,69 +2491,81 @@
                                 </div>
                             </div>
                             <div id="menu4" class="tab-pane fade pd_0"><br>
-                                <div>
-                                    <table class="table table-responsive">
-                                        <tr>
-                                            <th>Status</th>
-                                            <th>No. of Candidates</th>
-                                        </tr>
-                                        <tr>
-                                            <td>CRM Validation Pending</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>CRM Validated</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>CRM Rejected</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>CV Sent</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>CV Shortlisted</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>CV Rejected</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Feedback Awaiting</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Candidates Interviewed</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Interview Dropouts</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Interview Rejected</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Candidates Offered</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Offer Dropouts</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Candidates Joined</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Candidates Billed</td>
-                                            <td></td>
-                                        </tr>
-                                    </table>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <table class="table table-responsive">
+                                                <tr>
+                                                    <th class="wd_37">Status</th>
+                                                    <th class="wd_58">No. of Candidates</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>CRM Validation Pending</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CRM Validated</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CRM Rejected</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CV Sent</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CV Shortlisted</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CV Rejected</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Feedback Awaiting</td>
+                                                    <td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <table class="table table-responsive">
+                                                <tr>
+                                                    <th class="wd_37">Status</th>
+                                                    <th class="wd_58">No. of Candidates</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Candidates Interviewed</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Interview Dropouts</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Interview Rejected</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Candidates Offered</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Offer Dropouts</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Candidates Joined</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Candidates Billed</td>
+                                                    <td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2980,123 +2581,122 @@
 
 
             <script type="text/javascript">
-            $('#files').on('change', function() {
-                var result = $("#files").text();
+                $('#files').on('change', function() {
+                    var result = $("#files").text();
 
-                fileChosen(this, document.getElementById('editor1'));
-                CKEDITOR.instances['editor1'].setData(result);
-            });
+                    fileChosen(this, document.getElementById('editor1'));
+                    CKEDITOR.instances['editor1'].setData(result);
+                });
             </script>
             <script type="text/javascript">
-            $('#files').on('change', function() {
-                var result = $("#files").text();
+                $('#files').on('change', function() {
+                    var result = $("#files").text();
 
-                fileChosen(this, document.getElementById('editor2'));
-                CKEDITOR.instances['editor2'].setData(result);
-            });
+                    fileChosen(this, document.getElementById('editor2'));
+                    CKEDITOR.instances['editor2'].setData(result);
+                });
             </script>
             <script type="text/javascript">
-            $('#files').on('change', function() {
-                var result = $("#files").text();
+                $('#files').on('change', function() {
+                    var result = $("#files").text();
 
-                fileChosen(this, document.getElementById('editor3'));
-                CKEDITOR.instances['editor3'].setData(result);
-            });
+                    fileChosen(this, document.getElementById('editor3'));
+                    CKEDITOR.instances['editor3'].setData(result);
+                });
             </script>
             <script type="text/javascript">
-            $('#files').on('change', function() {
-                var result = $("#files").text();
+                $('#files').on('change', function() {
+                    var result = $("#files").text();
 
-                fileChosen(this, document.getElementById('editor4'));
-                CKEDITOR.instances['editor4'].setData(result);
-            });
+                    fileChosen(this, document.getElementById('editor4'));
+                    CKEDITOR.instances['editor4'].setData(result);
+                });
             </script>
             <script type="text/javascript">
-            $('#files').on('change', function() {
-                var result = $("#files").text();
+                $('#files').on('change', function() {
+                    var result = $("#files").text();
 
-                fileChosen(this, document.getElementById('editor5'));
-                CKEDITOR.instances['editor5'].setData(result);
-            });
+                    fileChosen(this, document.getElementById('editor5'));
+                    CKEDITOR.instances['editor5'].setData(result);
+                });
             </script>
             <script>
-            $(document).ready(function() {
-                $(".hide-btn").click(function() {
-                    $(".box").hide();
+                $(document).ready(function() {
+                    $(".hide-btn").click(function() {
+                        $(".box").hide();
+                    });
+                    $(".show-btn").click(function() {
+                        $(".box").show();
+                    });
                 });
-                $(".show-btn").click(function() {
-                    $(".box").show();
-                });
-            });
             </script>
 
             <!-- Form wizard with icon tabs section end -->
             <script>
-            $("#get_address").on('change', function() {
-                var ab = $(this).val();
-                var resume_id= $('#resume_id_ajax').val();
-                if (ab == 1) {
+                $("#get_address").on('change', function() {
+                    var ab = $(this).val();
+                    var resume_id = $('#resume_id_ajax').val();
+                    if (ab == 1) {
+                        $.ajax({
+                            url: "{{url('getaddtess')}}",
+                            type: "POST",
+                            data: {
+                                resume_id: resume_id,
+                                _token: '{{csrf_token()}}'
+                            },
+                            dataType: 'json',
+
+                            success: function(result) {
+                                $('#interview').html('<textarea name="interview_venue"' +
+                                    'class="form-control" id="interview" cols="63"' +
+                                    'rows="2">' + result[0][0].client_name +
+                                    '\nAddress: ' + result[0][0].door_no + ', ' + result[0][0]
+                                    .street_name + ', ' + result[0][0].area_name +
+                                    '\nCity/Town: ' + result[1][0].name + '\nDistricts: ' + result[
+                                        2][0].district_title + '\n' + result[3][0].state_title +
+                                    ' ,' + result[0][0].pincode + '</textarea>');
+
+                            },
+                        });
+                    } else {
+                        $('#interview').html('<textarea name="remarks"' +
+                            'class="form-control" id="interview" cols="63"' +
+                            'rows="2"></textarea>');
+                    }
+
+                });
+
+                $("#spoc").on('change', function() {
+                    var test = $(this).val();
+
+
                     $.ajax({
-                        url: "{{url('getaddtess')}}",
+                        url: "{{url('getspoc')}}",
                         type: "POST",
                         data: {
-                            resume_id: resume_id,
+                            id: test,
                             _token: '{{csrf_token()}}'
                         },
                         dataType: 'json',
 
-                        success: function(result) {
-                            $('#interview').html('<textarea name="interview_venue"' +
-                                'class="form-control" id="interview" cols="63"' +
-                                'rows="2">' + result[0][0].client_name +
-                                '\nAddress: ' + result[0][0].door_no + ', ' + result[0][0]
-                                .street_name + ', ' + result[0][0].area_name +
-                                '\nCity/Town: ' + result[1][0].name + '\nDistricts: ' + result[
-                                    2][0].district_title + '\n' + result[3][0].state_title +
-                                ' ,' + result[0][0].pincode + '</textarea>');
+                        success: function(spoc_details) {
+                            $('#contact_name').val(spoc_details[0].contact_name);
+                            $('#contact_phone').val(spoc_details[0].mobile);
 
                         },
                     });
-                } else {
-                    $('#interview').html('<textarea name="remarks"' +
-                        'class="form-control" id="interview" cols="63"' +
-                        'rows="2"></textarea>');
-                }
-
-            });
-
-            $("#spoc").on('change', function() {
-                var test = $(this).val();
 
 
-                $.ajax({
-                    url: "{{url('getspoc')}}",
-                    type: "POST",
-                    data: {
-                        id: test,
-                        _token: '{{csrf_token()}}'
-                    },
-                    dataType: 'json',
-
-                    success: function(spoc_details) {
-                        $('#contact_name').val(spoc_details[0].contact_name);
-                        $('#contact_phone').val(spoc_details[0].mobile);
-
-                    },
                 });
-
-
-            });
             </script>
             <script>
-                
-                $('input[name="interview_level"]:checked').on('click',function(){
-                    var interview_level=$(this).val();
+                $('input[name="interview_level"]:checked').on('click', function() {
+                    var interview_level = $(this).val();
                     alert(interview_level);
                 });
             </script>
 
-               <!-- <script>
+            <!-- <script>
                 
                 $('('input[name="name_of_your_radiobutton"]:checked').val();').on('click',function(){
                     var interview_level=$(this).val();

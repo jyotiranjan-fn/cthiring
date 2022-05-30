@@ -168,6 +168,11 @@
                                 Work Plan</a>
                         </li>
                         @endcan
+                        
+                        <li>
+                            <a class="menu-item" href="{{url('viewleave')}}" data-i18n="nav.dash.ecommerce">View Leave</a>
+                        </li>
+                        
                         @can('Search Events')
                         <li><a class="menu-item" href="{{url('view_event')}}" data-i18n="nav.dash.ecommerce">View
                                 Events</a>
@@ -418,6 +423,16 @@
             <div class="alert alert-success alert-dismissible" x-data="open: true" x-show="open">
 
                 <strong>{{Session::get('message')}}</strong>
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            </div>
+            <!-- @click="open  -->
+            @endif
+
+            @if(Session::has('error'))
+
+            <div class="alert alert-danger alert-dismissible" x-data="open: true" x-show="open">
+
+                <strong>{{Session::get('error')}}</strong>
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             </div>
             <!-- @click="open  -->

@@ -22,13 +22,13 @@
 	</style>
 	<div class="content-header row">
 		<div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
-			<h3 class="content-header-title mb-0 d-inline-block">Myplans</h3><br>
+			<h3 class="content-header-title mb-0 d-inline-block">My Plans</h3><br>
 			<div class="row breadcrumbs-top d-inline-block">
 				<div class="breadcrumb-wrapper col-12">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Myplans</a>
+						<li class="breadcrumb-item"><a href="#">My Plans</a>
 						</li>
-						<li class="breadcrumb-item active">Add My Plan
+						<li class="breadcrumb-item active">Create My Plan
 						</li>
 					</ol>
 				</div>
@@ -61,15 +61,14 @@
 													<div class="form-group">
 														<!--input type="radio" name="input-radio-3" id="input-radio-11">
                                         <label for="input-radio-11">Radio button</label-->
-														<input type="radio" id="input-radio-1" name="day_plan" value="Current Plan">
-														<label for="input-radio-11">Current Plan</label>
-														<input type="radio" id="input-radio-2" name="day_plan" value="Previous Day Plan">
+														<input type="radio" id="input-radio-1" name="day_plan" value="1">
+														<label for="input-radio-11">Current Day Plan</label>
+														<input type="radio" id="input-radio-2" name="day_plan" value="2">
 														<label for="input-radio-11">Previous Day Plan</label>
-														<input type="radio" id="input-radio-3" name="day_plan" value="Long Leave">
+														<input type="radio" id="input-radio-3" name="day_plan" value="3">
 														<label for="input-radio-11">Long Leave</label>
 													</div>
 												</div>
-
 											</div>
 											<div class="col-md-12 flx_wrp" id="taskdate">
 												<div class="col-md-3">
@@ -80,19 +79,13 @@
 														<div class="col-md-6">
 															<h4>From</h4>
 															<div class="input-group">
-																<div class="input-group-prepend">
-																	<span class="input-group-text"><i class="ft-calendar"></i></span>
-																</div>
-																<input type="text" class="form-control dp-date-range-from" />
+																<input type="date" name="from_date" class="form-control" />
 															</div>
 														</div>
 														<div class="col-md-6">
 															<h4>To</h4>
 															<div class="input-group">
-																<div class="input-group-prepend">
-																	<span class="input-group-text"><i class="ft-calendar"></i></span>
-																</div>
-																<input type="text" class="form-control dp-date-range-to" />
+																<input type="date" name="to_date" class="form-control" />
 															</div>
 														</div>
 													</div>
@@ -100,11 +93,22 @@
 											</div>
 											<div class="col-md-12 flx_wrp" id="session">
 												<div class="col-md-3">
-													<p><strong>Session</strong></p>
+													<p><strong>Task Date</strong></p>
+												</div>
+												<div class="col-md-9">
+													<div class="input-group">
+														<input type="date" name="date" class="form-control" />
+													</div>
+												</div>
+
+												<div class="col-md-3">
+													<div><br>
+														<p><strong>Session</strong></p>
+													</div>
 												</div>
 												<div class="col-md-9">
 													<!--div class="form-group" id="test"-->
-													<div class="form-group">
+													<div class="form-group"><br>
 														<!--input type="radio" name="input-radio-3" id="input-radio-11">
                                         <label for="input-radio-11">Radio button</label-->
 														<input type="radio" id="input-radio-4" name="work_time_period" value="Forenoon">
@@ -138,7 +142,6 @@
 									</div>
 									<div class="col-md-6">
 										<div class="row">
-
 											<div class="col-md-12 flx_wrp hide" id="div1">
 												<div class="col-md-3">
 													<p><strong>Client Name</strong></p>
@@ -153,8 +156,6 @@
 														</select>
 													</div>
 												</div>
-
-
 												<div class="col-md-3">
 													<p><strong>Position</strong></p>
 												</div>
@@ -169,10 +170,6 @@
 													</div>
 												</div>
 											</div>
-
-
-
-
 											<div class="col-md-12 flx_wrp hide" id="div2">
 												<div class="col-md-3">
 													<p><strong>Options*</strong></p>
@@ -211,15 +208,56 @@
 
 										</div>
 									</div>
-
-
+									<div class="col-md-6" id="taskdate1">
+										<div class="row">
+											<div class="col-md-3">
+												<p><strong>Leave Type</strong></p>
+											</div>
+											<div class="col-md-9">
+												<div class="form-group">
+													<select class="form-control" name="leavetype">
+														<option>Select</option>
+														<option value="Need Based Leave">Need Based Leave</option>
+														<option value="privileged Leave">privileged Leave</option>
+														<option value="On Duty">On Duty</option>
+														<option value="Loss of Pay">Loss of Pay</option>
+														<option value="Maternity Leave">Maternity Leave</option>
+														<option value="Paternity Leave">Paternity Leave</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div id="div2">
+											<div class="row">
+												<div class="col-md-3">
+													<p><strong>Reason*</strong></p>
+												</div>
+												<div class="col-md-9">
+													<textarea class="form-control" name="reason"></textarea>
+												</div>
+											</div>
+										</div><br>
+										<div id="div2">
+											<div class="row">
+												<div class="col-md-3">
+													<p><strong>Session*</strong></p>
+												</div>
+												<div class="col-md-9">
+													<div class="form-group">
+														<input type="radio" id="input-radio-1" name="session" value="Full Day">
+														<label for="input-radio-11">Full Day</label>
+														<input type="radio" id="input-radio-2" name="session" value="Forenoon">
+														<label for="input-radio-11">Forenoon</label>
+														<input type="radio" id="input-radio-3" name="session" value="Afternoon">
+														<label for="input-radio-11">Afternoon</label>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-						<!--<button type="button" data-repeater-create-->
-						<!--    id="repeater-button" class="btn btn-info">-->
-						<!--    <i class="ft-plus"></i> Add more-->
-						<!--</button>-->
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-warning mr-1" data-dismiss="modal">
@@ -304,6 +342,7 @@
 		$(document).ready(function() {
 			//initialize the show hide functuion
 			$('#taskdate').hide();
+			$('#taskdate1').hide();
 			$('#session').hide();
 			$('#session_type').hide();
 			$('#sourcing').hide();
@@ -311,13 +350,15 @@
 			// for long leave        
 			$('#input-radio-3').on('click', function() {
 				$('#taskdate').show();
+				$('#taskdate1').show();
 				$('#session').hide();
 				$('#session_type').hide();
 			})
 
 			//current day plan
 			$('#input-radio-1').on('click', function() {
-				$('#taskdate').show();
+				$('#taskdate').hide();
+				$('#taskdate1').hide();
 				$('#session').show();
 				$('#session_type').show();
 			})
@@ -325,7 +366,8 @@
 
 			//previous day plan
 			$('#input-radio-2').on('click', function() {
-				$('#taskdate').show();
+				$('#taskdate').hide();
+				$('#taskdate1').hide();
 				$('#session').show();
 				$('#session_type').show();
 			})

@@ -3219,8 +3219,9 @@ input:focus ~ .bg-danger {
   background-color: #FF4961 !important; }
 
   .alert-danger {
-    color: #ff0020;
-    font-style: italic;
+    border-color: #fb7788 !important;
+    background-color: #fb7788 !important;
+    color: #ffffff !important;
 }
 
   .alert-danger .alert-link {

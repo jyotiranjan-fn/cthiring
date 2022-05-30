@@ -107,19 +107,4 @@ class BranchController extends Controller
         $request->session()->flash('delt', 'User Branch delete Successfully');
         return redirect('/user_branch');
     }
-    
-    
-     public function sendmail()
-    {
-             $data = array('name'=>"Virat Gandhi");
-   
-      Mail::send('mail.otp', $data, function($message) {
-         $message->to('abinash889@gmail.com', 'Tutorials Point')->subject
-            ('Laravel Basic Testing Mail');
-         $message->from('prasant@edevlop.com','Virat Gandhi');
-      });
-    }
- 
-
-  
 }

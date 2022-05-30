@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\client;
@@ -20,29 +19,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use mikehaertl\pdftk\Pdf;
-
-
-
 class ResumeController extends Controller
 {
     public function showresume()
     {
-
         //session()->forget(['job_name']);
         $result = Position::where('recruiters', session('USER_ID'))->get()->unique('client_name');
 
-       // dd($result);
+        // dd($result);
         $qualification = Qualification::orderBy('qualification_name', 'ASC')->get();
         $degree = Degree::all();
         $specialization = Specialization::all();
 
         return view('resume.resume', compact('result', 'specialization', 'degree', 'qualification'));
     }
-
-  
-
-
-
 
     public function reset_resume()
     {
@@ -55,10 +45,9 @@ class ResumeController extends Controller
     {
 
         $position['position'] = Position::where('client_name', $request->sta_id)->get()->unique('position_id');
-       // dd( $position['position']);
+        // dd( $position['position']);
 
         return response()->json($position);
-
     }
     public function resume_submit(Request $request)
     {
@@ -88,11 +77,6 @@ class ResumeController extends Controller
         $pos_name = Tempresume::where('id', $resume_posi)->get();
         $client = $pos_name[0]['position_id'];
 
-        //for resume name
-        //   $resumename=Tempresume::where('position_id',$client)->get('resumes');
-        //   $request->session()->put('resume_name', $resumename);
-        //  dd($resumename);
-
         //for position name
         $position_name = Position::where('position_id', $client)->distinct()->get('job_title');
         $request->session()->put('job_name', $position_name[0]->job_title);
@@ -109,13 +93,10 @@ class ResumeController extends Controller
         $request->session()->put('showpopup', true);
 
         // dd(session('showpopup'));
-
         return redirect('/add/resume')->with('randimg', 'last_id', 'job_name', 'position_tech', 'position_behaviour');
-
     }
     public function insert_resume(Request $request)
     {
-    
         $tech_count = count($request->technical);
         $beha_count = count($request->behavioural);
         //  dd($tech_count,$beha_count,$request->all());
@@ -126,106 +107,96 @@ class ResumeController extends Controller
         // dd($request->input('bstar_50'));
         for ($j = 50; $j < $beha_count + 50; $j++) {
             $behavskills[] = $request->input('bstar_' . $j)[0];
-        } 
+        }
+        $rand_pass_resume = Str::random(20);
+        $totaldata = Resume::all();
+        $result = count($totaldata);
+        $resumecode = sprintf("%02d", $result + 1);
+        $res_name = Tempresume::where('id', session('resume'))->get();
 
-      $rand_pass_resume = Str::random(20);
-    
-
-      $totaldata = Resume::all();
-
-
-      $result = count($totaldata);
-
-      $resumecode = sprintf("%02d", $result + 1);
+        File::move(public_path('document/temp/' . $res_name[0]->resumes), public_path('document/position/resume/' . $res_name[0]->resumes));
 
 
-      $res_name = Tempresume::where('id', session('resume'))->get();
-  
+        $count = count($request->data);
+        for ($i = 0; $i < $count; $i++) {
+            $re_qualification_id1[] = $request->data[$i]['qualification'];
+            $re_degree_id1[] = $request->data[$i]['degree'];
+            $re_specialization_id1[] = $request->data[$i]['specialization'];
+            $college_name1[] = $request->data[$i]['college'];
 
-      File::move(public_path('document/temp/' . $res_name[0]->resumes), public_path('document/position/resume/' . $res_name[0]->resumes));
-    
+            $mark1[] = $request->data[$i]['marks'];
+            $coursetype1[] = $request->data[$i]['coursetype'];
+            $yr_passing1[] = $request->data[$i]['year'];
+            $university1[] = $request->data[$i]['university'];
+        }
 
-      $count = count($request->data);
-      for ($i = 0; $i < $count; $i++) {
-          $re_qualification_id1[] = $request->data[$i]['qualification'];
-          $re_degree_id1[] = $request->data[$i]['degree'];
-          $re_specialization_id1[] = $request->data[$i]['specialization'];
-          $college_name1[] = $request->data[$i]['college'];
+        $count = count($request->data1);
+        for ($i = 0; $i < $count; $i++) {
+            $c_name1[] = $request->data1[$i]['c_name'];
+            $designation1[] = $request->data1[$i]['designation'];
+            $employmentperiod_from1[] = $request->data1[$i]['employmentperiod_from'];
+            $employmentperiod_to1[] = $request->data1[$i]['employmentperiod_to'];
+            $specialization1[] = $request->data1[$i]['specialization'];
+            $certification1[] = $request->data1[$i]['certification'];
+            $location1[] = $request->data1[$i]['location'];
+            $vital_information1[] = $request->data1[$i]['vital_information'];
+            $reporting1[] = $request->data1[$i]['reporting'];
+        }
 
-          $mark1[] = $request->data[$i]['marks'];
-          $coursetype1[] = $request->data[$i]['coursetype'];
-          $yr_passing1[] = $request->data[$i]['year'];
-          $university1[] = $request->data[$i]['university'];
+        //dd($request);
+        $role = new Resume;
 
-      }
+        $role->client_id = $res_name[0]->client_id;
+        $role->position_id = $res_name[0]->position_id;
+        $role->resume_file = $res_name[0]->resumes;
+        $role->created_by = session('USER_ID');
 
-      $count = count($request->data1);
-      for ($i = 0; $i < $count; $i++) {
-          $c_name1[] = $request->data1[$i]['c_name'];
-          $designation1[] = $request->data1[$i]['designation'];
-          $employmentperiod_from1[] = $request->data1[$i]['employmentperiod_from'];
-          $employmentperiod_to1[] = $request->data1[$i]['employmentperiod_to'];
-          $specialization1[] = $request->data1[$i]['specialization'];
-          $certification1[] = $request->data1[$i]['certification'];
-          $location1[] = $request->data1[$i]['location'];
-          $vital_information1[] = $request->data1[$i]['vital_information'];
-          $reporting1[] = $request->data1[$i]['reporting'];
-      }
+        //dd($role);
 
-      //dd($request);
-      $role = new Resume;
+        //1st form data
+        $role->position_name = request('position');
+        $role->name = request('candidatename');
+        $role->email = request('email');
+        $role->mobile = request('mobile');
 
-      $role->client_id = $res_name[0]->client_id;
-      $role->position_id = $res_name[0]->position_id;
-      $role->resume_file = $res_name[0]->resumes;
-      $role->created_by = session('USER_ID');
+        $role->dob = request('dob');
+        $role->current_designation = request('designation');
+        $role->year_experience = request('year');
+        $role->month_experience = request('month');
+        $role->notice_period = request('notice');
+        $role->ctc_min = request('min_salary') . " " . request('salary_value');
+        $role->ctc_max = request('max_salary') . " " . request('salary_value2');
+        $role->gender = request('gender1');
 
-      //dd($role);
+        $role->marital_status = request('website2');
+        $role->family_dependent = request('dependents');
+        $role->present_location = request('present');
+        $role->native_location = request('native');
 
-      //1st form data
-      $role->position_name = request('position');
-      $role->name = request('candidatename');
-      $role->email = request('email');
-      $role->mobile = request('mobile');
+        //2nd tab form data
+        $role->re_qualification_id = json_encode($re_qualification_id1);
+        $role->re_degree_id = json_encode($re_degree_id1);
+        $role->re_specialization_id = json_encode($re_specialization_id1);
+        $role->college_name = json_encode($college_name1);
+        $role->mark = json_encode($mark1);
+        $role->course_type = json_encode($coursetype1);
+        $role->yr_passing = json_encode($yr_passing1);
+        $role->university = json_encode($university1);
 
-      $role->dob = request('dob');
-      $role->current_designation = request('designation');
-      $role->year_experience = request('year');
-      $role->month_experience = request('month');
-      $role->notice_period = request('notice');
-      $role->ctc_min = request('min_salary') . " " . request('salary_value');
-      $role->ctc_max = request('max_salary') . " " . request('salary_value2');
-      $role->gender = request('gender1');
+        //3rd tab form data
 
-      $role->marital_status = request('website2');
-      $role->family_dependent = request('dependents');
-      $role->present_location = request('present');
-      $role->native_location = request('native');
+        $role->companyname = json_encode($c_name1);
+        $role->designation = json_encode($designation1);
+        $role->emp_period_form = json_encode($employmentperiod_from1);
+        $role->emp_period_to = json_encode($employmentperiod_to1);
+        $role->specialization = json_encode($specialization1);
+        $role->certification = json_encode($certification1);
+        $role->location = json_encode($location1);
+        $role->vital_info = json_encode($vital_information1);
+        $role->reporting = json_encode($reporting1);
 
-      //2nd tab form data
-      $role->re_qualification_id = json_encode($re_qualification_id1);
-      $role->re_degree_id = json_encode($re_degree_id1);
-      $role->re_specialization_id = json_encode($re_specialization_id1);
-      $role->college_name = json_encode($college_name1);
-      $role->mark = json_encode($mark1);
-      $role->course_type = json_encode($coursetype1);
-      $role->yr_passing = json_encode($yr_passing1);
-      $role->university = json_encode($university1);
-
-      //3rd tab form data
-
-      $role->companyname = json_encode($c_name1);
-      $role->designation = json_encode($designation1);
-      $role->emp_period_form = json_encode($employmentperiod_from1);
-      $role->emp_period_to = json_encode($employmentperiod_to1);
-      $role->specialization = json_encode($specialization1);
-      $role->certification = json_encode($certification1);
-      $role->location = json_encode($location1);
-      $role->vital_info = json_encode($vital_information1);
-      $role->reporting = json_encode($reporting1);
-
-      //4th tab form data
-      $role->technical_rating = json_encode($request->technical);
+        //4th tab form data
+        $role->technical_rating = json_encode($request->technical);
         $role->behavioural_rating = json_encode($request->behavioural);
 
         $role->technical_star_rating = json_encode($technicalskills);
@@ -235,15 +206,14 @@ class ResumeController extends Controller
         $role->other_inputs = request('other_input');
         $role->interview_availability = request('interview_availability');
 
-      $role->resume_code = "CH" . $resumecode;
+        $role->resume_code = "CH" . $resumecode;
 
-      $role->rand_password_pdf = $rand_pass_resume;
+        $role->rand_password_pdf = $rand_pass_resume;
 
-     
 
-      $role->save();
-      return redirect('position_view_details/'.$res_name[0]->position_id);
 
+        $role->save();
+        return redirect('position_view_details/' . $res_name[0]->position_id);
     }
 
     public function resum_view()
@@ -251,31 +221,10 @@ class ResumeController extends Controller
 
         $view = Resume::all();
         return view('resume.resume_view', compact('view'));
-
     }
-
-    // public function mergeArrays(...$arrays)
-    // {
-
-    //     $length = count($arrays[0]);
-    //     $result = [];
-    //     for ($i = 0; $i < $length; $i++) {
-    //         $temp = [];
-    //         foreach ($arrays as $array) {
-    //             $temp[] = $array[$i];
-    //         }
-
-    //         $result[] = $temp;
-    //     }
-
-    //     return $result;
-
-    // }
 
     public function resume_view_detail($id)
     {
-        
-
         $view = Resume::findorfail($id);
 
         // $r = Resume::where('id', $id)->get('re_specialization_id');
@@ -298,9 +247,6 @@ class ResumeController extends Controller
         $resume_experience[] = json_decode($view->certification);
         $resume_experience[] = json_decode($view->specialization);
         $resume_experience[] = json_decode($view->vital_info);
-
-
-
 
         //**resume details qualification tab fetch**//
         $length = count($resume_quali_fetch[0]);
@@ -326,8 +272,6 @@ class ResumeController extends Controller
 
             $res[] = $temp1;
         }
-
-
         return view('resume.resume_viewdetails', compact('view', 'result', 'res'));
     }
 
@@ -367,7 +311,6 @@ class ResumeController extends Controller
             }
 
             $result_pdf[] = $temp_pdf;
-
         }
         //dd($result_pdf);
 
@@ -383,7 +326,6 @@ class ResumeController extends Controller
             }
 
             $result_pdf_car[] = $temp_pdf_career;
-
         }
 
         $count_pdf = count($pdf_resum[0]);
@@ -396,64 +338,31 @@ class ResumeController extends Controller
             }
 
             $res_pdf[] = $temp_pdfs;
-
         }
 
-        $data = ['view' => $view,
-   'result_pdf'=>$result_pdf,
-   'result_pdf_car'=>$result_pdf_car,
-   'res_pdf'=>$res_pdf
-];
+        $data = [
+            'view' => $view,
+            'result_pdf' => $result_pdf,
+            'result_pdf_car' => $result_pdf_car,
+            'res_pdf' => $res_pdf
+        ];
+        $pdf = FacadePdf::loadView('resume.resume_pdf', $data);
+        return $pdf->download('invoice.pdf');
 
-
-       $pdf = FacadePdf::loadView('resume.resume_pdf', $data);
-       return $pdf->download('invoice.pdf');
-
-      //return view('resume.resume_pdf', compact('view', 'result_pdf', 'result_pdf_car', 'res_pdf'));
+        //return view('resume.resume_pdf', compact('view', 'result_pdf', 'result_pdf_car', 'res_pdf'));
     }
-
-   
-
-   
 
     public function index(Request $request)
     {
         $user = Resume::latest()->paginate(5);
-  
-        if($request->has('download'))
-        {
-            $pdf = FacadePdf::loadView('resume.index',compact('user'));
+
+        if ($request->has('download')) {
+            $pdf = FacadePdf::loadView('resume.index', compact('user'));
             return $pdf->download('pdfview.pdf');
         }
 
-        return view('resume.index',compact('user'));
+        return view('resume.index', compact('user'));
     }
-
-    // test code
-    public function fortest_view()
-    {
-        return view('resume.testform_formy_plan');
-    }
-
-    public function fortest(Request $request)
-    {
-        // dd($request->all());
-        $test =
-            ['NAME' => $request->fullname,
-            'PHONE' => $request->phone];
-        //dd($test);
-        $res = $request->session()->push('storedata', $test);
-        dd(session('storedata'), $test);
-
-    }
-    // test code end
-
-
-    // public function edit_resume($id)
-    // {
-    //     $view = Resume::find($id);
-    //     return view('resume.resume_edit', compact('view'));
-    // }
 
     public function send_resume_individual($id)
     {
@@ -465,7 +374,6 @@ class ResumeController extends Controller
 
         $cv_send->save();
         return redirect()->back()->with('message', 'CV was successfully sent to the client');
-
     }
     public function screening_status_shortlist(Request $request, $id)
     {
@@ -485,7 +393,6 @@ class ResumeController extends Controller
         $insert_interview->remark = request('remarks');
         $insert_interview->save();
         return redirect()->back()->with('msg', 'Candidate Shortlisted');
-
     }
     public function screening_status_rejected(Request $request, $id)
     {
@@ -505,10 +412,9 @@ class ResumeController extends Controller
         $insert_interview->remark = request('remarks');
 
         $insert_interview->save();
-        
+
         $request->session()->flash('delt', 'Candidate Rejected');
         return redirect()->back();
-
     }
 
     public function resume_edit_view($id)
@@ -570,7 +476,6 @@ class ResumeController extends Controller
         //dd($result1);
         //dd(json_decode($view->technical_star_rating));
         return view('resume.resume_edit', compact('view', 'edit_result', 'edit_res', 'qualification', 'degree', 'specialization'));
-
     }
     public function resume_edit_data(Request $request, $id)
     {
@@ -617,7 +522,6 @@ class ResumeController extends Controller
             $coursetype1[] = $request->data[$i]['coursetype'];
             $yr_passing1[] = $request->data[$i]['year'];
             $university1[] = $request->data[$i]['university'];
-
         }
 
         $count = count($request->data1);
@@ -710,77 +614,59 @@ class ResumeController extends Controller
             $filename = time() . '.' . $extention;
             $file->move('document/position/resume/', $filename);
             $role->resume_file = $filename;
-
         }
 
         // dd($role);
 
         $role->save();
         return redirect('/resumeview')->with('message', 'Resume Updated Successfully.');
-
-    }
-    
-    public function approve_cv($id){
-        
-     //  dd($id);
-        $position_id=Resume::where('id',$id)->get('position_id');
-      
-        
-        $cv_approve=Resume::where('id',$id)->update(['crm_status' => 1]);
-        
-        return redirect('/position_view_details/'.$position_id[0]->position_id)->with('message', 'Resume Approved Successfully.');
-        
     }
 
-    public function reject_cv_crm(Request $request,$id)
-    {  
-       
-        
-        $position_id=Resume::where('id',$id)->get('position_id');
-        $cv_rejected=Resume::where('id',$id)->update([
-                   'crm_status' => 2,
-                   'cv_rejected_remarks'=>$request->reject_cvremark
-                ]);
+    public function approve_cv($id)
+    {
+
+        //  dd($id);
+        $position_id = Resume::where('id', $id)->get('position_id');
+
+
+        $cv_approve = Resume::where('id', $id)->update(['crm_status' => 1]);
+
+        return redirect('/position_view_details/' . $position_id[0]->position_id)->with('message', 'Resume Approved Successfully.');
+    }
+
+    public function reject_cv_crm(Request $request, $id)
+    {
+
+
+        $position_id = Resume::where('id', $id)->get('position_id');
+        $cv_rejected = Resume::where('id', $id)->update([
+            'crm_status' => 2,
+            'cv_rejected_remarks' => $request->reject_cvremark
+        ]);
 
         $request->session()->flash('delt', 'Resume Rejected');
-        return redirect('/position_view_details/'.$position_id[0]->position_id);
-        
-
+        return redirect('/position_view_details/' . $position_id[0]->position_id);
     }
 
-
-
-
-
-    public function schedule_interview(Request $request,$id){
-         //dd($request->all(),$id,$request->interview_level);
+    public function schedule_interview(Request $request, $id)
+    {
+        //dd($request->all(),$id,$request->interview_level);
 
         $schedule_interview = Resume::find($id);
         //dd($schedule_interview);
 
-           if($request->interview_level==1)
-          
-            {
-                $interview_status=4;
-            }
-            elseif($request->interview_level==2)
-            {
-                $interview_status=8;
-            }
-            elseif($request->interview_level==3)
-            {
-                $interview_status=12;
-            }
-            elseif($request->interview_level==4)
-            {
-                $interview_status=16;
+        if ($request->interview_level == 1) {
+            $interview_status = 4;
+        } elseif ($request->interview_level == 2) {
+            $interview_status = 8;
+        } elseif ($request->interview_level == 3) {
+            $interview_status = 12;
+        } elseif ($request->interview_level == 4) {
+            $interview_status = 16;
+        } elseif ($request->interview_level == 5) {
+            $interview_status = 20;
+        }
 
-            }
-            elseif($request->interview_level==5)
-            {
-                $interview_status=20;
-            }
-       
         $schedule_interview->cv_status = $interview_status;
         $schedule_interview->save();
 
@@ -803,34 +689,32 @@ class ResumeController extends Controller
         $interview_level_data->client_contact_name = request('client_contact_name');
         $interview_level_data->client_contact_number  = request('client_contact_number');
         $interview_level_data->addition_info = request('additional_info');
-        
 
 
-         $interview_level_data->save();
-        return redirect('/position_view_details/'.$id)->with('message', '1st Interview Scheduled.');
- 
- 
-        
-     }
 
-    public function getaddtess(Request $request){
-
-        $client_id=Resume::where('id',$request->resume_id)->get('client_id');
-       // dd($client_id[0]->client_id);
-        $get_address=client::where('id',$client_id[0]->client_id)->get(['door_no','street_name','pincode','area_name','state_id','city_id','district_id','client_name']);
-       // dd($get_address);
-       $get_city=city::where('id',$get_address[0]->city_id)->get('name');
-       //dd($get_city);
-          $get_district=District::where('id',$get_address[0]->district_id)->get('district_title');
-        $get_state=State::where('state_id',$get_address[0]->state_id)->get('state_title');
-         return response()->json([$get_address,$get_city,$get_district,$get_state]);
+        $interview_level_data->save();
+        return redirect('/position_view_details/' . $id)->with('message', '1st Interview Scheduled.');
     }
 
-    public function getspoc(Request $request){
-       //dd($request->all());
-        $spoc_details=ClientContact::where('id',$request->id)->get();
-      //dd($spoc_details);
-         return response()->json($spoc_details);
+    public function getaddtess(Request $request)
+    {
+
+        $client_id = Resume::where('id', $request->resume_id)->get('client_id');
+        // dd($client_id[0]->client_id);
+        $get_address = client::where('id', $client_id[0]->client_id)->get(['door_no', 'street_name', 'pincode', 'area_name', 'state_id', 'city_id', 'district_id', 'client_name']);
+        // dd($get_address);
+        $get_city = city::where('id', $get_address[0]->city_id)->get('name');
+        //dd($get_city);
+        $get_district = District::where('id', $get_address[0]->district_id)->get('district_title');
+        $get_state = State::where('state_id', $get_address[0]->state_id)->get('state_title');
+        return response()->json([$get_address, $get_city, $get_district, $get_state]);
     }
 
+    public function getspoc(Request $request)
+    {
+        //dd($request->all());
+        $spoc_details = ClientContact::where('id', $request->id)->get();
+        //dd($spoc_details);
+        return response()->json($spoc_details);
+    }
 }
