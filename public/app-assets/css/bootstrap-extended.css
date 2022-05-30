@@ -159,7 +159,7 @@ pre {
   border: 1px solid #e3ebf3; }
 
 .table th, .table td {
-  border-bottom: 1px solid #e3ebf3; }
+  border: 1px solid #e3ebf3; }
 
 .table-bordered {
   border: 1px solid #e3ebf3; }

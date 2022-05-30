@@ -8,8 +8,7 @@
         display: none;
     }
     </style>
-     <script src="https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script> 
-    
+    <script src="https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
     @php
 
 
@@ -606,9 +605,8 @@
                                                                                 <tr>
                                                                                     <th class="pd_410">Message*</th>
                                                                                     <td class="pd_410">
-
                                                                                         <textarea name="editor1"
-                                                                                            id="editor{{$res_show->id}}" rows="10" 
+                                                                                            id="editor1" rows="10"
                                                                                             cols="80" value="">Dear Mr. {{($view->pos_client_cont)->contact_name}} ,</br>
 
                                                                                                                     @php
@@ -629,11 +627,8 @@
                                                                                                     For your reference, I am also sharing the details of CVs shared earlier for this position and its current status.
 
                                                                                                     </textarea>
-                                                                               
-
-                                                                           
                                                                                         <script>
-                                                                                        CKEDITOR.replace('editor{{$res_show->id}}');
+                                                                                        CKEDITOR.replace('editor1');
                                                                                         </script>
                                                                                     </td>
                                                                                 </tr>
@@ -1343,36 +1338,34 @@
                                                     method='post'>
                                                     @csrf
                                                     <div class="modal-body">
-                                                        
 
 
-                                                        <input type="text" value="{{$res_show ->id}}" name="candidate_id" id="resumeid_ajax_address"
+                                                        <input type="text" value="{{$res_show ->id}}" name="candidate_id"
                                                             hidden>
                                                         <input type="text" value="{{$res_show ->position_id}}" name="pos_id"
                                                             hidden>
                                                         <input type="text" value="{{$res_show ->client_id}}"
                                                             name="client_id" hidden>
-                                                           
 
 
                                                         <ul class="nav nav-tabs" role="tablist">
                                                             <li class="nav-item">
                                                                 <a class="nav-link active" data-toggle="tab"
-                                                                    href="#ID{{$res_show ->id}}">Interview Details</a>
+                                                                    href="#ID">Interview Details</a>
                                                             </li>
                                                             <li class="nav-item">
                                                                 <a class="nav-link" data-toggle="tab"
-                                                                    href="#ICclient{{$res_show ->id}}">Interview
+                                                                    href="#ICclient">Interview
                                                                     Confirmation to Clients</a>
                                                             </li>
                                                             <li class="nav-item">
                                                                 <a class="nav-link" data-toggle="tab"
-                                                                    href="#ICcandidate{{$res_show ->id}}">Interview
+                                                                    href="#ICcandidate">Interview
                                                                     Confirmation to Candidate</a>
                                                             </li>
                                                         </ul>
                                                         <div class="tab-content">
-                                                            <div id="ID{{$res_show ->id}}" class="tab-pane active pd_0">
+                                                            <div id="ID" class="tab-pane active pd_0">
                                                                 <br>
                                                                 <table class="table table-bordered wd_21 t_left">
                                                                     <tr>
@@ -1529,7 +1522,7 @@
                                                                          
                                                                         <td class="pd_410">
                                                                             <select class="form-control"
-                                                                                id="get_address{{$res_show->id}}" name="interview_venue_adrs">
+                                                                                id="get_address" name="interview_venue_adrs">
                                                                                 <option value="0" selected>Choose Interview Venue 
                                                                                     Address                                                                                                                      
                                                                                     </option>
@@ -1576,7 +1569,7 @@
                                                                     <tr>
                                                                         <th class="pd_410">Interview
                                                                             Venue*</th>
-                                                                        <td class="pd_410" id="interview{{$res_show->id}}" name="interview_venue">
+                                                                        <td class="pd_410" id="interview" name="interview_venue">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1635,7 +1628,7 @@
                                                                 </table>
                                                             </div>
                                                             <!-- 2nd tab start for Schedule Interview form -->
-                                                            <div id="ICclient{{$res_show ->id}}" class="tab-pane fade">
+                                                            <div id="ICclient" class="tab-pane fade">
                                                                 <br>
                                                                 <table class="table table-bordered wd_16 t_left">
                                                                     <tr>
@@ -1661,11 +1654,11 @@
                                                                         <th class="pd_410">Message*</th>
                                                                         @foreach($get_crm_name as $crm_details)
                                                                         <td class="pd_410">
-                                                                            <textarea name="second_msg_interview" id="editortwo{{$res_show ->id}}"
+                                                                            <textarea name="second_msg_interview" id="editor2"
                                                                                 rows="10" cols="80"
                                                                                 value=""><p>Dear {{($view->pos_client_cont)->contact_name}},<br /><br />Greetings from {{$crm_details->fname}} {{$crm_details->lname}}<br /><br />In continuation to our telephonic discussions, I have lined-up the shortlisted candidate(s) for the interview(s) as per the following schedule.<br /><br />POSITION TITLE: {{$view->job_title }}<br /><br />{{$res_show ->name}}<br /><br />Trust this schedule is fine. Please do let me know if there requires any further information about the candidate(s) or the schedule.<br /><br />{{$crm_details->signature}}</p></textarea>
                                                                             <script>
-                                                                            CKEDITOR.replace('editortwo{{$res_show ->id}}');
+                                                                            CKEDITOR.replace('editor2');
                                                                             </script>
                                                                         </td>
                                                                         @endforeach
@@ -1674,7 +1667,7 @@
                                                                 </table>
                                                             </div>
                                                             <!-- 3rd tab form schudel interview form -->                                 
-                                                            <div id="ICcandidate{{$res_show ->id}}" class="tab-pane">
+                                                            <div id="ICcandidate" class="tab-pane">
                                                                 <br>
 
                                                                 <!-- <div id="nights">hi</div> -->
@@ -1700,7 +1693,7 @@
                                                                     <tr>
                                                                         <th class="pd_410">Message*</th>
                                                                         <td class="pd_410">
-                                                                            <textarea name="editor3" id="editor3{{$res_show->id}}"
+                                                                            <textarea name="editor3" id="editor3"
                                                                                 rows="10" cols="80" name="third_msg_interview"
                                                                                 value=""><p>Dear&nbsp;{{$res_show->name}}<br /><br /><strong>Greetings from {{($view->pos_client_cont)->contact_name}}&nbsp;</strong><br /><br />In continuation to our telephonic discussions, I am confirming your interview schedule with our client as below:</p>
                                                                                         <p>&nbsp;</p>
@@ -1751,7 +1744,7 @@
 
                                                                                         <p><br />Trust this schedule is fine. Request your confirmation on the receipt of the mail and also your confirmation, through a reply mail, for attending the interview as per the schedule give above in this mail.<br />Please do carry all relevant documents as needed for the interview.<br /><br />Also, do let me know if there requires any further information about the interviewing process or the schedule. &nbsp;For more details about the company do refer to their website [website]<br /><br />Wish you all the best! Thanks.<br />Warm Regards<br /><br />[signature]</p></textarea>
                                                                                             <script>
-                                                                                            CKEDITOR.replace('editor3{{$res_show->id}}');
+                                                                                            CKEDITOR.replace('editor3');
                                                                                             </script>
                                                                         </td>
                                                                     </tr>
@@ -3092,29 +3085,30 @@
                 </a>
                 <button type="button" class="btn btn-secondary">Print</button>
             </div>
-@if(!empty($res_show))
+
+
             <script type="text/javascript">
             $('#files').on('change', function() {
                 var result = $("#files").text();
-               
-                fileChosen(this, document.getElementById('editor{{$res_show->id}}'));
-                CKEDITOR.instances['editor{{$res_show->id}}'].setData(result);
+
+                fileChosen(this, document.getElementById('editor1'));
+                CKEDITOR.instances['editor1'].setData(result);
             });
             </script>
             <script type="text/javascript">
             $('#files').on('change', function() {
                 var result = $("#files").text();
 
-                fileChosen(this, document.getElementById('editortwo{{$res_show->id}}'));
-                CKEDITOR.instances['editortwo{{$res_show->id}}'].setData(result);
+                fileChosen(this, document.getElementById('editor2'));
+                CKEDITOR.instances['editor2'].setData(result);
             });
             </script>
             <script type="text/javascript">
             $('#files').on('change', function() {
                 var result = $("#files").text();
 
-                fileChosen(this, document.getElementById('editor3{{$res_show->id}}'));
-                CKEDITOR.instances['editor3{{$res_show->id}}'].setData(result);
+                fileChosen(this, document.getElementById('editor3'));
+                CKEDITOR.instances['editor3'].setData(result);
             });
             </script>
             <script type="text/javascript">
@@ -3133,7 +3127,6 @@
                 CKEDITOR.instances['editor5'].setData(result);
             });
             </script>
-            @endif
             <script>
             $(document).ready(function() {
                 $(".hide-btn").click(function() {
@@ -3146,13 +3139,8 @@
             </script>
 
             <!-- Form wizard with icon tabs section end -->
-            <script> 
-             var test_id={{$res_show->id}};
-             var ajax_addres=$('#resumeid_ajax_address').val();
-             
-            $("#get_address".test_id).on('change', function() {
-               
-               
+            <script>
+            $("#get_address").on('change', function() {
                 var ab = $(this).val();
                 var resume_id= $('#resume_id_ajax').val();
                 if (ab == 1) {
@@ -3166,8 +3154,8 @@
                         dataType: 'json',
 
                         success: function(result) {
-                            $('#interview{{$res_show->id}}').html('<textarea name="interview_venue"' +
-                                'class="form-control" id="interview{{$res_show->id}}" cols="63"' +
+                            $('#interview').html('<textarea name="interview_venue"' +
+                                'class="form-control" id="interview" cols="63"' +
                                 'rows="2">' + result[0][0].client_name +
                                 '\nAddress: ' + result[0][0].door_no + ', ' + result[0][0]
                                 .street_name + ', ' + result[0][0].area_name +
