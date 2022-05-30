@@ -364,6 +364,8 @@ class ResumeController extends Controller
         return view('resume.index', compact('user'));
     }
 
+ 
+
     public function send_resume_individual($id)
     {
         // dd($id);
@@ -648,12 +650,15 @@ class ResumeController extends Controller
         return redirect('/position_view_details/' . $position_id[0]->position_id);
     }
 
-    public function schedule_interview(Request $request, $id)
-    {
-        //dd($request->all(),$id,$request->interview_level);
+
+
+
+
+    public function schedule_interview(Request $request,$id){
+       //  dd($request->all(),$id,$request->interview_level);
 
         $schedule_interview = Resume::find($id);
-        //dd($schedule_interview);
+       // dd($id);
 
         if ($request->interview_level == 1) {
             $interview_status = 4;
@@ -691,10 +696,242 @@ class ResumeController extends Controller
         $interview_level_data->addition_info = request('additional_info');
 
 
+         $interview_level_data->save();
 
-        $interview_level_data->save();
-        return redirect('/position_view_details/' . $id)->with('message', '1st Interview Scheduled.');
+        return redirect('/position_view_details/'.$request->pos_id)->with('message', ' Interview Scheduled.');
+ 
+ 
+        
     }
+
+
+    public function reschedule_interview(Request $request,$id)
+    {
+        //dd($request->all(),$id,$request->interview_level);
+ 
+         $re_schedule_interview = Resume::find($id);
+         //dd($schedule_interview);
+ 
+            if($request->reschedule_interview_level==1)
+           
+             {
+                 $interview_status=5;
+             }
+             elseif($request->reschedule_interview_level==2)
+             {
+                 $interview_status=9;
+             }
+             elseif($request->reschedule_interview_level==3)
+             {
+                 $interview_status=13;
+             }
+             elseif($request->reschedule_interview_level==4)
+             {
+                 $interview_status=17;
+ 
+             }
+             elseif($request->reschedule_interview_level==5)
+             {
+                 $interview_status=21;
+             }
+        
+         $re_schedule_interview->cv_status = $interview_status;
+         $re_schedule_interview->save();
+ 
+ 
+         $re_interview_level_data = new Interview;
+         $re_interview_level_data->candidate_id = request('re_candidate_id');
+         $re_interview_level_data->position_id = request('re_pos_id');
+         $re_interview_level_data->client_id = request('re_client_id');
+ 
+ 
+         $re_interview_level_data->candidate_name = request('re_cand_name_interview');
+         $re_interview_level_data->reschedule_reason = request('reschedule_reason');
+         $re_interview_level_data->interview_level = request('reschedule_interview_level');
+         $re_interview_level_data->interview_mode = request('re_interview_mode');
+         $re_interview_level_data->interview_venue_adrs = request('re_interview_venue_adrs');
+         $re_interview_level_data->interview_date = request('re_interview_date');
+         $re_interview_level_data->interview_timeperiod = request('re_interview_time_period');
+         $re_interview_level_data->interview_venue = request('re_interview_venue');
+ 
+         $re_interview_level_data->interview_spoc = request('re_spoc_interview');
+         $re_interview_level_data->client_contact_name = request('re_client_contact_name');
+         $re_interview_level_data->client_contact_number  = request('re_client_contact_number');
+         $re_interview_level_data->addition_info = request('re_additional_info');
+         
+
+          $re_interview_level_data->save();
+          return redirect('/position_view_details/'.$request->pos_id)->with('message', 'Interview Reschedule Successfully');
+ 
+ 
+        
+    }
+
+
+    public function select_interview(Request $request,$id)
+    {
+       // dd($request->interview_selected);
+
+        $interview_select = Resume::find($id);
+        if($request->net_interview_decision == 'applicable')
+        {
+           
+          if($request->interview_selected==4 || $request->interview_selected==5)
+
+            {
+                
+                $interview_status=6;
+            }
+            elseif($request->interview_selected==8 || $request->interview_selected==9)
+            {
+               
+                $interview_status=10;
+            }
+
+            elseif($request->interview_selected==12 || $request->interview_selected==13)
+            {
+                
+                $interview_status=14;
+            }
+            elseif($request->interview_selected==16 || $request->interview_selected==17)
+            {
+                $interview_status=18;
+            }
+            elseif($request->interview_selected== 20 || $request->interview_selected==21)
+            {
+               $interview_status=22; 
+            }
+        }
+            else
+            {
+                $interview_status=22; 
+            }
+
+             $interview_select->cv_status = $interview_status;
+             $interview_select->save();
+
+             $interview_level_cv_status= Resume::where('id',$id)->get('cv_status');
+             //dd($interview_level_cv_status[0]->cv_status);
+
+             $interview_level_select = new Interview;
+
+            $interview_level_select->candidate_id = request('candidate_id');
+            $interview_level_select->position_id = request('pos_id');
+            $interview_level_select->client_id = request('client_id');
+ 
+
+
+             $interview_level_select->candidate_name = $request->candidate_name;
+             $interview_level_select->remark =$request->remarks;
+             $interview_level_select->net_interview_decision =$request->net_interview_decision;
+             $interview_level_select->interview_status=1;
+             
+             
+           if($interview_level_cv_status[0]->cv_status==6)
+
+            {
+                $interview_stage= "First Interview";
+            }
+            elseif($interview_level_cv_status[0]->cv_status== 10)
+            {
+                $interview_stage= "second Interview";
+            }
+
+            elseif($interview_level_cv_status[0]->cv_status== 14)
+            {
+                $interview_stage= "Third Interview";
+            }
+            elseif($interview_level_cv_status[0]->cv_status== 18)
+            {
+                $interview_stage="Four Interview";
+            }
+            elseif($interview_level_cv_status[0]->cv_status== 22)
+            {
+               $interview_stage= "Final Interview "; 
+            }
+            $interview_level_select->interview_stage=$interview_stage;
+            $interview_level_select->save();
+            return redirect('/position_view_details/'.$request->pos_id)->with('message', 'Interview Selected');
+
+
+    } 
+
+    public function reject_interview(Request $request,$id)
+    { 
+
+        $interview_reject= Resume::find($id);
+        
+        if($request->interview_rejected==4 || $request->interview_rejected==5)
+        {
+            $interview_result=7;
+        }
+        elseif($request->interview_rejected==8 || $request->interview_rejected==9)
+        { 
+            $interview_result=11;
+
+        }
+        elseif($request->interview_rejected==12 || $request->interview_rejected==13)
+        {
+            $interview_result=15;
+        }
+        elseif($request->interview_rejected==16 || $request->interview_rejected==17)
+        {
+            $interview_result=19;
+        }
+        elseif ($request->interview_rejected==20 || $request->interview_rejected==21) 
+        {
+           $interview_result=23;
+        }
+
+        $interview_reject->cv_status=$interview_result;
+        $interview_reject->save();
+
+        $interview_level_cv_status_reject= Resume::where('id',$id)->get('cv_status');
+        
+
+        $interview_level_reject = new Interview;
+        $interview_level_reject->candidate_id = request('candidate_id');
+        $interview_level_reject->position_id = request('pos_id');
+        $interview_level_reject->client_id = request('client_id');
+
+        $interview_level_reject->candidate_name = $request->candidate_name;
+        $interview_level_reject->reject_interview_resn =$request->reject_interview_reason;
+        $interview_level_reject->reject_interview_resn =$request->remarks;
+        $interview_level_reject->interview_status=2;
+
+         if($interview_level_cv_status_reject[0]->cv_status==7)
+
+            {
+                $interview_stage= "First Interview";
+            }
+            elseif($interview_level_cv_status_reject[0]->cv_status== 11)
+            {
+                $interview_stage= "second Interview";
+            }
+
+            elseif($interview_level_cv_status_reject[0]->cv_status== 15)
+            {
+                $interview_stage= "Third Interview";
+            }
+            elseif($interview_level_cv_status_reject[0]->cv_status== 19)
+            {
+                $interview_stage="Four Interview";
+            }
+            elseif($interview_level_cv_status_reject[0]->cv_status== 23)
+            {
+               $interview_stage= "Final Interview "; 
+            }
+            $interview_level_reject->interview_stage=$interview_stage;
+            $interview_level_reject->save();
+            return redirect('/position_view_details/'.$request->pos_id)->with('delt', 'Interview Rejected');
+
+    }
+
+  
+
+
+
+
 
     public function getaddtess(Request $request)
     {

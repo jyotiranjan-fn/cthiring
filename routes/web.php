@@ -235,10 +235,18 @@ Route::middleware(['auth'])->name('admin.')->prefix('')->group(function () {
 
 
     //interview Schedule
-    Route::post('schedule_interview/{id}', [ResumeController::class, 'schedule_interview']);
-    Route::post('getaddtess', [ResumeController::class, 'getaddtess']);
-    Route::post('getspoc', [ResumeController::class, 'getspoc']);
+    Route::post('schedule_interview/{id}',[ResumeController::class,'schedule_interview']);
+    Route::post('getaddtess',[ResumeController::class,'getaddtess']);
+    Route::post('getspoc',[ResumeController::class,'getspoc']);
+    //interview reschedule
+     //Route::get('view_interview_dels/{id}',[ResumeController::class,'view_interview_details']);
 
+    Route::post('reschedule_interview/{id}',[ResumeController::class,'reschedule_interview']);
+    Route::post('select_interview/{id}',[ResumeController::class,'select_interview']);
+    Route::post('reject_interview/{id}',[ResumeController::class,'reject_interview']);
+
+
+    
     // Route::get('client_mail/{created}/{client_name}/{city_id}/{crm_id}',[clientController::class,'mail_send']);
 
 });
