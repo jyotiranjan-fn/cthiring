@@ -7,15 +7,13 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
 
         <div class="content-header row">
            <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
-				<h3 class="content-header-title mb-0 d-inline-block">Myplans</h3><br>
+				<h3 class="content-header-title mb-0 d-inline-block">My Plans</h3><br>
 				<div class="row breadcrumbs-top d-inline-block">
 					<div class="breadcrumb-wrapper col-12">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="#">Settings</a>
+							<li class="breadcrumb-item"><a href="#">My Plans</a>
 							</li>
-							<li class="breadcrumb-item"><a href="#">Myplans</a>
-							</li>
-							<li class="breadcrumb-item active">Myplans
+							<li class="breadcrumb-item active">View Plans
 							</li>
 						</ol>
 					</div>
@@ -42,7 +40,7 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-tooltip">View Position</h4>
+                        <!-- <h4 class="card-title" id="basic-layout-tooltip">View Position</h4> -->
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -105,7 +103,7 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                         @endif
                                         <td>{{$plan->ctc}}</td>
                                         <td>{{($plan->plan3)->fname}} {{($plan->plan3)->lname}}</td>
-                                        <td>{{$plan->created_at}}</td>
+                                        <td>{{date('j F-Y', strtotime($plan->created_at))}}</td>
                                         
                                          @if($plan->approve_status==1)
                                         <td><span class="badge badge-default badge-success" >Approved</span></td>
