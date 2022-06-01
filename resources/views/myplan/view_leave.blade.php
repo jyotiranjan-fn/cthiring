@@ -69,6 +69,12 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
 
                                 <tbody>
                                     @foreach ($leave as $view)
+
+                                    @php
+                                    $level_id=App\Models\User::where('id',$view->user_id)->get(['level_1','level_2']);
+                                    @endphp
+
+                                    @if($level_id[0]->level_1==session('USER_ID')||$level_id[0]->level_2==session('USER_ID')||$view->user_id==session('USER_ID'))
                                     <tr>
                                         <td>{{date('j F-Y', strtotime($view->leave_from))}}</td>
                                         <td>{{date('j F-Y', strtotime($view->leave_to))}}</td>
@@ -92,6 +98,7 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                             </a>
                                         </td>
                                     </tr>
+                                    @endif
                                     @endforeach
                                 </tbody>
                                 <tfoot>

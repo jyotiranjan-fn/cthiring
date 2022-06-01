@@ -148,7 +148,7 @@
 												</div>
 												<div class="col-md-9">
 													<div class="form-group">
-														<select class="form-control" name="clientname">
+														<select class="form-control" id="client_name" name="clientname">
 															<option value="">Select</option>
 															@foreach ($client1 as $client2)
 															<option value="{{$client2->id}}">{{$client2->client_name}}</option>
@@ -161,11 +161,8 @@
 												</div>
 												<div class="col-md-9">
 													<div class="form-group">
-														<select class="form-control" name="positionname">
-															<option value="">Select</option>
-															<option value="1">Hacking 1</option>
-															<option value="2">Hacking 2</option>
-															<option value="3">Hacking 3</option>
+														<select class="form-control" id="position_name" name="positionname">
+															
 														</select>
 													</div>
 												</div>
@@ -204,8 +201,6 @@
 													</div>
 												</div>
 											</div>
-
-
 										</div>
 									</div>
 									<div class="col-md-6" id="taskdate1">
@@ -392,6 +387,36 @@
 			document.getElementById('div2').style.display = 'flex';
 			document.getElementById('div1').style.display = 'none';
 		}
+	</script>
+	<script>
+		
+	$(document).ready(function(){
+		$('#client_name').on('change',function(){
+			var client_name = this.value;
+			$('#position_name').html('');
+			$.ajax({
+				url: "{{url('position_fetch_plan')}}",
+                    type: "POST",
+                    data: {
+                        client_name: client_name,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+					success :function(result){
+						$('#position_name').html('<option value="">Select Position</option>');
+                        $.each(result.positionname, function(key, value) {
+                            $("#position_name").append('<option value="' + value
+                                .position_id + '">' +
+                                value.job_title + '</option>');
+                        });
+					}
+
+			});
+			
+		});
+
+	});
+
 	</script>
 
 </x-admin-layout>

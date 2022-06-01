@@ -65,6 +65,15 @@ class MyplanController extends Controller
         return view('myplan.todays_plan', compact('pos_req', 'student', 'client1'));
     }
 
+
+    public function position_fetch_ajax_plan(Request $request)
+    { 
+        $position_myplan['positionname'] = Position::where('client_name',$request->client_name)->get()->unique('position_id');
+       // dd($position_myplan);
+        return response()->json($position_myplan);
+
+    }
+
     public function insert_todaysplan(Request $request)
     {
         // dd($request->all());
@@ -140,8 +149,8 @@ class MyplanController extends Controller
     }
     public function view_leave()
     {
-        $pos = session('USER_ID');
-        $leave = Leave::where('user_id', '=', $pos)->get();
+        // $pos = session('USER_ID');
+        $leave = Leave::all();
         
         return view('myplan.view_leave', compact('leave'));
     }
