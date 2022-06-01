@@ -53,8 +53,7 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                     </div>
                     <div class="card-content collapse show table-responsive">
                         <div class="card-body ">
-
-                            <table class="table table-striped table-bordered dataex-html5-selectors">
+                            <table class="table table-striped dataex-html5-selectors">
                                 <thead>
                                     <tr>
                                         <th>Leave From</th>
@@ -82,6 +81,8 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                             <td><span class="badge badge-default badge-success">Approved</span></td> 
                                         @elseif ($view->status == 2)
                                             <td><span class="badge badge-default badge-danger">Rejected</span></td> 
+                                        @elseif ($view->status == 3)
+                                            <td><span class="badge badge-default badge-secondary">Canceled</span></td> 
                                         @endif
 
                                         <td>{{date('d-F-Y', strtotime($view->created_at))}}</td>

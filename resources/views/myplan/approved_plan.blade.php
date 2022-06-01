@@ -225,28 +225,17 @@
                                             @else
                                             <td></td>
                                             @endif
-
-
                                         </tr>
                                         @else
-
                                         <tr></tr>
                                         @endif
-
-
-
-
-
                                         @else
                                         <p></p>
                                         @endif
                                         @endforeach
-
-
                                     </tbody>
                                     <tfoot>
                                         <tr>
-
                                             <th>Date</th>
                                             <th>Session</th>
                                             <th>Work Type</th>
@@ -258,16 +247,12 @@
                                             <th>Approve status</th>
                                             <th>Remarks</th>
                                             <th>Action</th>
-
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
                 <div class="mt_btn">
                     <a href="{{url('/plan_view')}}">
@@ -276,13 +261,7 @@
                 </div>
             </div>
         </div>
-
-
-
-
         <!-- Form wizard with icon tabs section end -->
-
-
         <script>
             $(document).ready(function() {
                 $('#example').DataTable();
