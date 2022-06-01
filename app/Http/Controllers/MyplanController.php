@@ -51,9 +51,9 @@ class MyplanController extends Controller
         $pos = session('USER_ID');
         //dd($pos);
         $pos_req = Position::where('recruiters', '=', $pos)->get()->unique('client_name');
-
-        //dd($view)
-        return view('myplan.view_work_plan', compact('pos_req', 'student'));
+        $leave = Leave::where('user_id', '=', $pos)->get();
+        // dd($leave);
+        return view('myplan.view_work_plan', compact('pos_req', 'student','leave'));
     }
     public function myplan_todays()
     {
@@ -68,6 +68,44 @@ class MyplanController extends Controller
     public function insert_todaysplan(Request $request)
     {
         // dd($request->all());
+        if ($request->day_plan == 1) {
+            $myplan = new myplan;
+            $myplan->user_id = session('USER_ID');
+            $myplan->created_by = session('USER_ID');
+            // $myplan->ctc = NA;
+            $myplan->work_plan = request('day_plan');
+            $myplan->task_date = request('date');
+            $myplan->day_work_name = request('work_time_period');
+            $myplan->work_plan_type = request('plantype');
+            $myplan->client_name = request('clientname');
+            $myplan->position_id = request('positionname');
+            $myplan->others_option = request('option');
+            $myplan->subject = request('subject');
+            // dd($myplan);
+
+            $myplan->save();
+            return redirect('/todays_plan')->with('message', 'Plan Add Successfully');
+        }
+
+        if ($request->day_plan == 2) {
+            $myplan = new myplan;
+            $myplan->user_id = session('USER_ID');
+            $myplan->created_by = session('USER_ID');
+            // $myplan->ctc = NA;
+            $myplan->work_plan = request('day_plan');
+            $myplan->task_date = request('date');
+            $myplan->day_work_name = request('work_time_period');
+            $myplan->work_plan_type = request('plantype');
+            $myplan->client_name = request('clientname');
+            $myplan->position_id = request('positionname');
+            $myplan->others_option = request('option');
+            $myplan->subject = request('subject');
+            // dd($myplan);
+
+            $myplan->save();
+            return redirect('/todays_plan')->with('message', 'Plan Add Successfully');
+        }
+
         if ($request->day_plan == 3) {
 
             $date = Leave::where('user_id', session('USER_ID'))->get();
@@ -99,29 +137,12 @@ class MyplanController extends Controller
                 return redirect('/todays_plan')->with('message', 'Leave Added Successfully');
             }
         }
-
-        if ($request->day_plan == 1) {
-            $myplan = new myplan;
-            $myplan->user_id = session('USER_ID');
-            $myplan->created_by = session('USER_ID');
-            // $myplan->ctc = NA;
-            $myplan->work_plan = request('day_plan');
-            $myplan->task_date = request('date');
-            $myplan->day_work_name = request('work_time_period');
-            $myplan->work_plan_type = request('plantype');
-            $myplan->client_name = request('clientname');
-            $myplan->position_id = request('positionname');
-            $myplan->others_option = request('option');
-            $myplan->subject = request('subject');
-            // dd($myplan);
-
-            $myplan->save();
-            return redirect('/todays_plan')->with('message', 'Plan Add Successfully');
-        }
     }
     public function view_leave()
     {
-        $leave = Leave::all();
+        $pos = session('USER_ID');
+        $leave = Leave::where('user_id', '=', $pos)->get();
+        
         return view('myplan.view_leave', compact('leave'));
     }
 
@@ -149,6 +170,24 @@ class MyplanController extends Controller
         $role->reject_remarks = $request->remarks;
         $role->status = "2";
         $role->save();
-        return redirect('/viewleave')->with('error', 'Leave Rejected');
+        return redirect('/viewleave')->with('error', 'Leave Rejected Successfully');
+    }
+    public function cancel_leave(Request $request, $id)
+    {
+
+        //dd($request->all());
+        $role = Leave::find($id);
+        $role->cancel_remarks = $request->remarks;
+        $role->status = "3";
+        $role->save();
+        return redirect('/viewleave')->with('error', 'Leave Canceled Successfully');
+    }
+    public function edit_plan(Request $request,$id){
+        $plan = myplan::where('id',$id)->get();
+        $client1 = client::all();
+        $position1 = Position::all();
+        $pos = session('USER_ID');
+        $pos_req = Position::where('recruiters', '=', $pos)->get()->unique('client_name');
+        return view('myplan.edit_plan', compact('pos_req', 'client1','plan'));
     }
 }
