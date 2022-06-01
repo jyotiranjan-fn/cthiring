@@ -241,11 +241,18 @@ Route::middleware(['auth'])->name('admin.')->prefix('')->group(function () {
     Route::post('getaddtess',[ResumeController::class,'getaddtess']);
     Route::post('getspoc',[ResumeController::class,'getspoc']);
     //interview reschedule
-     //Route::get('view_interview_dels/{id}',[ResumeController::class,'view_interview_details']);
+    
 
     Route::post('reschedule_interview/{id}',[ResumeController::class,'reschedule_interview']);
     Route::post('select_interview/{id}',[ResumeController::class,'select_interview']);
     Route::post('reject_interview/{id}',[ResumeController::class,'reject_interview']);
+    Route::post('offer_accepted/{id}',[ResumeController::class,'offer_accepted']);
+    Route::post('offer_rejected/{id}',[ResumeController::class,'offer_rejected']);
+
+    Route::post('job_joined/{id}',[ResumeController::class,'job_joined']);
+    Route::post('job_not_joined/{id}',[ResumeController::class,'job_not_joined']);
+    Route::post('job_defered/{id}',[ResumeController::class,'job_defered']);
+
 
 
     

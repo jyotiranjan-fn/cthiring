@@ -11,6 +11,7 @@ use App\Models\Position;
 use App\Models\Qualification;
 use App\Models\Interview;
 use App\Models\Resume;
+use App\Models\JobOffer;
 use App\Models\Specialization;
 use App\Models\Tempresume;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
@@ -761,7 +762,7 @@ class ResumeController extends Controller
          
 
           $re_interview_level_data->save();
-          return redirect('/position_view_details/'.$request->pos_id)->with('message', 'Interview Reschedule Successfully');
+          return redirect('/position_view_details/'.$request->re_pos_id)->with('message', 'Interview Reschedule Successfully');
  
  
         
@@ -926,6 +927,202 @@ class ResumeController extends Controller
             return redirect('/position_view_details/'.$request->pos_id)->with('delt', 'Interview Rejected');
 
     }
+
+    public function offer_accepted(Request $request,$id)
+    {   //dd($request->all());
+         $offer_accepted= Resume::find($id);
+
+         if($request->offer_accept==22)
+        {
+            $interview_status=24;
+        }
+
+        $offer_accepted->cv_status=$interview_status;
+        $offer_accepted->save();
+
+
+        $offer_decission= Resume::where('id',$id)->get('cv_status');
+        $job_offer_status = new JobOffer;
+
+        $job_offer_status->candidate_id = request('candidate_id');
+        $job_offer_status->position_id = request('pos_id');
+        $job_offer_status->client_id = request('client_id');
+
+        $job_offer_status-> candidate_name = $request->candidate_name;
+        $job_offer_status-> job_offer_date =$request->offer_date;
+        $job_offer_status-> offer_ctc =$request->offer_ctc;
+        $job_offer_status-> offer_remark =$request->remarks;
+        // $job_offer_status->interview_status=26;
+
+        if($offer_decission[0]->cv_status==24)
+
+            {
+                $offer= "Offer Accepted";
+            }
+
+        $job_offer_status-> offer_decission =$offer;
+
+        $job_offer_status->save();
+        return redirect('/position_view_details/'.$request->pos_id)->with('message', 'Offer Accepted');
+    }
+
+
+    public function offer_rejected(Request $request,$id)
+    {   //dd($request->all());
+         $offer_rejected= Resume::find($id);
+
+         if($request->offer_rejected==22)
+        {
+            $interview_status=25;
+        }
+
+        $offer_rejected->cv_status=$interview_status;
+        $offer_rejected->save();
+
+
+        $offer_decission_reject= Resume::where('id',$id)->get('cv_status');
+
+        $job_offer_status = new JobOffer;
+
+        $job_offer_status->candidate_id = request('candidate_id');
+        $job_offer_status->position_id = request('pos_id');
+        $job_offer_status->client_id = request('client_id');
+
+        $job_offer_status-> candidate_name = $request->candidate_name;
+        $job_offer_status-> offer_rejected_reason =$request->offer_rejected_reason;
+        
+        $job_offer_status-> offer_remark =$request->offer_rejected_remarks;
+        
+        if($offer_decission_reject[0]->cv_status==25)
+
+            {
+                $offer= "Offer Rejected";
+            }
+
+        $job_offer_status-> offer_decission =$offer;
+
+        $job_offer_status->save();
+        return redirect('/position_view_details/'.$request->pos_id)->with('delt', 'Offer Rejected');
+    }
+
+
+    public function job_joined(Request $request,$id)
+    {   //dd($request->all());
+
+         $joined= Resume::find($id);
+
+         if($request->joined==24 || $request->joined==28)
+        {
+            $interview_status=26;
+        }
+
+        $joined->cv_status=$interview_status;
+        $joined->save();
+
+        $job_joined= Resume::where('id',$id)->get('cv_status');
+
+        $job_joined_status = new JobOffer;
+
+        $job_joined_status->candidate_id = request('candidate_id');
+        $job_joined_status->position_id = request('pos_id');
+        $job_joined_status->client_id = request('client_id');
+
+        $job_joined_status-> candidate_name = $request->candidate_name;
+        $job_joined_status-> job_joined_date =$request->job_joined_date;
+        $job_joined_status-> job_joined_remark =$request->job_joined_remark;
+
+            if($job_joined[0]->cv_status==26)
+
+            {
+                $job_offer= "Joined";
+            }
+
+        $job_joined_status-> joined_decission =$job_offer;
+
+        $job_joined_status->save();
+        return redirect('/position_view_details/'.$request->pos_id)->with('message', 'Joined');
+    }
+
+    public function job_not_joined(Request $request,$id)
+    {
+        $not_joined= Resume::find($id);
+
+         if($request->not_joined_candidate==24 || $request->not_joined_candidate==28)
+        {
+            $interview_status=27;
+        }
+
+        $not_joined->cv_status=$interview_status;
+        $not_joined->save();
+
+        $not_joined_job= Resume::where('id',$id)->get('cv_status');
+        $job_status = new JobOffer;
+
+        $job_status->candidate_id = request('candidate_id');
+        $job_status->position_id = request('pos_id');
+        $job_status->client_id = request('client_id');
+
+        $job_status-> candidate_name = $request->candidate_name;
+        $job_status-> not_joined_reason =$request->candidate_not_joined_reason;
+        $job_status-> job_joined_remark =$request->not_joined_remarks;
+
+        if($not_joined_job[0]->cv_status==27)
+
+            {
+                $job_offer= "Not Joined";
+            }
+
+        $job_status-> joined_decission =$job_offer;
+
+        $job_status->save();
+        return redirect('/position_view_details/'.$request->pos_id)->with('delt', 'Not Joined');
+
+    }
+
+    public function job_defered(Request $request,$id)
+    {
+         $difered= Resume::find($id);
+
+         if($request->candidate_defered==24)
+        {
+            $interview_status=28;
+        }
+
+        $difered->cv_status=$interview_status;
+        $difered->save();
+
+        $differed_job= Resume::where('id',$id)->get('cv_status');
+        $job_status = new JobOffer;
+
+        $job_status->candidate_id = request('candidate_id');
+        $job_status->position_id = request('pos_id');
+        $job_status->client_id = request('client_id');
+
+        $job_status-> candidate_name = $request->candidate_name;
+        $job_status-> defered_new_joining_date =$request->new_joiningdate;
+        $job_status-> defered_reason =$request->defered_reason;
+        $job_status-> defered_remarks =$request->defered_remarks;
+
+        
+        if($differed_job[0]->cv_status==28)
+
+            {
+                $job_offer= "Defered";
+            }
+
+        $job_status-> joined_decission =$job_offer;
+
+        $job_status->save();
+        return redirect('/position_view_details/'.$request->pos_id)->with('delt', 'Defered');
+
+
+    }
+
+
+
+
+
+
 
   
 

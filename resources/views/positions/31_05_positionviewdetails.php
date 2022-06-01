@@ -1,12 +1,12 @@
- <x-admin-layout>
+   <x-admin-layout>
     <style>
-    body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
-        margin-left: 0px;
-    }
+        body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
+            margin-left: 0px;
+        }
 
-    .box {
-        display: none;
-    }
+        .box {
+            display: none;
+        }
     </style>
      <script src="https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script> 
     
@@ -47,15 +47,15 @@
     @endif
 
     <!-- for delete -->
-        @if(session()->has('delt'))
-        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            {{session('delt')}}
-        </div>
-        @endif
-        
+    @if(session()->has('delt'))
+    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{session('delt')}}
+    </div>
+    @endif
+
     <!-- Form wizard with icon tabs section start -->
     <div class="row match-height">
         <div class="col-md-12">
@@ -79,12 +79,10 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#home"><img
-                                            src="../assets/position/business.png" class="hi8">Basic Details</a>
+                                    <a class="nav-link active" data-toggle="tab" href="#home"><img src="../assets/position/business.png" class="hi8">Basic Details</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#menu1"><img
-                                            src="../assets/position/job-offer.png" class="hi8">Job Description</a>
+                                    <a class="nav-link" data-toggle="tab" href="#menu1"><img src="../assets/position/job-offer.png" class="hi8">Job Description</a>
                                 </li>
                             </ul>
 
@@ -217,8 +215,7 @@
 
                                                                     <td>
                                                                         @php
-                                                                        for($i=0;$i<$count;$i++){ @endphp <span
-                                                                            class="badge badge-primary">
+                                                                        for($i=0;$i<$count;$i++){ @endphp <span class="badge badge-primary">
                                                                             {{$test[$i]}}</span>
 
                                                                             @php
@@ -239,8 +236,7 @@
 
                                                                     <td>
                                                                         @php
-                                                                        for($i=0;$i<$count;$i++){ @endphp <span
-                                                                            class="badge badge-secondary">
+                                                                        for($i=0;$i<$count;$i++){ @endphp <span class="badge badge-secondary">
                                                                             {{$test1[$i]}}
                                                                             </span>
                                                                             @php
@@ -254,19 +250,19 @@
                                                                     <td>{{$view->total_opening}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                        @php
-                                                                           $recruiter_id=App\Models\Position::where('position_id', $view->position_id)->get('recruiters');
-                                                                        @endphp
+                                                                    @php
+                                                                    $recruiter_id=App\Models\Position::where('position_id', $view->position_id)->get('recruiters');
+                                                                    @endphp
 
                                                                     <th>Recruiters</th>
                                                                     <td>
-                                                                         @foreach($recruiter_id as $recruiter_name)
-                                                                            <span class="badge badge-primary">
-                                                                        
-                                                                                {{optional ($recruiter_name->client_requiter)->fname}}{{optional ($recruiter_name->client_requiter)->lname}}
-                                                                            </span>
-                                                                         @endforeach
-                                                                       
+                                                                        @foreach($recruiter_id as $recruiter_name)
+                                                                        <span class="badge badge-primary">
+
+                                                                            {{optional ($recruiter_name->client_requiter)->fname}}{{optional ($recruiter_name->client_requiter)->lname}}
+                                                                        </span>
+                                                                        @endforeach
+
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -296,14 +292,12 @@
                                                                 <tr>
                                                                     <th>Status</th>
                                                                     @if ($view->status == 1)
-                                                                    <td><span
-                                                                            class="badge badge-default badge-success">Assigned</span>
+                                                                    <td><span class="badge badge-default badge-success">Assigned</span>
                                                                     </td>
 
                                                                     @else
 
-                                                                    <td><span
-                                                                            class="badge badge-default badge-danger">Inactive</span>
+                                                                    <td><span class="badge badge-default badge-danger">Inactive</span>
                                                                     </td>
 
                                                                     @endif
@@ -351,9 +345,7 @@
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#home2"><img
-                                            src="../assets/position/resume.png" class="hi8">CV Uploaded <span
-                                            class="clr">
+                                    <a class="nav-link active" data-toggle="tab" href="#home2"><img src="../assets/position/resume.png" class="hi8">CV Uploaded <span class="clr">
 
                                             {{count($resume_delts)}}
 
@@ -361,22 +353,18 @@
                                 </li>
                                 @php
                                 $cv_send_count=count(App\Models\Resume::where('cv_status','>=',1)
-                                                                        ->where('position_id','=',$view->position_id)
-                                                                      ->get());
+                                ->where('position_id','=',$view->position_id)
+                                ->get());
                                 @endphp
-                               
+
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#menu2"><img
-                                            src="../assets/position/completed-task.png" class="hi8">CV Sent <span
-                                            class="clr_green">{{$cv_send_count}}</span></a>
+                                    <a class="nav-link" data-toggle="tab" href="#menu2"><img src="../assets/position/completed-task.png" class="hi8">CV Sent <span class="clr_green">{{$cv_send_count}}</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#menu3"><img
-                                            src="../assets/position/employee.png" class="hi8">CV Status</a>
+                                    <a class="nav-link" data-toggle="tab" href="#menu3"><img src="../assets/position/employee.png" class="hi8">CV Status</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#menu4"><img
-                                            src="../assets/position/check-list.png" class="hi8">Overall Status</a>
+                                    <a class="nav-link" data-toggle="tab" href="#menu4"><img src="../assets/position/check-list.png" class="hi8">Overall Status</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -405,8 +393,7 @@
                                             @endphp
                                             @foreach($resume_delts as $res_show)
                                             <tr>
-                                                <td class="pd_20"><input type="checkbox"
-                                                        class="m_r">{{$res_show ->resume_code}}</td>
+                                                <td class="pd_20"><input type="checkbox" class="m_r">{{$res_show ->resume_code}}</td>
                                                 <td><a href="">{{$res_show ->name}}</a></td>
                                                 <td>{{$res_show ->mobile}}</td>
                                                 <td>{{$res_show ->email}}</td>
@@ -424,10 +411,8 @@
                                                 <td>{{$creatby_name[0]->fname}}</td>
                                                 <td class="t_c">
                                                     <div class="dropdown">
-                                                        <button class="btn btn-primary pd_5" type="button"
-                                                            data-toggle="dropdown">
-                                                            <span class="caret"><i class="fa fa-angle-down"
-                                                                    aria-hidden="true"></i></span></button>
+                                                        <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
+                                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                                         <ul class="dropdown-menu t_c">
                                                             <li><a href="#">Download Resume</a></li>
                                                             <li><a href="#">View Resume</a></li>
@@ -445,124 +430,91 @@
                                                     @if(in_array(session('USER_ID'),json_decode($fetch_crm[0]->crm_id)))
                                                     @if($res_show->crm_status==0)
                                                     <div class="dropdown">
-                                                        <button class="btn pd_slst" type="button"
-                                                            data-toggle="dropdown">
-                                                            <span class="caret"><img src="../assets/position/gear.png"
-                                                                    class="hi8"></span></button>
+                                                        <button class="btn pd_slst" type="button" data-toggle="dropdown">
+                                                            <span class="caret"><img src="../assets/position/gear.png" class="hi8"></span></button>
                                                         <ul class="dropdown-menu t_c">
-                                                            <li data-toggle="modal"><a
-                                                                    href="{{url('approve_cv',$res_show->id)}}"><img
-                                                                        src="../assets/position/shortlist.png"
-                                                                        class="hi8">Approve</a>
+                                                            <li data-toggle="modal"><a href="{{url('approve_cv',$res_show->id)}}"><img src="../assets/position/shortlist.png" class="hi8">Approve</a>
                                                             </li>
                                                             <li data-toggle="modal" data-target="#rejectcv{{$res_show->id}}">
-                                                                    <img src="../assets/position/rejected.png"
-                                                                        class="hi8">Rejected
+                                                                <img src="../assets/position/rejected.png" class="hi8">Rejected
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                    @elseif($res_show->crm_status==1 && $res_show->cv_status==1)<span
-                                                        class="badge badge-success" data-toggle="tooltip"
-                                                        data-placement="top" title="Billing Pending">CV Sent</span>
-                                                            @elseif($res_show->crm_status==2 )
-                                                            <span class="badge badge-danger" data-toggle="tooltip"
-                                                        data-placement="top" title="Billing Pending">Rejected</span>
-                                                    @else<span class="badge badge-success" data-toggle="tooltip"
-                                                        data-placement="top" title="Billing Pending">Approved</span>
-                                                      
+                                                    @elseif($res_show->crm_status==1 && $res_show->cv_status==1)<span class="badge badge-success" data-toggle="tooltip" data-placement="top" title="Billing Pending">CV Sent</span>
+                                                    @elseif($res_show->crm_status==2 )
+                                                    <span class="badge badge-danger" data-toggle="tooltip" data-placement="top" title="Billing Pending">Rejected</span>
+                                                    @else<span class="badge badge-success" data-toggle="tooltip" data-placement="top" title="Billing Pending">Approved</span>
+
                                                     @endif
 
-                                                       @if($res_show->crm_status==1 && $res_show->cv_status==0) <a
-                                                            href="#"><img src="../assets/position/next.png" class="hi8"
-                                                                data-toggle="modal"
-                                                                data-target="#sendcv{{$res_show->id}}"></a> 
-                                                        @endif
+                                                    @if($res_show->crm_status==1 && $res_show->cv_status==0) <a href="#"><img src="../assets/position/next.png" class="hi8" data-toggle="modal" data-target="#sendcv{{$res_show->id}}"></a>
+                                                    @endif
                                                     @endif
 
                                                     @if(!in_array(session('USER_ID'),json_decode($fetch_crm[0]->crm_id)))
-                                                        @if($res_show->crm_status==0)
-                                                        <span class="badge badge-warning" data-toggle="tooltip"
-                                                            data-placement="top" title="Billing Pending">CRM
-                                                            Pending</span>
-                                                        @elseif($res_show->crm_status==1 && $res_show->cv_status==1)<span
-                                                            class="badge badge-success" data-toggle="tooltip"
-                                                            data-placement="top" title="Billing Pending">CV Sent</span>
-                                                                @elseif($res_show->crm_status==2 )
-                                                                <span class="badge badge-danger" data-toggle="tooltip"
-                                                            data-placement="top" title="Billing Pending">Rejected</span>
-                                                        @else<span class="badge badge-success" data-toggle="tooltip"
-                                                            data-placement="top" title="Billing Pending">Approved</span>
-                                                        
-                                                        @endif
+                                                    @if($res_show->crm_status==0)
+                                                    <span class="badge badge-warning" data-toggle="tooltip" data-placement="top" title="Billing Pending">CRM
+                                                        Pending</span>
+                                                    @elseif($res_show->crm_status==1 && $res_show->cv_status==1)<span class="badge badge-success" data-toggle="tooltip" data-placement="top" title="Billing Pending">CV Sent</span>
+                                                    @elseif($res_show->crm_status==2 )
+                                                    <span class="badge badge-danger" data-toggle="tooltip" data-placement="top" title="Billing Pending">Rejected</span>
+                                                    @else<span class="badge badge-success" data-toggle="tooltip" data-placement="top" title="Billing Pending">Approved</span>
+
+                                                    @endif
                                                     @endif<br>
 
-                                                    
+
 
                                                     <!-- reject cv by crm from cv uploaded tab start -->
-                                                        <form action="{{ url('reject_cv',$res_show->id)}}" method="post" class="form"
-                                                            enctype="multipart/form-data">
-                                                            @csrf
-                                                            <div class="modal fade" id="rejectcv{{$res_show->id}}" tabindex="-1" role="dialog"
-                                                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header cnt223">
-                                                                            <h1 class="modal-title" id="exampleModalLongTitle">Reject CV
-                                                                            </h1>
-                                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                                aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
+                                                    <form action="{{ url('reject_cv',$res_show->id)}}" method="post" class="form" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <div class="modal fade" id="rejectcv{{$res_show->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header cnt223">
+                                                                        <h1 class="modal-title" id="exampleModalLongTitle">Reject CV
+                                                                        </h1>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="">
+                                                                            <table class="table table-bordered wd_21 t_left">
+                                                                                <tr>
+                                                                                    <th class="pd_410">Candidate Name
+                                                                                    </th>
+                                                                                    <td class="pd_410"><input type="text" class="form-control" name="resume_candidate_name" value="{{$res_show->name}}" readonly></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th class="pd_410">Remarks</th>
+                                                                                    <td class="pd_410"><textarea name="reject_cvremark" class="form-control" id="" cols="30" rows="2"></textarea></td>
+                                                                                </tr>
+                                                                            </table>
                                                                         </div>
-                                                                        <div class="modal-body">
-                                                                            <div class="">
-                                                                                <table class="table table-bordered wd_21 t_left">
-                                                                                    <tr>
-                                                                                        <th class="pd_410">Candidate Name
-                                                                                        </th>
-                                                                                        <td class="pd_410"><input type="text"
-                                                                                                class="form-control"
-                                                                                                name="resume_candidate_name"
-                                                                                                value="{{$res_show->name}}" readonly></td>
-                                                                                    </tr>                      
-                                                                                    <tr>
-                                                                                        <th class="pd_410">Remarks</th>
-                                                                                        <td class="pd_410"><textarea name="reject_cvremark"
-                                                                                                class="form-control" id="" cols="30"
-                                                                                                rows="2"></textarea></td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                                                            <button type="button" class="btn btn-danger"
-                                                                                data-dismiss="modal">Cancel</button>
-                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </form>
-                                                        <!-- reject cv by crm from cv uploaded tab end -->
+                                                        </div>
+                                                    </form>
+                                                    <!-- reject cv by crm from cv uploaded tab end -->
 
 
                                                     <!-- Send CV to Client form  modal start -->
 
-                                                    <form action="{{ url('send-resume',$res_show->id)}}" method="post"
-                                                        class="form" enctype="multipart/form-data">
+                                                    <form action="{{ url('send-resume',$res_show->id)}}" method="post" class="form" enctype="multipart/form-data">
                                                         @csrf
-                                                        <div class="modal fade text-left" id="sendcv{{$res_show->id}}"
-                                                            tabindex="-1" role="dialog"
-                                                            aria-labelledby="exampleModalCenterTitle"
-                                                            aria-hidden="true">
+                                                        <div class="modal fade text-left" id="sendcv{{$res_show->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                             <div class="modal-dialog modal-lg" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header cnt223">
-                                                                        <h1 class="modal-title"
-                                                                            id="exampleModalLongTitle">Send CV to
+                                                                        <h1 class="modal-title" id="exampleModalLongTitle">Send CV to
                                                                             Client</h1>
-                                                                        <button type="button" class="close"
-                                                                            data-dismiss="modal" aria-label="Close">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                     </div>
@@ -571,36 +523,22 @@
                                                                             <table class="table table-bordered wd_16">
                                                                                 <tr>
                                                                                     <th class="pd_410">Client</th>
-                                                                                    <td class="pd_410"><input
-                                                                                            type="text"
-                                                                                            class="form-control"
-                                                                                            value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>" readonly>       
+                                                                                    <td class="pd_410"><input type="text" class="form-control" value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>" readonly>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th class="pd_410">Cc</th>
-                                                                                    <td class="pd_410"><input
-                                                                                            type="text"
-                                                                                            class="form-control"
-                                                                                            value=""
-                                                                                            placeholder="Add multiple emails separated by comma">
+                                                                                    <td class="pd_410"><input type="text" class="form-control" value="" placeholder="Add multiple emails separated by comma">
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th class="pd_410">Candidate(s)
                                                                                     </th>
-                                                                                    <td class="pd_410"><input
-                                                                                            type="text"
-                                                                                            class="form-control"
-                                                                                            value="{{$res_show ->name}}"
-                                                                                            readonly></td>
+                                                                                    <td class="pd_410"><input type="text" class="form-control" value="{{$res_show ->name}}" readonly></td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th class="pd_410">Subject*</th>
-                                                                                    <td class="pd_410"><input
-                                                                                            type="text"
-                                                                                            class="form-control"
-                                                                                            value="CVs for the Position of {{$view->job_title }},{{ date('j F-Y', time()) }}">
+                                                                                    <td class="pd_410"><input type="text" class="form-control" value="CVs for the Position of {{$view->job_title }},{{ date('j F-Y', time()) }}">
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -640,19 +578,15 @@
                                                                                 <tr>
                                                                                     <th class="pd_410">Attachment
                                                                                     </th>
-                                                                                    <td class="pd_410"><input
-                                                                                            type="file"
-                                                                                            class="form-control">
+                                                                                    <td class="pd_410"><input type="file" class="form-control">
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="submit"
-                                                                            class="btn btn-primary">Submit</button>
-                                                                        <button type="button" class="btn btn-danger"
-                                                                            data-dismiss="modal">Cancel</button>
+                                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -660,7 +594,7 @@
                                                     </form>
                                                     <!-- Send CV to Client form modal  end -->
                                                 </td>
-                                                <td>{{$view->created_at}}</td>
+                                                <td>{{date('d-F-Y', strtotime($view->created_at))}}</td>
                                             </tr>
                                             @php
                                             $i++;
@@ -670,8 +604,7 @@
                                     </table>
                                     <div class="dropdown">
                                         <button class="btn btn-primary" type="button" data-toggle="dropdown">
-                                            <span class="caret">Action <i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret">Action <i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li data-toggle="modal" data-target="#sendcv"><a href="#">Send CV</a>
                                             </li>
@@ -706,14 +639,13 @@
                                             <!-- CV Send data -->
                                             @php
                                             $cv_details=App\Models\Resume::where('cv_status','>=','1')
-                                                                          ->where('position_id',$view->position_id)
-                                                                          ->get();
-                                                                          @endphp
+                                            ->where('position_id',$view->position_id)
+                                            ->get();
+                                            @endphp
 
                                             @foreach($cv_details as $res_show)
                                             <tr>
-                                                <td class="pd_20"><input type="checkbox"
-                                                        class="m_r">{{$res_show ->resume_code}}</td>
+                                                <td class="pd_20"><input type="checkbox" class="m_r">{{$res_show ->resume_code}}</td>
                                                 <td><a href="">{{$res_show ->name}}</a></td>
                                                 <td>{{$res_show ->mobile}}</td>
                                                 <td>{{$res_show ->email}}</td>
@@ -732,18 +664,16 @@
 
                                                 <td class="t_c">
                                                     <div class="dropdown">
-                                                        <button class="btn btn-primary pd_5" type="button"
-                                                            data-toggle="dropdown">
-                                                            <span class="caret"><i class="fa fa-angle-down"
-                                                                    aria-hidden="true"></i></span></button>
+                                                        <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
+                                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                                         <ul class="dropdown-menu t_c">
                                                             <li><a href="#">Download Resume</a></li>
                                                             <li><a href="#">View Resume</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>
-                                                <td>{{$res_show ->created_at}}</td>
-                                                <td>{{$res_show ->cv_send_date}}</td>
+                                                <td>{{date('d-F-Y', strtotime($res_show ->created_at))}}</td>
+                                                <td>{{date('d-F-Y', strtotime($res_show ->cv_send_date))}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -756,7 +686,7 @@
                                         <thead>
                                             @php
                                             $cv_status=App\Models\Resume::where('cv_status','>=',1)
-                                             ->where('position_id',$view->position_id)
+                                            ->where('position_id',$view->position_id)
                                             ->get();@endphp
 
 
@@ -780,95 +710,71 @@
                                                 </td>
                                                 <td class="t_c">
                                                     @if($res_show->cv_status==1)
-                                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                                        title="CV Feedback Awaiting">FA</span>
+                                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="CV Feedback Awaiting">FA</span>
                                                     @elseif ($res_show->cv_status>=2 && $res_show->cv_status !=3)
 
-                                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                                        title="Shortlisted" style="background-color: #c3facb;">S</span>
+                                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">S</span>
 
                                                     @elseif ($res_show->cv_status==3)
 
-                                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                                        title="Reject" style="background-color: #edd4d0;">R</span>
+                                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Reject" style="background-color: #edd4d0;">R</span>
 
 
                                                     @endif
-                                                    @if($res_show->cv_status< 2)
-                                                        <div class="dropdown d_inblk">
-                                                        <button class="btn btn-primary pd_5" type="button"
-                                                            data-toggle="dropdown">
+                                                    @if($res_show->cv_status< 2) <div class="dropdown d_inblk">
+                                                        <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
 
-                                                            <span class="caret"><i class="fa fa-angle-down"
-                                                                    aria-hidden="true"></i></span></button>
+                                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                                         <ul class="dropdown-menu t_c">
                                                             <li>
-                                                                <button type="button" class="btn pd_slst"
-                                                                    data-toggle="modal"
-                                                                    data-target="#screeningstatus_shortlistcv{{$res_show->id}}">
+                                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#screeningstatus_shortlistcv{{$res_show->id}}">
 
-                                                                    <img src="../assets/position/shortlist.png"
-                                                                        class="hi8">Shortlisted
+                                                                    <img src="../assets/position/shortlist.png" class="hi8">Shortlisted
                                                                 </button>
                                                             </li>
                                                             <li>
-                                                                <button type="button" class="btn pd_slst"
-                                                                    data-toggle="modal"
-                                                                    data-target="#screeningstatus_rejectcv{{$res_show->id}}">
+                                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#screeningstatus_rejectcv{{$res_show->id}}">
 
-                                                                    <img src="../assets/position/rejected.png"
-                                                                        class="hi8">Rejected
+                                                                    <img src="../assets/position/rejected.png" class="hi8">Rejected
                                                                 </button>
                                                             </li>
                                                         </ul>
                                 </div>
                                 @endif
                                 <!-- Shortlist CV Modal start -->
-                                <form action="{{ url('screening_status',$res_show->id)}}" method="post" class="form"
-                                    enctype="multipart/form-data">
+                                <form action="{{ url('screening_status',$res_show->id)}}" method="post" class="form" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="modal fade" id="screeningstatus_shortlistcv{{$res_show->id}}" tabindex="-1"
-                                        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="screeningstatus_shortlistcv{{$res_show->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Shortlist CV
                                                     </h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <input type="text" value="{{$res_show ->id}}" id="resume_id_ajax" name="candidate_id"
-                                                        hidden>
-                                                    <input type="text" value="{{$res_show ->position_id}}" name="pos_id"
-                                                        hidden>
-                                                    <input type="text" value="{{$res_show ->client_id}}"
-                                                        name="client_id" hidden>
+                                                    <input type="text" value="{{$res_show ->id}}" id="resume_id_ajax" name="candidate_id" hidden>
+                                                    <input type="text" value="{{$res_show ->position_id}}" name="pos_id" hidden>
+                                                    <input type="text" value="{{$res_show ->client_id}}" name="client_id" hidden>
                                                     <div class="">
                                                         <table class="table table-bordered wd_21 t_left">
                                                             <tr>
                                                                 <th class="pd_410">Candidate Name
                                                                 </th>
-                                                                <td class="pd_410"><input type="text"
-                                                                        class="form-control"
-                                                                        name="resume_candidate_name"
-                                                                        value="{{$res_show->name}}" readonly></td>
+                                                                <td class="pd_410"><input type="text" class="form-control" name="resume_candidate_name" value="{{$res_show->name}}" readonly></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Remarks</th>
-                                                                <td class="pd_410"><textarea name="remarks"
-                                                                        class="form-control" id="" cols="30"
-                                                                        rows="2"></textarea></td>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary">Submit</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -877,37 +783,28 @@
                                 <!--    Shortlist CV Modal end Modal -->
 
                                 <!--reject interview  Modal start-->
-                                <form action="{{ url('screening_stat',$res_show->id)}}" method="post" class="form"
-                                    enctype="multipart/form-data">
+                                <form action="{{ url('screening_stat',$res_show->id)}}" method="post" class="form" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="modal fade" id="screeningstatus_rejectcv{{$res_show->id}}" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="screeningstatus_rejectcv{{$res_show->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Reject CV
                                                     </h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <input type="text" value="{{$res_show ->id}}" name="candidate_id"
-                                                        hidden>
-                                                    <input type="text" value="{{$res_show ->position_id}}" name="pos_id"
-                                                        hidden>
-                                                    <input type="text" value="{{$res_show ->client_id}}"
-                                                        name="client_id" hidden>
+                                                    <input type="text" value="{{$res_show ->id}}" name="candidate_id" hidden>
+                                                    <input type="text" value="{{$res_show ->position_id}}" name="pos_id" hidden>
+                                                    <input type="text" value="{{$res_show ->client_id}}" name="client_id" hidden>
                                                     <div class="">
                                                         <table class="table table-bordered wd_21 t_left">
                                                             <tr>
                                                                 <th class="pd_410">Candidate Name
                                                                 </th>
-                                                                <td class="pd_410"><input type="text"
-                                                                        class="form-control"
-                                                                        name="resume_candidate_name"
-                                                                        value="{{$res_show->name}}" readonly></td>
+                                                                <td class="pd_410"><input type="text" class="form-control" name="resume_candidate_name" value="{{$res_show->name}}" readonly></td>
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Reject Reason*
@@ -938,17 +835,14 @@
                                                             </tr>
                                                             <tr>
                                                                 <th class="pd_410">Remarks</th>
-                                                                <td class="pd_410"><textarea name="remarks"
-                                                                        class="form-control" id="" cols="30"
-                                                                        rows="2"></textarea></td>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary">Submit</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -963,8 +857,7 @@
                                 <!-- ISA code start -->
                                 <td class="t_c">
                                     @if($res_show->cv_status==2)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Interview Schedule Awaited">ISA</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Interview Schedule Awaited">ISA</span>
 
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
@@ -973,8 +866,7 @@
                                         </button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#scheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#scheduleinterview{{$res_show ->id}}">
                                                     Schedule Interview
                                                 </button>
                                             </li>
@@ -985,36 +877,30 @@
 
                                     <!-- first interview schedule start -->
                                     @if($res_show->cv_status==4 || $res_show->cv_status==5)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="First Interview Scheduled">1 IS</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="First Interview Scheduled">1 IS</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
 
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#rescheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#rescheduleinterview{{$res_show ->id}}">
                                                     Re-Schedule Interview
                                                 </button>
                                             </li><br>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewselected{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewselected{{$res_show ->id}}">
                                                     <img src="../assets/position/shortlist.png" class="hi8">Interview
                                                     Selected
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewreject{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewreject{{$res_show ->id}}">
                                                     <img src="../assets/position/rejected.png" class="hi8">Interview
                                                     Rejected
                                                 </button>
@@ -1024,13 +910,11 @@
                                     @endif
                                     <!-- first interview schedule end -->
                                     @if($res_show->cv_status==7)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected"
-                                        style="background-color: #edd4d0;">R</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected" style="background-color: #edd4d0;">R</span>
                                     @endif
                                     <!-- second interview schedule start -->
                                     @if($res_show->cv_status==6)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Interview Schedule Awaited">2 ISA</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Interview Schedule Awaited">2 ISA</span>
 
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
@@ -1039,14 +923,12 @@
                                         </button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#scheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#scheduleinterview{{$res_show ->id}}">
                                                     Schedule Interview
                                                 </button>
                                             </li>
@@ -1060,31 +942,26 @@
                                         title="First Interview Scheduled">2 IS</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#rescheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#rescheduleinterview{{$res_show ->id}}">
                                                     Re-Schedule Interview
                                                 </button>
                                             </li><br>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewselected{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewselected{{$res_show ->id}}">
                                                     <img src="../assets/position/shortlist.png" class="hi8">Interview
                                                     Selected
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewreject{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewreject{{$res_show ->id}}">
                                                     <img src="../assets/position/rejected.png" class="hi8">Interview
                                                     Rejected
                                                 </button>
@@ -1095,8 +972,7 @@
                                     <!-- 2nd interview schedule end -->
                                     <!-- 3rd interview schedule start -->
                                     @if($res_show->cv_status==10)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Interview Schedule Awaited">3 ISA</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Interview Schedule Awaited">3 ISA</span>
 
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
@@ -1105,14 +981,12 @@
                                         </button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#scheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#scheduleinterview{{$res_show ->id}}">
                                                     Schedule Interview
                                                 </button>
                                             </li>
@@ -1121,42 +995,35 @@
                                     @endif
 
                                     @if($res_show->cv_status==11)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected"
-                                        style="background-color: #edd4d0;">R</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected" style="background-color: #edd4d0;">R</span>
                                     @endif
                                     <!-- 3rd interview schedule end -->
 
                                     <!-- 3rd interview schedule start -->
                                     @if($res_show->cv_status==12)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="First Interview Scheduled">3 IS</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="First Interview Scheduled">3 IS</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#rescheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#rescheduleinterview{{$res_show ->id}}">
                                                     Re-Schedule Interview
                                                 </button>
                                             </li><br>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewselected{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewselected{{$res_show ->id}}">
                                                     <img src="../assets/position/shortlist.png" class="hi8">Interview
                                                     Selected
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewreject{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewreject{{$res_show ->id}}">
                                                     <img src="../assets/position/rejected.png" class="hi8">Interview
                                                     Rejected
                                                 </button>
@@ -1168,8 +1035,7 @@
 
                                     <!-- 4th interview schedule start -->
                                     @if($res_show->cv_status==14)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Interview Schedule Awaited">4 ISA</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Interview Schedule Awaited">4 ISA</span>
 
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
@@ -1178,14 +1044,12 @@
                                         </button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#scheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#scheduleinterview{{$res_show ->id}}">
                                                     Schedule Interview
                                                 </button>
                                             </li>
@@ -1195,41 +1059,34 @@
                                     <!-- 4th interview schedule end -->
 
                                     @if($res_show->cv_status==15)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected"
-                                        style="background-color: #edd4d0;">R</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected" style="background-color: #edd4d0;">R</span>
                                     @endif
 
                                     <!-- 4th interview schedule start -->
                                     @if($res_show->cv_status==16)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="First Interview Scheduled">4 IS</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="First Interview Scheduled">4 IS</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#rescheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#rescheduleinterview{{$res_show ->id}}">
                                                     Re-Schedule Interview
                                                 </button>
                                             </li><br>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewselected{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewselected{{$res_show ->id}}">
                                                     <img src="../assets/position/shortlist.png" class="hi8">Interview
                                                     Selected
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewreject{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewreject{{$res_show ->id}}">
                                                     <img src="../assets/position/rejected.png" class="hi8">Interview
                                                     Rejected
                                                 </button>
@@ -1241,22 +1098,18 @@
 
                                     <!-- final interview -->
                                     @if($res_show->cv_status==18)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="First Interview Scheduled">FISA</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="First Interview Scheduled">FISA</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#scheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#scheduleinterview{{$res_show ->id}}">
                                                     Schedule Interview
                                                 </button>
                                             </li>
@@ -1266,43 +1119,36 @@
                                     <!--  final interview end-->
 
                                     @if($res_show->cv_status==19)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected"
-                                        style="background-color: #edd4d0;">R</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected" style="background-color: #edd4d0;">R</span>
                                     @endif
 
                                     <!-- final interview schedule start -->
                                     @if($res_show->cv_status==20)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="First Interview Scheduled">FIS
-                                    
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="First Interview Scheduled">FIS
+
                                     </span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#viewinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#viewinterview{{$res_show ->id}}">
                                                     View Interview Details
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#rescheduleinterview{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#rescheduleinterview{{$res_show ->id}}">
                                                     Re-Schedule Interview
                                                 </button>
                                             </li><br>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewselected{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewselected{{$res_show ->id}}">
                                                     <img src="../assets/position/shortlist.png" class="hi8">Interview
                                                     Selected
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#interviewreject{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#interviewreject{{$res_show ->id}}">
                                                     <img src="../assets/position/rejected.png" class="hi8">Interview
                                                     Rejected
                                                 </button>
@@ -1312,35 +1158,29 @@
                                     @endif
                                     <!-- final interview schedule end -->
 
-                                    @if($res_show->cv_status>=22 && $res_show->cv_status !=23)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted"
-                                        style="background-color: #c3facb;">S</span>
+                                    @if($res_show->cv_status==22)
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">S</span>
                                     @endif
                                     <!-- final rejected start -->
                                     @if($res_show->cv_status==23)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected"
-                                        style="background-color: #edd4d0;">R</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected" style="background-color: #edd4d0;">R</span>
                                     @endif
                                     <!-- final rejected start -->
 
                                     <!-- scheduleinterview form start -->
-                                    <div class="modal fade bd-example-modal-lg" id="scheduleinterview{{$res_show ->id}}"
-                                        tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                                        aria-hidden="true">
+                                    <div class="modal fade bd-example-modal-lg" id="scheduleinterview{{$res_show ->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
                                                     <h1 class="modal-title" id="exampleModalLongTitle">Schedule
                                                         Interview </h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
 
                                                 <!-- interview schedule form start  -->
-                                                <form action="{{url('/schedule_interview',$res_show ->id)}}"
-                                                    method='post'>
+                                                <form action="{{url('/schedule_interview',$res_show ->id)}}" method='post'>
                                                     @csrf
                                                     <div class="modal-body">
                                                         
@@ -1377,28 +1217,20 @@
                                                                 <table class="table table-bordered wd_21 t_left">
                                                                     <tr>
                                                                         <th class="pd_410">Client</th>
-                                                                            <td class="pd_410">
-                                                                              <input type="text"
-                                                                                class="form-control"
-                                                                                value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>"
-                                                                                name="client_data_interview"
-                                                                                readonly>
-                                                                            </td>
+                                                                        <td class="pd_410">
+                                                                            <input type="text" class="form-control" value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>" name="client_data_interview" readonly>
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th class="pd_410">Cc</th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control" name="gmail_name_cc"
-                                                                                placeholder="Add multiple emails separated by comma">
+                                                                        <td class="pd_410"><input type="text" class="form-control" name="gmail_name_cc" placeholder="Add multiple emails separated by comma">
                                                                         </td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <th class="pd_410">Candidate(s)
                                                                         </th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control" name="cand_name_interview"
-                                                                                value="{{$res_show->name}}" readonly>
+                                                                        <td class="pd_410"><input type="text" class="form-control" name="cand_name_interview" value="{{$res_show->name}}" readonly>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1408,13 +1240,8 @@
                                                                             <ul>
                                                                                 @if($res_show->cv_status==2)
                                                                                 <li class="d_inblk li_rdo">
-                                                                                    <label class="form-check-label"
-                                                                                        for="radio1">
-                                                                                        <input type="radio"
-                                                                                            class="form-check-input"
-                                                                                            id="first"
-                                                                                            name="interview_level"
-                                                                                            value="1">First
+                                                                                    <label class="form-check-label" for="radio1">
+                                                                                        <input type="radio" class="form-check-input" id="first" name="interview_level" value="1">First
                                                                                         Interview
                                                                                     </label>
                                                                                 </li>
@@ -1474,7 +1301,7 @@
                                                                                                 </label>
                                                                                                 </li>
                                                                                                 @endif
-                                                                                </ul>
+                                                                            </ul>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1483,40 +1310,25 @@
                                                                         <td class="pd_410">
                                                                             <ul>
                                                                                 <li class="d_inblk li_rdo">
-                                                                                    <label class="form-check-label"
-                                                                                        for="radio6">
+                                                                                    <label class="form-check-label" for="radio6">
                                                                                         <a href="#!" class="show-btn">
-                                                                                            <input type="radio"
-                                                                                                class="form-check-input"
-                                                                                                id="f2f"
-                                                                                                name="interview_mode"
-                                                                                                value="Face to Face">
+                                                                                            <input type="radio" class="form-check-input" id="f2f" name="interview_mode" value="Face to Face">
                                                                                         </a>
                                                                                         Face to Face
                                                                                     </label>
                                                                                 </li>
                                                                                 <li class="d_inblk li_rdo">
-                                                                                    <label class="form-check-label"
-                                                                                        for="radio7">
+                                                                                    <label class="form-check-label" for="radio7">
                                                                                         <a href="#!" class="hide-btn">
-                                                                                            <input type="radio"
-                                                                                                class="form-check-input"
-                                                                                                id="telecon"
-                                                                                                name="interview_mode"
-                                                                                                value="telecon">
+                                                                                            <input type="radio" class="form-check-input" id="telecon" name="interview_mode" value="telecon">
                                                                                         </a>
                                                                                         TeleCon
                                                                                     </label>
                                                                                 </li>
                                                                                 <li class="d_inblk li_rdo">
-                                                                                    <label class="form-check-label"
-                                                                                        for="radio8">
+                                                                                    <label class="form-check-label" for="radio8">
                                                                                         <a href="#!" class="hide-btn">
-                                                                                            <input type="radio"
-                                                                                                class="form-check-input"
-                                                                                                id="vc"
-                                                                                                name="interview_mode"
-                                                                                                value="vc">
+                                                                                            <input type="radio" class="form-check-input" id="vc" name="interview_mode" value="vc">
                                                                                         </a>
                                                                                         Video Conference
                                                                                     </label>
@@ -1526,7 +1338,7 @@
                                                                     </tr>
                                                                     <tr class="box">
                                                                         <th class="pd_410">Interview Venue Address </th>
-                                                                         
+
                                                                         <td class="pd_410">
                                                                             <select class="form-control"
                                                                                 id="get_address{{$res_show->id}}" name="interview_venue_adrs">
@@ -1545,16 +1357,11 @@
                                                                             Date*</th>
                                                                         <td class="pd_410">
                                                                             <div class="row">
-                                                                                <div
-                                                                                    class="col-md-8 col-sm-8 col-xs-12">
-                                                                                    <input type="datetime-local"
-                                                                                        class="form-control" id=""
-                                                                                        name="interview_date">
+                                                                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                                                                    <input type="datetime-local" class="form-control" id="" name="interview_date">
                                                                                 </div>
-                                                                                <div
-                                                                                    class="col-md-4 col-sm-4 col-xs-12">
-                                                                                    <select class="form-control" id=""
-                                                                                        name="interview_time_period">
+                                                                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                                                                    <select class="form-control" id="" name="interview_time_period">
                                                                                         <option selected>
                                                                                             Duration
                                                                                         </option>
@@ -1589,8 +1396,7 @@
 
                                                                             @endphp
 
-                                                                            <select class="form-control" id="spoc"
-                                                                                name="spoc_interview">
+                                                                            <select class="form-control" id="spoc" name="spoc_interview">
 
                                                                                 <option>Choose Spoc
                                                                                 </option>
@@ -1607,19 +1413,11 @@
                                                                             Details*</th>
                                                                         <td class="pd_410">
                                                                             <div class="row">
-                                                                                <div
-                                                                                    class="col-md-6 col-sm-6 col-xs-12">
-                                                                                    <input type="text"
-                                                                                        class="form-control"
-                                                                                        id="contact_name" name="client_contact_name"
-                                                                                        placeholder="Contact Person Name">
+                                                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                    <input type="text" class="form-control" id="contact_name" name="client_contact_name" placeholder="Contact Person Name">
                                                                                 </div>
-                                                                                <div
-                                                                                    class="col-md-6 col-sm-6 col-xs-12">
-                                                                                    <input type="text"
-                                                                                        class="form-control"
-                                                                                        id="contact_phone" name="client_contact_number"
-                                                                                        placeholder="Contact Mobile No.">
+                                                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                    <input type="text" class="form-control" id="contact_phone" name="client_contact_number" placeholder="Contact Mobile No.">
                                                                                 </div>
                                                                             </div>
                                                                         </td>
@@ -1627,9 +1425,7 @@
                                                                     <tr>
                                                                         <th class="pd_410">Additional
                                                                             Info</th>
-                                                                        <td class="pd_410"><textarea name="additional_info"
-                                                                                class="form-control" id="" cols="63"
-                                                                                rows="2"></textarea>
+                                                                        <td class="pd_410"><textarea name="additional_info" class="form-control" id="" cols="63" rows="2"></textarea>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -1640,17 +1436,12 @@
                                                                 <table class="table table-bordered wd_16 t_left">
                                                                     <tr>
                                                                         <th class="pd_410">Client</th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control" name="client_name_interview"
-                                                                                value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>"
-                                                                                readonly></td>
+                                                                        <td class="pd_410"><input type="text" class="form-control" name="client_name_interview" value="{{optional ($view->client_na)->client_name}}<{{optional ($view->pos_client_cont)->contact_name}}> <{{optional ($view->pos_client_cont)->email}}>" readonly></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <th class="pd_410">Subject*</th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control" name="client_subject_interview"
-                                                                                value="Interview Schedule of Candidates for the Position of {{$view->job_title}}">
+                                                                        <td class="pd_410"><input type="text" class="form-control" name="client_subject_interview" value="Interview Schedule of Candidates for the Position of {{$view->job_title}}">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1684,17 +1475,13 @@
                                                                     <tr>
                                                                         <th class="pd_410">Candidate(s)
                                                                         </th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control" name="third_candidate_interview"
-                                                                                value="{{$res_show->name}}" readonly>
+                                                                        <td class="pd_410"><input type="text" class="form-control" name="third_candidate_interview" value="{{$res_show->name}}" readonly>
                                                                         </td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <th class="pd_410">Subject*</th>
-                                                                        <td class="pd_410"><input type="text"
-                                                                                class="form-control" name="third_subject_interview"
-                                                                                value="Interview Schedule for the Position of {{$view->job_title}}">
+                                                                        <td class="pd_410"><input type="text" class="form-control" name="third_subject_interview" value="Interview Schedule for the Position of {{$view->job_title}}">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1762,8 +1549,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-                                                        <button type="button" class="btn btn-danger"
-                                                            data-dismiss="modal">Cancel</button>
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                     </div>
                                             </div>
                                             </form>
@@ -1785,8 +1571,7 @@
                                                     <h1 class="modal-title" id="exampleModalLongTitle">View
                                                         Interview
                                                         Details</h1>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -1855,8 +1640,7 @@
                                                     </table>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -2470,26 +2254,20 @@
                                 </td>
                                 <!-- interview status  end -->
 
-
-                                <!-- offer status start -->
                                 <td class="t_c">
                                     @if($res_show->cv_status==22)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Offer Pending">OP</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Offer Pending">OP</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#offer_accepted{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#exampleModalCenter2">
                                                     <img src="../assets/position/shortlist.png" class="hi8">Accepted
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#offerdeclined{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#offerdeclined">
                                                     <img src="../assets/position/rejected.png" class="hi8">Declined
                                                 </button>
                                             </li>
@@ -2497,560 +2275,432 @@
                                     </div>
                                     @endif
 
-                                    @if($res_show->cv_status>=24 && $res_show->cv_status !=25)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Offer Accepted"
-                                        style="background-color: #c3facb;">OA</span>
+                                    @if($res_show->cv_status==24)
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">OA</span>
                                     @endif
-
-                                    @if($res_show->cv_status==25)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Offer Rejected"
-                                        style="background-color: #edd4d0;">OR</span>
-                                    @endif
-
-
 
                                     <!-- offer accepted form start -->
-                                    <form action="{{url('/offer_accepted',$res_show ->id)}}" method='post'>
-                                        @csrf
-                                        <div class="modal fade" id="offer_accepted{{$res_show ->id}}" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header cnt223">
-                                                        <h1 class="modal-title" id="exampleModalLongTitle">Offer Accepted </h1>
-                                                       
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
+                                    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header cnt223">
+                                                    <h1 class="modal-title" id="exampleModalLongTitle">Offer
+                                                        Accepted
+                                                    </h1>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="">
+                                                        <table class="table table-bordered  wd_21 t_left">
+                                                            <tr>
+                                                                <th class="pd_410">Candidate Name
+                                                                </th>
+                                                                <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="pd_410">Offered Date*
+                                                                </th>
+                                                                <td class="pd_410"><input type="date" class="form-control" value=""></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="pd_410">Offered CTC*</th>
+                                                                <td class="pd_410"><input type="text" class="form-control" value="" placeholder="Write Full Value">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="pd_410">Remarks</th>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
+                                                            </tr>
+                                                        </table>
                                                     </div>
-                                                    <div class="modal-body">
-                                                            <input type="text" value="{{$res_show ->id}}" name="candidate_id" hidden>                          
-                                                            <input type="text" value="{{$res_show ->position_id}}" name="pos_id" hidden>                   
-                                                            <input type="text" value="{{$res_show ->client_id}}" name="client_id" hidden>
-                                                            <input type="text" value="{{$res_show ->cv_status}}" name="offer_accept" > 
-                                                        <div class="">
-                                                            <table class="table table-bordered  wd_21 t_left">
-                                                                <tr>
-                                                                    <th class="pd_410">Candidate Name
-                                                                    </th>
-                                                                    <td class="pd_410"><input type="text"
-                                                                            class="form-control" value="{{$res_show->name}}" name="candidate_name"
-                                                                            readonly></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="pd_410">Offered Date*
-                                                                    </th>
-                                                                    <td class="pd_410"><input type="date"
-                                                                            class="form-control" value="" name="offer_date"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="pd_410">Offered CTC*</th>
-                                                                    <td class="pd_410"><input type="text"
-                                                                            class="form-control" value="" name="offer_ctc"
-                                                                            placeholder="Write Full Value">
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="pd_410">Remarks</th>
-                                                                    <td class="pd_410"><textarea name="remarks"
-                                                                            class="form-control" id="" cols="30"
-                                                                            rows="2"></textarea></td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                                        <button type="button" class="btn btn-danger"
-                                                            data-dismiss="modal">Cancel</button>
-                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary">Submit</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                     <!--  offer accepted form end -->
-                                    <!-- Offer Rejected Form Start -->
-                                    <form action="{{url('/offer_rejected',$res_show ->id)}}" method='post'>
-                                        @csrf
-                                        <div class="modal fade" id="offerdeclined{{$res_show ->id}}" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header cnt223">
-                                                        <h1 class="modal-title" id="exampleModalLongTitle">Offer
-                                                            Declined
-                                                        </h1>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="offerdeclined" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header cnt223">
+                                                    <h1 class="modal-title" id="exampleModalLongTitle">Offer
+                                                        Declined
+                                                    </h1>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="">
+                                                        <table class="table table-bordered  wd_21 t_left">
+                                                            <tr>
+                                                                <th class="pd_410">Candidate Name
+                                                                </th>
+                                                                <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="pd_410">Reject Reason*
+                                                                </th>
+                                                                <td class="pd_410">
+                                                                    <select class="form-control">
+                                                                        <option>Select</option>
+                                                                        <option>Cannot Join with the
+                                                                            Notice Period Offered
+                                                                        </option>
+                                                                        <option>Changed his/her Mind
+                                                                            in the Last Minute w/o
+                                                                            any Reason</option>
+                                                                        <option>Company Changed its
+                                                                            Decision in the Last
+                                                                            Minute w/o any Reason
+                                                                        </option>
+                                                                        <option>Expectation of the
+                                                                            Candidate on Benefits &
+                                                                            Allowances</option>
+                                                                        <option>Expectation of the
+                                                                            Candidate on Designation
+                                                                        </option>
+                                                                        <option>Expectation of the
+                                                                            Candidate on Job Profile
+                                                                        </option>
+                                                                        <option>Expectation of the
+                                                                            Candidate on Reporting
+                                                                            Structure</option>
+                                                                        <option>Expectation of the
+                                                                            Candidate on Work
+                                                                            Location</option>
+                                                                        <option>Failure In Medical
+                                                                            Test</option>
+                                                                        <option>Failure In Reference
+                                                                            Check</option>
+                                                                        <option>Found Better
+                                                                            Candidate</option>
+                                                                        <option>Found Better
+                                                                            Opportunity Within
+                                                                        </option>
+                                                                        <option>Found Candidate from
+                                                                            Within</option>
+                                                                        <option>Got Better Offer
+                                                                            Elsewhere</option>
+                                                                        <option>Inappropriate /
+                                                                            Inconsistent Response
+                                                                            from Candidate</option>
+                                                                        <option>Not Satisfied with
+                                                                            Benefits & Allowances
+                                                                        </option>
+                                                                        <option>Not Satisfied with
+                                                                            Company Culture</option>
+                                                                        <option>Not Satisfied with
+                                                                            Company Reputation
+                                                                        </option>
+                                                                        <option>Not Satisfied with
+                                                                            CTC</option>
+                                                                        <option>Not Satisfied with
+                                                                            CTC Break-up</option>
+                                                                        <option>Not Satisfied with
+                                                                            Designation</option>
+                                                                        <option>Not Satisfied with
+                                                                            Employment Terms &
+                                                                            Conditions</option>
+                                                                        <option>Not Satisfied with
+                                                                            Job Profile</option>
+                                                                        <option>Not Satisfied with
+                                                                            Reporting Structure
+                                                                        </option>
+                                                                        <option>Not Satisfied with
+                                                                            Work Location</option>
+                                                                        <option>Not Submitted
+                                                                            Relevant Documents
+                                                                            In-time</option>
+                                                                        <option>Notice Period
+                                                                            Demanded by the
+                                                                            Candidate</option>
+                                                                        <option>Present Employer Not
+                                                                            Willing to Relieve
+                                                                        </option>
+                                                                        <option>Reason not Shared
+                                                                        </option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="pd_410">Remarks</th>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
+                                                            </tr>
+                                                        </table>
                                                     </div>
-                                                    <div class="modal-body">
-
-                                                        <input type="text" value="{{$res_show ->id}}" name="candidate_id" hidden>                          
-                                                        <input type="text" value="{{$res_show ->position_id}}" name="pos_id" hidden>                   
-                                                        <input type="text" value="{{$res_show ->client_id}}" name="client_id" hidden>
-                                                        <input type="text" value="{{$res_show ->cv_status}}" name="offer_rejected"> 
-
-                                                        <div class="">
-                                                            <table class="table table-bordered  wd_21 t_left">
-                                                                <tr>
-                                                                    <th class="pd_410">Candidate Name
-                                                                    </th>
-                                                                    <td class="pd_410"><input type="text"
-                                                                            class="form-control" value="{{$res_show->name}}" name="candidate_name"
-                                                                            readonly></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="pd_410">Reject Reason*
-                                                                    </th>
-                                                                    <td class="pd_410">
-                                                                        <select class="form-control" name="offer_rejected_reason">
-                                                                            <option>Select</option>
-                                                                            <option>Cannot Join with the
-                                                                                Notice Period Offered
-                                                                            </option>
-                                                                            <option>Changed his/her Mind
-                                                                                in the Last Minute w/o
-                                                                                any Reason</option>
-                                                                            <option>Company Changed its
-                                                                                Decision in the Last
-                                                                                Minute w/o any Reason
-                                                                            </option>
-                                                                            <option>Expectation of the
-                                                                                Candidate on Benefits &
-                                                                                Allowances</option>
-                                                                            <option>Expectation of the
-                                                                                Candidate on Designation
-                                                                            </option>
-                                                                            <option>Expectation of the
-                                                                                Candidate on Job Profile
-                                                                            </option>
-                                                                            <option>Expectation of the
-                                                                                Candidate on Reporting
-                                                                                Structure</option>
-                                                                            <option>Expectation of the
-                                                                                Candidate on Work
-                                                                                Location</option>
-                                                                            <option>Failure In Medical
-                                                                                Test</option>
-                                                                            <option>Failure In Reference
-                                                                                Check</option>
-                                                                            <option>Found Better
-                                                                                Candidate</option>
-                                                                            <option>Found Better
-                                                                                Opportunity Within
-                                                                            </option>
-                                                                            <option>Found Candidate from
-                                                                                Within</option>
-                                                                            <option>Got Better Offer
-                                                                                Elsewhere</option>
-                                                                            <option>Inappropriate /
-                                                                                Inconsistent Response
-                                                                                from Candidate</option>
-                                                                            <option>Not Satisfied with
-                                                                                Benefits & Allowances
-                                                                            </option>
-                                                                            <option>Not Satisfied with
-                                                                                Company Culture</option>
-                                                                            <option>Not Satisfied with
-                                                                                Company Reputation
-                                                                            </option>
-                                                                            <option>Not Satisfied with
-                                                                                CTC</option>
-                                                                            <option>Not Satisfied with
-                                                                                CTC Break-up</option>
-                                                                            <option>Not Satisfied with
-                                                                                Designation</option>
-                                                                            <option>Not Satisfied with
-                                                                                Employment Terms &
-                                                                                Conditions</option>
-                                                                            <option>Not Satisfied with
-                                                                                Job Profile</option>
-                                                                            <option>Not Satisfied with
-                                                                                Reporting Structure
-                                                                            </option>
-                                                                            <option>Not Satisfied with
-                                                                                Work Location</option>
-                                                                            <option>Not Submitted
-                                                                                Relevant Documents
-                                                                                In-time</option>
-                                                                            <option>Notice Period
-                                                                                Demanded by the
-                                                                                Candidate</option>
-                                                                            <option>Present Employer Not
-                                                                                Willing to Relieve
-                                                                            </option>
-                                                                            <option>Reason not Shared
-                                                                            </option>
-                                                                        </select>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="pd_410">Remarks</th>
-                                                                    <td class="pd_410"><textarea name="offer_rejected_remarks"
-                                                                            class="form-control" id="" cols="30"
-                                                                            rows="2"></textarea></td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                                        <button type="button" class="btn btn-danger"
-                                                            data-dismiss="modal">Cancel</button>
-                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary">Submit</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
-                                    <!-- Offer Rejected Form end -->
-                                    
+                                    </div>
+                                    <!-- Modal -->
                                 </td>
-                                <!-- offer status tab send -->
-                                <!-- Joining status tab start -->
                                 <td class="t_c">
                                     @if($res_show->cv_status==24)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Joining Awaited">JA</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Joining Awaited">JA</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#joined{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#exampleModalCenter2">
                                                     Joined
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#notjoined{{$res_show ->id}}">
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#notjoined">
                                                     Not Joined
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                    data-target="#joiningdeferred{{$res_show ->id}}">
-                                                    Deferred(Hold)
+                                                <button type="button" class="btn pd_slst" data-toggle="modal" data-target="#joiningdeferred">
+                                                    Deferred
                                                 </button>
                                             </li>
                                         </ul>
                                     </div>
                                     @endif
 
-                                   
+                                    @if($res_show->cv_status==25)
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Rejected" style="background-color: #edd4d0;">OR</span>
+                                    @endif
 
-                                   @if($res_show->cv_status>=26)
-
-                                        @if($res_show->cv_status==26 || $res_show->cv_status==29)
-                                        <span class="p_d" data-toggle="tooltip" data-placement="top" title="Joined"
-                                        style="background-color: #c3facb;">J</span>
-                                        @endif
-                                 
+                                    @if($res_show->cv_status==26)
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">Joined</span>
+                                    @endif
                                     @if($res_show->cv_status==27)
-                                        <span class="p_d" data-toggle="tooltip" data-placement="top" title="Not Joined"
-                                        style="background-color: #edd4d0;">NJ</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">Not Joined</span>
                                     @endif
                                     @if($res_show->cv_status==28)
-                                         <span class="p_d" data-toggle="tooltip" data-placement="top" title=" Joining Deferred"
-                                        style="background-color: #e5df96;">JD</span>
-
-                                        <div class="dropdown d_inblk">
-                                            <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                                <span class="caret"><i class="fa fa-angle-down"
-                                                        aria-hidden="true"></i></span></button>
-                                            <ul class="dropdown-menu t_c">
-                                                <li>
-                                                    <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                        data-target="#joined{{$res_show ->id}}">
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">Differed</span>
+                                    @endif
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header cnt223">
+                                                    <h1 class="modal-title" id="exampleModalLongTitle">Candidate
                                                         Joined
+                                                    </h1>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
                                                     </button>
-                                                </li>
-                                                <li>
-                                                    <button type="button" class="btn pd_slst" data-toggle="modal"
-                                                        data-target="#notjoined{{$res_show ->id}}">
-                                                        Not Joined
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="">
+                                                        <table class="table table-bordered  wd_21 t_left">
+                                                            <tr>
+                                                                <th class="pd_410">Candidate Name
+                                                                </th>
+                                                                <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="pd_410">Joined On*</th>
+                                                                <td class="pd_410"><input type="date" class="form-control" value=""></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="pd_410">Remarks</th>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary">Submit</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="notjoined" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header cnt223">
+                                                    <h1 class="modal-title" id="exampleModalLongTitle">Candidate Not
+                                                        Joined</h1>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
                                                     </button>
-                                                </li>
-                                                
-                                            </ul>
-                                         </div>
-                                    @endif                                 
-                                    @endif                                
-                                  
-
-                                    <!-- joined form start -->
-                                    <form action="{{url('/job_joined',$res_show ->id)}}" method='post'>
-                                        @csrf
-                                        <div class="modal fade" id="joined{{$res_show ->id}}" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header cnt223">
-                                                        <h1 class="modal-title" id="exampleModalLongTitle">Candidate
-                                                            Joined
-                                                        </h1>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="">
+                                                        <table class="table table-bordered  wd_21 t_left">
+                                                            <tr>
+                                                                <th class="pd_410">Candidate Name
+                                                                </th>
+                                                                <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="pd_410">Reject Reason*
+                                                                </th>
+                                                                <td class="pd_410">
+                                                                    <select class="form-control">
+                                                                        <option>Select</option>
+                                                                        <option>Cannot Join with the
+                                                                            Notice Period Offered
+                                                                        </option>
+                                                                        <option>Changed his/her Mind
+                                                                            in the Last Minute w/o
+                                                                            any Reason</option>
+                                                                        <option>Company Changed its
+                                                                            Decision in the Last
+                                                                            Minute w/o any Reason
+                                                                        </option>
+                                                                        <option>Expectation of the
+                                                                            Candidate on Benefits &
+                                                                            Allowances</option>
+                                                                        <option>Expectation of the
+                                                                            Candidate on Designation
+                                                                        </option>
+                                                                        <option>Expectation of the
+                                                                            Candidate on Job Profile
+                                                                        </option>
+                                                                        <option>Expectation of the
+                                                                            Candidate on Reporting
+                                                                            Structure</option>
+                                                                        <option>Expectation of the
+                                                                            Candidate on Work
+                                                                            Location</option>
+                                                                        <option>Failure In Medical
+                                                                            Test</option>
+                                                                        <option>Failure In Reference
+                                                                            Check</option>
+                                                                        <option>Found Better
+                                                                            Candidate</option>
+                                                                        <option>Found Better
+                                                                            Opportunity Within
+                                                                        </option>
+                                                                        <option>Found Candidate from
+                                                                            Within</option>
+                                                                        <option>Got Better Offer
+                                                                            Elsewhere</option>
+                                                                        <option>Inappropriate /
+                                                                            Inconsistent Response
+                                                                            from Candidate</option>
+                                                                        <option>Not Satisfied with
+                                                                            Benefits & Allowances
+                                                                        </option>
+                                                                        <option>Not Satisfied with
+                                                                            Company Culture</option>
+                                                                        <option>Not Satisfied with
+                                                                            Company Reputation
+                                                                        </option>
+                                                                        <option>Not Satisfied with
+                                                                            CTC</option>
+                                                                        <option>Not Satisfied with
+                                                                            CTC Break-up</option>
+                                                                        <option>Not Satisfied with
+                                                                            Designation</option>
+                                                                        <option>Not Satisfied with
+                                                                            Employment Terms &
+                                                                            Conditions</option>
+                                                                        <option>Not Satisfied with
+                                                                            Job Profile</option>
+                                                                        <option>Not Satisfied with
+                                                                            Reporting Structure
+                                                                        </option>
+                                                                        <option>Not Satisfied with
+                                                                            Work Location</option>
+                                                                        <option>Not Submitted
+                                                                            Relevant Documents
+                                                                            In-time</option>
+                                                                        <option>Notice Period
+                                                                            Demanded by the
+                                                                            Candidate</option>
+                                                                        <option>Present Employer Not
+                                                                            Willing to Relieve
+                                                                        </option>
+                                                                        <option>Reason not Shared
+                                                                        </option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="pd_410">Remarks</th>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
+                                                            </tr>
+                                                        </table>
                                                     </div>
-                                                    <div class="modal-body">
-
-                                                        <input type="text" value="{{$res_show ->id}}" name="candidate_id" hidden>                          
-                                                        <input type="text" value="{{$res_show ->position_id}}" name="pos_id" hidden>                   
-                                                        <input type="text" value="{{$res_show ->client_id}}" name="client_id" hidden>
-                                                        <input type="text" value="{{$res_show ->cv_status}}" name="joined">
-
-                                                        <div class="">
-                                                            <table class="table table-bordered  wd_21 t_left">
-                                                                <tr>
-                                                                    <th class="pd_410">Candidate Name
-                                                                    </th>
-                                                                    <td class="pd_410"><input type="text"
-                                                                            class="form-control" value="{{$res_show->name}}" name="candidate_name"
-                                                                            readonly></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="pd_410">Joined On*</th>
-                                                                    <td class="pd_410"><input type="date" name="job_joined_date"
-                                                                            class="form-control" value=""></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="pd_410">Remarks</th>
-                                                                    <td class="pd_410"><textarea name="job_joined_remark"
-                                                                            class="form-control" id="" cols="30"
-                                                                            rows="2"></textarea></td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                                        <button type="button" class="btn btn-danger"
-                                                            data-dismiss="modal">Cancel</button>
-                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary">Submit</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
-                                    <!-- joined form end -->
-                                   <!-- Not joined form start -->
-                                   <form action="{{url('/job_not_joined',$res_show ->id)}}" method='post'>
-                                        @csrf
-                                        <div class="modal fade" id="notjoined{{$res_show ->id}}" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header cnt223">
-                                                        <h1 class="modal-title" id="exampleModalLongTitle">Candidate Not
-                                                            Joined</h1>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
+                                    </div>
+                                    <!-- Modal -->
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="joiningdeferred" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header cnt223">
+                                                    <h1 class="modal-title" id="exampleModalLongTitle">Joining
+                                                        Deferred
+                                                    </h1>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="">
+                                                        <table class="table table-bordered  wd_21 t_left">
+                                                            <tr>
+                                                                <th class="pd_410">Candidate Name
+                                                                </th>
+                                                                <td class="pd_410"><input type="text" class="form-control" value="{{$res_show->name}}" readonly></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="pd_410">New Joining Date*
+                                                                </th>
+                                                                <td class="pd_410"><input type="date" class="form-control"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="pd_410">Reason*</th>
+                                                                <td class="pd_410">
+                                                                    <select class="form-control">
+                                                                        <option>Select</option>
+                                                                        <option>Candidate requested
+                                                                            Change of Date</option>
+                                                                        <option>Client requested
+                                                                            Change of Date</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="pd_410">Remarks</th>
+                                                                <td class="pd_410"><textarea name="remarks" class="form-control" id="" cols="30" rows="2"></textarea></td>
+                                                            </tr>
+                                                        </table>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <input type="text" value="{{$res_show ->id}}" name="candidate_id" hidden>                          
-                                                        <input type="text" value="{{$res_show ->position_id}}" name="pos_id" hidden>                   
-                                                        <input type="text" value="{{$res_show ->client_id}}" name="client_id" hidden>
-                                                        <input type="text" value="{{$res_show ->cv_status}}" name="not_joined_candidate">
-
-
-                                                        <div class="">
-                                                            <table class="table table-bordered  wd_21 t_left">
-                                                                <tr>
-                                                                    <th class="pd_410">Candidate Name
-                                                                    </th>
-                                                                    <td class="pd_410"><input type="text"
-                                                                            class="form-control" value="{{$res_show->name}}" name="candidate_name"
-                                                                            readonly></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="pd_410">Reject Reason*
-                                                                    </th>
-                                                                    <td class="pd_410">
-                                                                        <select class="form-control" name="candidate_not_joined_reason">
-                                                                            <option>Select</option>
-                                                                            <option>Cannot Join with the
-                                                                                Notice Period Offered
-                                                                            </option>
-                                                                            <option>Changed his/her Mind
-                                                                                in the Last Minute w/o
-                                                                                any Reason</option>
-                                                                            <option>Company Changed its
-                                                                                Decision in the Last
-                                                                                Minute w/o any Reason
-                                                                            </option>
-                                                                            <option>Expectation of the
-                                                                                Candidate on Benefits &
-                                                                                Allowances</option>
-                                                                            <option>Expectation of the
-                                                                                Candidate on Designation
-                                                                            </option>
-                                                                            <option>Expectation of the
-                                                                                Candidate on Job Profile
-                                                                            </option>
-                                                                            <option>Expectation of the
-                                                                                Candidate on Reporting
-                                                                                Structure</option>
-                                                                            <option>Expectation of the
-                                                                                Candidate on Work
-                                                                                Location</option>
-                                                                            <option>Failure In Medical
-                                                                                Test</option>
-                                                                            <option>Failure In Reference
-                                                                                Check</option>
-                                                                            <option>Found Better
-                                                                                Candidate</option>
-                                                                            <option>Found Better
-                                                                                Opportunity Within
-                                                                            </option>
-                                                                            <option>Found Candidate from
-                                                                                Within</option>
-                                                                            <option>Got Better Offer
-                                                                                Elsewhere</option>
-                                                                            <option>Inappropriate /
-                                                                                Inconsistent Response
-                                                                                from Candidate</option>
-                                                                            <option>Not Satisfied with
-                                                                                Benefits & Allowances
-                                                                            </option>
-                                                                            <option>Not Satisfied with
-                                                                                Company Culture</option>
-                                                                            <option>Not Satisfied with
-                                                                                Company Reputation
-                                                                            </option>
-                                                                            <option>Not Satisfied with
-                                                                                CTC</option>
-                                                                            <option>Not Satisfied with
-                                                                                CTC Break-up</option>
-                                                                            <option>Not Satisfied with
-                                                                                Designation</option>
-                                                                            <option>Not Satisfied with
-                                                                                Employment Terms &
-                                                                                Conditions</option>
-                                                                            <option>Not Satisfied with
-                                                                                Job Profile</option>
-                                                                            <option>Not Satisfied with
-                                                                                Reporting Structure
-                                                                            </option>
-                                                                            <option>Not Satisfied with
-                                                                                Work Location</option>
-                                                                            <option>Not Submitted
-                                                                                Relevant Documents
-                                                                                In-time</option>
-                                                                            <option>Notice Period
-                                                                                Demanded by the
-                                                                                Candidate</option>
-                                                                            <option>Present Employer Not
-                                                                                Willing to Relieve
-                                                                            </option>
-                                                                            <option>Reason not Shared
-                                                                            </option>
-                                                                        </select>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="pd_410">Remarks</th>
-                                                                    <td class="pd_410"><textarea name="not_joined_remarks"
-                                                                            class="form-control" id="" cols="30"
-                                                                            rows="2"></textarea></td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                                        <button type="button" class="btn btn-danger"
-                                                            data-dismiss="modal">Cancel</button>
-                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary">Submit</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
-                                    <!--Not joined form end -->
-                                    <!-- Joining Deferred form start -->
-                                    <form action="{{url('/job_defered',$res_show ->id)}}" method='post'>
-                                        @csrf
-                                        <div class="modal fade" id="joiningdeferred{{$res_show ->id}}" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header cnt223">
-                                                        <h1 class="modal-title" id="exampleModalLongTitle">Joining
-                                                            Deferred
-                                                        </h1>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <input type="text" value="{{$res_show ->id}}" name="candidate_id" hidden>                          
-                                                        <input type="text" value="{{$res_show ->position_id}}" name="pos_id" hidden>                   
-                                                        <input type="text" value="{{$res_show ->client_id}}" name="client_id" hidden>
-                                                        <input type="text" value="{{$res_show ->cv_status}}" name="candidate_defered">
-                                                        <div class="">
-                                                            <table class="table table-bordered  wd_21 t_left">
-                                                                <tr>
-                                                                    <th class="pd_410">Candidate Name
-                                                                    </th>
-                                                                    <td class="pd_410"><input type="text"
-                                                                            class="form-control" value="{{$res_show->name}}" name="candidate_name"
-                                                                            readonly></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="pd_410">New Joining Date*
-                                                                    </th>
-                                                                    <td class="pd_410"><input type="date" name="new_joiningdate"
-                                                                            class="form-control"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="pd_410">Reason*</th>
-                                                                    <td class="pd_410">
-                                                                        <select class="form-control" name="defered_reason">
-                                                                            <option>Select</option>
-                                                                            <option>Candidate requested
-                                                                                Change of Date</option>
-                                                                            <option>Client requested
-                                                                                Change of Date</option>
-                                                                        </select>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="pd_410">Remarks</th>
-                                                                    <td class="pd_410"><textarea name="defered_remarks"
-                                                                            class="form-control" id="" cols="30"
-                                                                            rows="2"></textarea></td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                                        <button type="button" class="btn btn-danger"
-                                                            data-dismiss="modal">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                   <!-- Joining Deferred form end -->
+                                    </div>
+                                    <!-- Modal -->
                                 </td>
-                                <!-- Joining status tab end -->
-
                                 <td>
                                     @if($res_show->cv_status==26)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top"
-                                        title="Billing Pending">BP</span>
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Billing Pending">BP</span>
                                     <div class="dropdown d_inblk">
                                         <button class="btn btn-primary pd_5" type="button" data-toggle="dropdown">
-                                            <span class="caret"><i class="fa fa-angle-down"
-                                                    aria-hidden="true"></i></span></button>
+                                            <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
                                             <li>
                                                 <a href="{{url('/addbilling')}}">
@@ -3062,9 +2712,8 @@
                                         </ul>
                                     </div>
                                     @endif
-                                    @if($res_show->cv_status==29)
-                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Billed"
-                                        style="background-color: #c3facb;">B</span>
+                                    @if($res_show->cv_status==28)
+                                    <span class="p_d" data-toggle="tooltip" data-placement="top" title="Shortlisted" style="background-color: #c3facb;">Billed</span>
                                     @endif
                                 </td>
                                 </tr>
@@ -3095,69 +2744,81 @@
                                 </div>
                             </div>
                             <div id="menu4" class="tab-pane fade pd_0"><br>
-                                <div>
-                                    <table class="table table-responsive">
-                                        <tr>
-                                            <th>Status</th>
-                                            <th>No. of Candidates</th>
-                                        </tr>
-                                        <tr>
-                                            <td>CRM Validation Pending</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>CRM Validated</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>CRM Rejected</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>CV Sent</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>CV Shortlisted</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>CV Rejected</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Feedback Awaiting</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Candidates Interviewed</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Interview Dropouts</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Interview Rejected</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Candidates Offered</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Offer Dropouts</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Candidates Joined</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Candidates Billed</td>
-                                            <td></td>
-                                        </tr>
-                                    </table>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <table class="table table-responsive">
+                                                <tr>
+                                                    <th class="wd_37">Status</th>
+                                                    <th class="wd_58">No. of Candidates</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>CRM Validation Pending</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CRM Validated</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CRM Rejected</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CV Sent</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CV Shortlisted</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CV Rejected</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Feedback Awaiting</td>
+                                                    <td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <table class="table table-responsive">
+                                                <tr>
+                                                    <th class="wd_37">Status</th>
+                                                    <th class="wd_58">No. of Candidates</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Candidates Interviewed</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Interview Dropouts</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Interview Rejected</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Candidates Offered</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Offer Dropouts</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Candidates Joined</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Candidates Billed</td>
+                                                    <td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -3170,8 +2831,7 @@
                 </a>
                 <button type="button" class="btn btn-secondary">Print</button>
             </div>
-
-         @if(!empty($res_show))
+@if(!empty($res_show))
             <script type="text/javascript">
             $('#files').on('change', function() {
                 var result = $("#files").text();
@@ -3181,47 +2841,47 @@
             });
             </script>
             <script type="text/javascript">
-            $('#files').on('change', function() {
-                var result = $("#files").text();
+                $('#files').on('change', function() {
+                    var result = $("#files").text();
 
                 fileChosen(this, document.getElementById('editortwo{{$res_show->id}}'));
                 CKEDITOR.instances['editortwo{{$res_show->id}}'].setData(result);
             });
             </script>
             <script type="text/javascript">
-            $('#files').on('change', function() {
-                var result = $("#files").text();
+                $('#files').on('change', function() {
+                    var result = $("#files").text();
 
                 fileChosen(this, document.getElementById('editor3{{$res_show->id}}'));
                 CKEDITOR.instances['editor3{{$res_show->id}}'].setData(result);
             });
             </script>
             <script type="text/javascript">
-            $('#files').on('change', function() {
-                var result = $("#files").text();
+                $('#files').on('change', function() {
+                    var result = $("#files").text();
 
-                fileChosen(this, document.getElementById('editor4'));
-                CKEDITOR.instances['editor4'].setData(result);
-            });
+                    fileChosen(this, document.getElementById('editor4'));
+                    CKEDITOR.instances['editor4'].setData(result);
+                });
             </script>
             <script type="text/javascript">
-            $('#files').on('change', function() {
-                var result = $("#files").text();
+                $('#files').on('change', function() {
+                    var result = $("#files").text();
 
-                fileChosen(this, document.getElementById('editor5'));
-                CKEDITOR.instances['editor5'].setData(result);
-            });
+                    fileChosen(this, document.getElementById('editor5'));
+                    CKEDITOR.instances['editor5'].setData(result);
+                });
             </script>
             @endif
             <script>
-            $(document).ready(function() {
-                $(".hide-btn").click(function() {
-                    $(".box").hide();
+                $(document).ready(function() {
+                    $(".hide-btn").click(function() {
+                        $(".box").hide();
+                    });
+                    $(".show-btn").click(function() {
+                        $(".box").show();
+                    });
                 });
-                $(".show-btn").click(function() {
-                    $(".box").show();
-                });
-            });
             </script>
 
             <!-- Form wizard with icon tabs section end -->
