@@ -210,6 +210,8 @@ Route::middleware(['auth'])->name('admin.')->prefix('')->group(function () {
 
     Route::post('/leave_approve_remark/{id}', [MyplanController::class, 'leave_approve_plan']);
     Route::post('/leave_reject_remark/{id}', [MyplanController::class, 'leave_reject_plan']);
+    Route::post('/cancel_leave_remark/{id}', [MyplanController::class, 'cancel_leave']);
+    Route::get('/edit_plan/{id}', [MyplanController::class, 'edit_plan']);
 
     //resume blade(uttam)
     Route::get('/add/resume', [ResumeController::class, 'showresume']);

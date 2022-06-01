@@ -103,21 +103,33 @@
                                                         <th>Leave To</th>
                                                         <td>{{date('j F-Y', strtotime($view->leave_to))}}</td>
                                                     </tr>
-
                                                     <tr>
                                                         <th>Leave Type</th>
                                                         <td>{{$view->leave_type}}</td>
                                                     </tr>
-
                                                     <tr>
                                                         <th>Created By</th>
                                                         @php
                                                         $createdby=App\Models\User::where('id',$view->id)->get();
                                                         @endphp
-
                                                         <td>{{$createdby[0]->name}}</td>
                                                     </tr>
-
+                                                    @if ($view->status == 1)
+                                                    <tr>
+                                                        <th>Remarks</th>
+                                                        <td>{{$view->approve_remarks}}</td>
+                                                    </tr>
+                                                    @elseif ($view->status == 2)
+                                                    <tr>
+                                                        <th>Remarks</th>
+                                                        <td>{{$view->reject_remarks}}</td>
+                                                    </tr>
+                                                    @elseif ($view->status == 3)
+                                                    <tr>
+                                                        <th>Remarks</th>
+                                                        <td>{{$view->cancel_remarks}}</td>
+                                                    </tr>
+                                                    @endif
                                                 </table>
                                             </div>
                                         </div>
@@ -134,6 +146,10 @@
 
                                             <button type="button" data-toggle="modal" data-target="#rejectmodel{{$view->id}}" class="btn btn-danger">Reject</button>
                                             @endif
+                                            @endif
+
+                                            @if ($view->user_id == session('USER_ID') && $view->status != 3)
+                                                <button type="button" data-toggle="modal" data-target="#cancelleave{{$view->id}}" class="btn btn-danger">Cancel Leave</button>
                                             @endif
                                         </div>
                                         <!-- Approve Leave Model pop up -->
@@ -154,9 +170,9 @@
                                                                 <div class="table-responsive">
                                                                     <table class="table table-bordered">
                                                                         <tr>
-                                                                            <th>Remarks</th>
+                                                                            <th>Remarks*</th>
                                                                             <!-- // <td><textarea class="form-control"></textarea></td> -->
-                                                                            <td class="pd_0"><textarea name="remarks" class="form-control"></textarea></td>
+                                                                            <td class="pd_0"><textarea name="remarks" class="form-control" required></textarea></td>
 
                                                                             <input type="hidden" name="plan_id" value="{{$view->user_id}}">
                                                                         </tr>
@@ -192,9 +208,9 @@
                                                                 <div class="table-responsive">
                                                                     <table class="table table-bordered">
                                                                         <tr>
-                                                                            <th>Remarks</th>
+                                                                            <th>Remarks*</th>
                                                                             <!-- // <td><textarea class="form-control"></textarea></td> -->
-                                                                            <td class="pd_0"><textarea name="remarks" class="form-control"></textarea></td>
+                                                                            <td class="pd_0"><textarea name="remarks" class="form-control" required></textarea></td>
 
                                                                             <input type="hidden" name="plan_id" value="{{$view->user_id}}">
                                                                         </tr>
@@ -210,8 +226,44 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @endforeach
                                         <!-- Reject Leave Model pop up -->
+
+                                        <!-- Cancel Leave Model pop up -->
+                                        <div class="modal fade" id="cancelleave{{$view->id}}" tabindex="-1" role="dialog" aria-labelledby="cancelleave" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Cancel Leave</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="{{url('/cancel_leave_remark',$view->id)}}" method="POST">
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <div class="col-md-12 col-sm-12 col-xs-12 pd_0">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-bordered">
+                                                                        <tr>
+                                                                            <th>Remarks*</th>
+                                                                            <td class="pd_0"><textarea name="remarks" class="form-control" required></textarea></td>
+
+                                                                            <input type="hidden" name="plan_id" value="{{$view->user_id}}">
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">Send</button>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Cancel Leave Model pop up -->
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
