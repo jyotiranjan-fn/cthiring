@@ -19,7 +19,10 @@ use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use mikehaertl\pdftk\Pdf;
+// use mikehaertl\pdftk\Pdf;
+//use Spatie\PdfToText\Pdf;
+use Smalot\PdfParser\Parser;
+
 class ResumeController extends Controller
 {
     public function showresume()
@@ -51,16 +54,64 @@ class ResumeController extends Controller
         return response()->json($position);
     }
     public function resume_submit(Request $request)
-    {
+    { 
+     
+
+       //dd($request->resume);
+
 
         $validated = $request->validate([
             'client' => 'required',
             'position' => 'required',
-            'resume' => 'required',
+            'resume' => 'required|file|max:5000|mimes:pdf,docx,doc',
         ], [
             'client.required' => 'Name required',
 
         ]);
+
+
+
+          
+        $ResumeName =  $request->resume;
+        $fileName = $ResumeName;
+        $parser = new Parser();
+        $pdf = $parser->parseFile($fileName);
+        $text = $pdf->getText();
+        $modified=str_replace( array('(',')',' '),'',$text);
+
+
+        $pattern = "/[+]?[1-9][0-9]{9,14}/";
+        preg_match($pattern, $modified, $mobile);
+
+        $email_parrern="/[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,10})/";
+        preg_match($email_parrern, $modified, $email);
+        //dd($mobile,$email[0],$text);
+
+        $request->session()->put('resume_mail', $email[0]);
+
+
+        //dd(session('resume_mail'));
+
+        $position_id = Resume::where('position_id',$request->position)->pluck('email')->toArray();
+        //dd($position_id[2]->email);
+        
+
+        $count=count($position_id);
+        //dd($count);
+        for($i=0;$i<=$count;$i++){
+
+
+
+       
+        if($position_id[$i]==$email[0])
+        {
+          return redirect('/add/resume');
+          
+
+        }else{
+
+         
+
 
         $ResumeName = rand() . '.' . $request->resume->extension();
         $randimg = $request->resume->move(('document/temp'), $ResumeName);
@@ -69,6 +120,9 @@ class ResumeController extends Controller
         $post->position_id = $request->position;
         $post->resumes = $ResumeName;
         $post->save();
+
+
+
         $last_id = $post->id;
 
         $request->session()->put('resume', $last_id);
@@ -93,11 +147,17 @@ class ResumeController extends Controller
         //dd(session('position_behaviour'));
         $request->session()->put('showpopup', true);
 
+           }
+        }
+
+        
+
         // dd(session('showpopup'));
-        return redirect('/add/resume')->with('randimg', 'last_id', 'job_name', 'position_tech', 'position_behaviour');
+        return redirect('/add/resume')->with('randimg', 'last_id', 'job_name', 'position_tech', 'position_behaviour','resume_mail');
     }
     public function insert_resume(Request $request)
     {
+        dd($request->all());
         $tech_count = count($request->technical);
         $beha_count = count($request->behavioural);
         //  dd($tech_count,$beha_count,$request->all());

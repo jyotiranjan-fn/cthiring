@@ -296,7 +296,10 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="">Email</label>
-                                                        <input type="text" class="form-control" name="email">
+                                                      
+                                                        @if(session()->has('resume_mail'));
+                                                        <input type="text" class="form-control" name="email" value="{{session('resume_mail')}}" readonly>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">

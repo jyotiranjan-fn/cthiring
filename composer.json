@@ -15,6 +15,7 @@
         "mikehaertl/php-pdftk": "^0.12.0",
         "orangehill/iseed": "^3.0",
         "reposys/laravel-pdf": "^1.5",
+        "smalot/pdfparser": "^2.2",
         "spatie/laravel-permission": "^5.5"
     },
     "require-dev": {
