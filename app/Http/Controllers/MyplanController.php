@@ -53,7 +53,7 @@ class MyplanController extends Controller
         $pos_req = Position::where('recruiters', '=', $pos)->get()->unique('client_name');
         $leave = Leave::where('user_id', '=', $pos)->get();
         // dd($leave);
-        return view('myplan.view_work_plan', compact('pos_req', 'student','leave'));
+        return view('myplan.view_work_plan', compact('pos_req', 'student', 'leave'));
     }
     public function myplan_todays()
     {
@@ -67,11 +67,10 @@ class MyplanController extends Controller
 
 
     public function position_fetch_ajax_plan(Request $request)
-    { 
-        $position_myplan['positionname'] = Position::where('client_name',$request->client_name)->get()->unique('position_id');
-       // dd($position_myplan);
+    {
+        $position_myplan['positionname'] = Position::where('client_name', $request->client_name)->get()->unique('position_id');
+        // dd($position_myplan);
         return response()->json($position_myplan);
-
     }
 
     public function insert_todaysplan(Request $request)
@@ -93,7 +92,7 @@ class MyplanController extends Controller
             // dd($myplan);
 
             $myplan->save();
-            return redirect('/todays_plan')->with('message', 'Plan Add Successfully');
+            return redirect('/plan_view')->with('message', 'Plan Added Successfully, It will be visible after approved by your respective L1');
         }
 
         if ($request->day_plan == 2) {
@@ -112,29 +111,51 @@ class MyplanController extends Controller
             // dd($myplan);
 
             $myplan->save();
-            return redirect('/todays_plan')->with('message', 'Plan Add Successfully');
+            return redirect('/plan_view')->with('message', 'Plan Added Successfully, It will be visible after approved by your respective L1');
         }
 
         if ($request->day_plan == 3) {
 
-            $date = Leave::where('user_id', session('USER_ID'))->get();
-            // dd($date);
-            $from_date = $date[0]->leave_from;
-            $to_date = $date[0]->leave_to;
-            $from_date1 = $request->from_date;
-            $to_date1 = $request->to_date;
+            $leave_data = Leave::all();
+            // dd($leave_data);
+            if (!$leave_data->isEmpty()) {
+                $date = Leave::where('user_id', session('USER_ID'))->get();
+                //  dd($date[1],$request);
+                $count = count($date);
+                for ($i = 0; $i < $count; $i++) {
+                    $from_date = $date[$i]->leave_from;
+                    $to_date = $date[$i]->leave_to;
+                    $from_date1 = $request->from_date;
+                    $to_date1 = $request->to_date;
 
-            // check for special cases
-            if ($from_date >= $from_date1 && $to_date <= $to_date1) 
-            {
-                return redirect('/todays_plan')->with('error', 'You have already applied for this date');
-            } 
-            elseif ($from_date1 >= $from_date && $to_date1 <= $to_date) 
-            {
-                return redirect('/todays_plan')->with('error', 'You have already applied for this date');
-            } 
-            else
-            {
+
+                    // check for special cases
+                    if ($from_date >= $from_date1 && $to_date <= $to_date1) 
+                    {
+                        return redirect('/todays_plan')->with('error', 'You have already applied for this date');
+                    } 
+                    elseif ($from_date1 >= $from_date && $to_date1 <= $to_date)
+                    {
+                        return redirect('/todays_plan')->with('error', 'You have already applied for this date');
+                    } 
+                    elseif ($from_date <= $to_date1 && $from_date1 <= $to_date)
+                    {
+                        return redirect('/todays_plan')->with('error', 'You have already applied for this date');
+                    } 
+                    else 
+                    {
+                        $leave = new Leave;
+                        $leave->user_id = session('USER_ID');
+                        $leave->leave_from = request('from_date');
+                        $leave->leave_to = request('to_date');
+                        $leave->leave_type = request('leavetype');
+                        $leave->reason = request('reason');
+                        $leave->session = request('session');
+                        $leave->save();
+                        return redirect('/viewleave')->with('message', 'Leave Added Successfully, It will be visible after approved by your respective L1');
+                    }
+                }
+            } else {
                 $leave = new Leave;
                 $leave->user_id = session('USER_ID');
                 $leave->leave_from = request('from_date');
@@ -143,15 +164,14 @@ class MyplanController extends Controller
                 $leave->reason = request('reason');
                 $leave->session = request('session');
                 $leave->save();
-                return redirect('/todays_plan')->with('message', 'Leave Added Successfully');
+                return redirect('/viewleave')->with('message', 'Leave Added Successfully, It will be visible after approved by your respective L1');
             }
         }
     }
     public function view_leave()
     {
         // $pos = session('USER_ID');
-        $leave = Leave::all();
-        
+        $leave = Leave::orderBy('id', 'ASC')->get();
         return view('myplan.view_leave', compact('leave'));
     }
 
@@ -191,12 +211,13 @@ class MyplanController extends Controller
         $role->save();
         return redirect('/viewleave')->with('error', 'Leave Canceled Successfully');
     }
-    public function edit_plan(Request $request,$id){
-        $plan = myplan::where('id',$id)->get();
+    public function edit_plan(Request $request, $id)
+    {
+        $plan = myplan::where('id', $id)->get();
         $client1 = client::all();
         $position1 = Position::all();
         $pos = session('USER_ID');
         $pos_req = Position::where('recruiters', '=', $pos)->get()->unique('client_name');
-        return view('myplan.edit_plan', compact('pos_req', 'client1','plan'));
+        return view('myplan.edit_plan', compact('pos_req', 'client1', 'plan'));
     }
 }

@@ -162,7 +162,7 @@
 												<div class="col-md-9">
 													<div class="form-group">
 														<select class="form-control" id="position_name" name="positionname">
-															
+
 														</select>
 													</div>
 												</div>
@@ -230,25 +230,9 @@
 												<div class="col-md-9">
 													<textarea class="form-control" name="reason"></textarea>
 												</div>
+												<input type="hidden" id="input-radio-1" name="session" value="Full Day">
 											</div>
 										</div><br>
-										<div id="div2">
-											<div class="row">
-												<div class="col-md-3">
-													<p><strong>Session*</strong></p>
-												</div>
-												<div class="col-md-9">
-													<div class="form-group">
-														<input type="radio" id="input-radio-1" name="session" value="Full Day">
-														<label for="input-radio-11">Full Day</label>
-														<input type="radio" id="input-radio-2" name="session" value="Forenoon">
-														<label for="input-radio-11">Forenoon</label>
-														<input type="radio" id="input-radio-3" name="session" value="Afternoon">
-														<label for="input-radio-11">Afternoon</label>
-													</div>
-												</div>
-											</div>
-										</div>
 									</div>
 								</div>
 							</div>
@@ -389,34 +373,32 @@
 		}
 	</script>
 	<script>
-		
-	$(document).ready(function(){
-		$('#client_name').on('change',function(){
-			var client_name = this.value;
-			$('#position_name').html('');
-			$.ajax({
-				url: "{{url('position_fetch_plan')}}",
-                    type: "POST",
-                    data: {
-                        client_name: client_name,
-                        _token: '{{csrf_token()}}'
-                    },
-                    dataType: 'json',
-					success :function(result){
+		$(document).ready(function() {
+			$('#client_name').on('change', function() {
+				var client_name = this.value;
+				$('#position_name').html('');
+				$.ajax({
+					url: "{{url('position_fetch_plan')}}",
+					type: "POST",
+					data: {
+						client_name: client_name,
+						_token: '{{csrf_token()}}'
+					},
+					dataType: 'json',
+					success: function(result) {
 						$('#position_name').html('<option value="">Select Position</option>');
-                        $.each(result.positionname, function(key, value) {
-                            $("#position_name").append('<option value="' + value
-                                .position_id + '">' +
-                                value.job_title + '</option>');
-                        });
+						$.each(result.positionname, function(key, value) {
+							$("#position_name").append('<option value="' + value
+								.position_id + '">' +
+								value.job_title + '</option>');
+						});
 					}
 
+				});
+
 			});
-			
+
 		});
-
-	});
-
 	</script>
 
 </x-admin-layout>
