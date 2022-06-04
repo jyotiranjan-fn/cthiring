@@ -57,12 +57,14 @@ class MyplanController extends Controller
     }
     public function myplan_todays()
     {
+        $myplan = myplan::orderBy('id', 'DESC')->first();
         $student = myplan::all();
+     //  dd($student->created_at->format('Y-m-d') );
         $client1 = client::all();
         $position1 = Position::all();
         $pos = session('USER_ID');
         $pos_req = Position::where('recruiters', '=', $pos)->get()->unique('client_name');
-        return view('myplan.todays_plan', compact('pos_req', 'student', 'client1'));
+        return view('myplan.todays_plan', compact('pos_req', 'student', 'client1','myplan'));
     }
 
 

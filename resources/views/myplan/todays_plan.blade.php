@@ -59,12 +59,23 @@
 												</div>
 												<div class="col-md-9">
 													<div class="form-group">
-														<!--input type="radio" name="input-radio-3" id="input-radio-11">
-                                        <label for="input-radio-11">Radio button</label-->
+														@php
+														$ldate = date('Y-m-d');
+														$yesterday = date("Y-m-d", strtotime( '-1 days' ) );
+														$create = $myplan->created_at->format('Y-m-d');
+														@endphp
+
+														@if ($create == $yesterday)
 														<input type="radio" id="input-radio-1" name="day_plan" value="1">
+														@else
+														<input type="radio" id="input-radio-1" name="day_plan" value="1" disabled>
+														@endif
+
 														<label for="input-radio-11">Current Day Plan</label>
+
 														<input type="radio" id="input-radio-2" name="day_plan" value="2">
 														<label for="input-radio-11">Previous Day Plan</label>
+
 														<input type="radio" id="input-radio-3" name="day_plan" value="3">
 														<label for="input-radio-11">Long Leave</label>
 													</div>
@@ -97,7 +108,11 @@
 												</div>
 												<div class="col-md-9">
 													<div class="input-group">
-														<input type="date" name="date" class="form-control" />
+														@if ($create == $yesterday)
+														<input type="date" id="demo" class="form-control">
+														@else
+														<input type="date" id="demo1" class="form-control">
+														@endif
 													</div>
 												</div>
 
@@ -316,7 +331,65 @@
 
 		</div>
 	</div>
+	<!-- current calender date disable -->
+	<script>
+		var todayDate = new Date();
 
+		var month = todayDate.getMonth() + 1; // current month
+
+		var year = todayDate.getUTCFullYear(); //current year
+
+		var tdate = todayDate.getDate(); //current date 
+
+		if (month < 10) {
+
+			month = "0" + month //'0' + 4 = 04
+
+		}
+
+		if (tdate < 10) {
+
+			tdate = "0" + tdate;
+
+		}
+
+		var minDate = year + "-" + month + "-" + tdate;
+
+		document.getElementById("demo").setAttribute("min", minDate);
+		
+		console.log(maxDate);
+	</script>
+	<!-- current calender date disable -->
+
+	<!-- previous calender date disable -->
+	<script>
+		var todayDate = new Date();
+
+		var month = todayDate.getMonth() + 1; // current month
+
+		var year = todayDate.getUTCFullYear(); //current year
+
+		var tdate = todayDate.getDate() - 1; //current date 
+
+		if (month < 10) {
+
+			month = "0" + month //'0' + 4 = 04
+
+		}
+
+		if (tdate < 10) {
+
+			tdate = "0" + tdate;
+
+		}
+
+		var maxDate = year + "-" + month + "-" + tdate;
+
+		document.getElementById("demo1").setAttribute("max", maxDate);
+
+		console.log(maxDate);
+	</script>
+	<!-- previous calender date disable -->
 	<script>
 		$(document).ready(function() {
 			//initialize the show hide functuion
