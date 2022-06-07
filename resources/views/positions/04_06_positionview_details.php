@@ -1412,7 +1412,7 @@
                                                                                             for="radio1">
                                                                                             <input type="radio"
                                                                                                 class="form-check-input"
-                                                                                                id="xyz"
+                                                                                                id="first"
                                                                                                 name="interview_level"
                                                                                                 value="1">First
                                                                                             Interview
@@ -1714,7 +1714,6 @@
                                                                         <tr>
                                                                             <th class="pd_410">Message*</th>
                                                                             <td class="pd_410">
-                                                                                
                                                                                 <textarea  id="editorthree{{$res_show->id}}"
                                                                                     rows="10" cols="80" name="third_msg_interview"
                                                                                     value=""><p>Dear&nbsp;{{$res_show->name}}<br /><br /><strong>Greetings from {{($view->pos_client_cont)->contact_name}}&nbsp;</strong><br /><br />In continuation to our telephonic discussions, I am confirming your interview schedule with our client as below:</p>
@@ -1731,7 +1730,7 @@
                                                                                             </tr>
                                                                                             <tr>
                                                                                             <td style="width: 193.217px;">Interview Level</td>
-                                                                                            <td id="Interview_span" style="width: 287.783px;"></td>
+                                                                                            <td style="width: 287.783px;">[interview_level]</td>
                                                                                             </tr>
                                                                                             <tr>
                                                                                             <td style="width: 193.217px;">Interview Date</td>
@@ -1855,36 +1854,12 @@
 
                                     <!-- Interview view Details form page-->
                                     @php 
-                                     
-                                         
-                                    if($res_show ->cv_status==6 || $res_show ->cv_status==4){
-                                        $interview_level=1;
-                                    }
-                                    elseif($res_show ->cv_status==10 || $res_show ->cv_status==8){
-                                        $interview_level=2;
-                                    }
-                                    elseif($res_show ->cv_status==14 || $res_show ->cv_status==12){
-                                         $interview_level=3;
-                                    }
-                                    elseif($res_show ->cv_status==18 || $res_show ->cv_status==16){
-                                         $interview_level=4;
-                                    }
-                                    else{
-                                        $interview_level="";
-                                    }
-                                                                   
-                
-                                    $interview_details = App\Models\Interview::where('candidate_id',$res_show ->id)->where('interview_level', $interview_level)->first();
-                                    @endphp 
-
-                    
-                                    
-
-                                
-  
+                                    $interview_details = App\Models\Interview::where('candidate_id',$res_show ->id)->orderBy('id', 'desc')->first();
+                                    @endphp
                                    @if(!empty ($interview_details))
                                     <div class="modal fade bd-example-modal-lg" id="viewinterview{{$res_show ->id}}"
-                                        tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"aria-hidden="true">
+                                        tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                                        aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header cnt223">
@@ -3217,26 +3192,13 @@
                                             <span class="caret"><i class="fa fa-angle-down"
                                                     aria-hidden="true"></i></span></button>
                                         <ul class="dropdown-menu t_c">
-                                            @php
-                                            $fetch_crm_billing=App\Models\Client::where('id',$res_show->client_id)->get();
-                                            @endphp
-
-                                            @if(in_array(session('USER_ID'),json_decode($fetch_crm_billing[0]->crm_id)))
-
-                                            
-
-                                            
-                                            
-
-                                           
                                             <li>
-                                                <a href="{{url('/showbilling',$res_show ->id)}}">
+                                                <a href="{{url('/addbilling')}}">
                                                     <button type="button" class="btn pd_slst">
                                                         Add Billing
                                                     </button>
                                                 </a>
                                             </li>
-                                            @endif
                                         </ul>
                                     </div>
                                     @endif
@@ -3406,18 +3368,13 @@
             </script>
 
             
-            <script>
+            <!-- <script>
                 
-                $('#xyz').on('click',function(){
+                $('input[name="interview_level"]:checked').on('click',function(){
                     var interview_level=$(this).val();
-                    
-                    if(interview_level==1){
-                      console.log("First Interview");
-                        $('#Interview_span').text("First Interview");
-                    }
-                   
+                    alert(interview_level);
                 });
-            </script>
+            </script> -->
 
                <!-- <script>
                 
