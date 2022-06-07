@@ -94,7 +94,6 @@
                                                             @foreach ($client1 as $client2)
                                                             <option value="{{$client2->id}}">
                                                                 {{$client2->client_name}}
-
                                                             </option>
                                                             @endforeach
                                                         </select>
@@ -103,7 +102,6 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="">SPOC Name</label>
-
                                                         <select class="select2 form-control" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Priority" name="client_contanct_name" id="client_contanct_name">
 
                                                         </select>
@@ -228,8 +226,8 @@
                                                         <label for="">Functional Area</label>
                                                         <select class="form-control select2" data-toggle="tooltip" data-trigger="hover" data-placement="top" name="functionarea" id="functionarea">
                                                             <option selected>select</option>
-
                                                             @foreach ($function_area1 as $function_area2)
+                                                            
                                                             <option value="{{$function_area2->id}}">
                                                                 {{$function_area2->function}}
 

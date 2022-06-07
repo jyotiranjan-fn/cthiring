@@ -311,13 +311,4 @@ class UserController extends Controller
                             $request->session()->flash('delt', 'User Delete Successflly');
                             return redirect('/user');
                         }
-                        
-                        
-                        
-
-
-   
-
-
-
 }

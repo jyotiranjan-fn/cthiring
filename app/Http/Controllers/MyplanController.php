@@ -76,7 +76,7 @@ class MyplanController extends Controller
 
     public function insert_todaysplan(Request $request)
     {
-        // dd($request->all());
+        //  dd($request->date);
         if ($request->day_plan == 1) {
             $myplan = new myplan;
             $myplan->user_id = session('USER_ID');

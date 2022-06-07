@@ -1876,12 +1876,7 @@
                 
                                     $interview_details = App\Models\Interview::where('candidate_id',$res_show ->id)->where('interview_level', $interview_level)->first();
                                     @endphp 
-
-                    
                                     
-
-                                
-  
                                    @if(!empty ($interview_details))
                                     <div class="modal fade bd-example-modal-lg" id="viewinterview{{$res_show ->id}}"
                                         tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"aria-hidden="true">
@@ -3223,12 +3218,6 @@
 
                                             @if(in_array(session('USER_ID'),json_decode($fetch_crm_billing[0]->crm_id)))
 
-                                            
-
-                                            
-                                            
-
-                                           
                                             <li>
                                                 <a href="{{url('/showbilling',$res_show ->id)}}">
                                                     <button type="button" class="btn pd_slst">

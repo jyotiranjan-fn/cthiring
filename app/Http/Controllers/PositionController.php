@@ -124,7 +124,7 @@ class PositionController extends Controller
             $role->behaviour_skils = json_encode($data2);
 
             $role->total_opening = request('opening');
-             $role->crm = $crm[0]->crm_id;
+            $role->crm = $crm[0]->crm_id;
 
             
             $role->billable_value = request('bill_value');
@@ -156,12 +156,17 @@ class PositionController extends Controller
             $role->save();
 
         }
-        
-        // $role = client :: where('id',"=",$request->id)->get();
-        // $array=json_decode($role[0]->crm_id);
-        // $client_createdby= $role[0]->created_by;        
-        // array_push($array,$client_createdby);
 
+        // $job_title = request('jobname');
+        // $job_location = request('joblocation');
+        // $total_opening = request('opening');
+        // $recruiters = $request->data[$i]['recruitername'];
+
+        // $role = client :: where('id','=',$request->fullname)->get('crm_id');
+        // // dd($role,$request->fullname);
+        // $array=json_decode($role[0]->crm_id);
+        // $createdby= session('USER_ID');        
+        // array_push($array,$createdby);
         // $client_name= $role[0]->client_name; 
         // $city_id= $role[0]->city_id; 
         // $remarks= $role[0]->remarks; 
@@ -171,7 +176,7 @@ class PositionController extends Controller
         
         // $user=user::where();
         
-        // $data = [ 'created_by' => $created_by ,'job_title' => $job_title, 'job_location' => $job_location ,'total_opening' => $total_opening , 'recruiters' =>$recruiters ,'client_name' =>$client_name];
+        // $data = [ 'created_by' => $createdby ,'job_title' => $job_title, 'job_location' => $job_location ,'total_opening' => $total_opening , 'recruiters' =>$recruiters ,'client_name' =>$client_name];
         // // $this->mail_send( $role->created_by ,$role->job_title ,$role->job_location ,$role->total_opening ,$role->recruiters ,$role->client_name);
 
         

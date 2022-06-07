@@ -6169,6 +6169,7 @@ padding: 0px;
   list-style-type: none;
   margin: 3px;
   height: 20px;
+  font-size: 12px;
 }
 .p_d{
     padding: 0px 10px !important;
@@ -6324,14 +6325,6 @@ background-color: #4b84ff;
         position: absolute;
     margin-top: -104px;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 8eca95bff52cdd0c8f043d05fce9f8cba3cf19a3
-=======
-
->>>>>>> 21d2794b297a9d97892ded997f45908710752a21
 .wd_58{
   width: 58%;
 }

@@ -72,7 +72,7 @@
 														@php
 														$ldate = date('Y-m-d');
 														$yesterday = date("Y-m-d", strtotime( '-1 days' ) );
-														$create = $myplan->created_at->format('Y-m-d');
+														$create = date('Y-m-d',strtotime($myplan->task_date));
 														$leave = $leave->leave_to;
 														@endphp
 
@@ -126,10 +126,12 @@
 													<div class="input-group">
 													@if ($myplan != NULL)														
 														@if ($create == $yesterday)
-														<input type="date" id="demo" class="form-control">
+														<input type="date" id="demo" name="date" class="form-control">
 														@else
-														<input type="date" id="demo1" class="form-control">
+														<input type="date" id="demo1" name="date" class="form-control">
 														@endif
+													@else
+														<input type="date" id="demo" name="date" class="form-control">
 													@endif
 													</div>
 												</div>
@@ -140,10 +142,7 @@
 													</div>
 												</div>
 												<div class="col-md-9">
-													<!--div class="form-group" id="test"-->
 													<div class="form-group"><br>
-														<!--input type="radio" name="input-radio-3" id="input-radio-11">
-                                        <label for="input-radio-11">Radio button</label-->
 														<input type="radio" id="input-radio-4" name="work_time_period" value="Forenoon">
 														<label for="input-radio-11">Forenoon</label>
 														<input type="radio" id="input-radio-5" name="work_time_period" value="Afternoon">
@@ -157,9 +156,15 @@
 												</div>
 												<div class="col-md-9">
 													<div class="form-group">
-														<!--input type="radio" name="input-radio-3" id="input-radio-11">
-                                        <label for="input-radio-11">Radio button</label-->
+													@if ($myplan != NULL)														
+														@if ($create == $yesterday || $leave == $yesterday)
 														<input type="radio" id="input-radio-6" onclick="show1();" name="plantype" value="Sourcing">
+														@else
+														<input type="radio" id="input-radio-6" onclick="show1();" name="plantype" value="Sourcing" disabled>
+														@endif
+													@else
+														<input type="radio" id="input-radio-6" onclick="show1();" name="plantype" value="Sourcing">
+													@endif	
 														<label for="input-radio-11">Sourcing</label>
 														<input type="radio" id="input-radio-7" onclick="show2();" name="plantype" value="Others">
 														<label for="input-radio-11">Others</label>
@@ -263,7 +268,7 @@
 												<div class="col-md-9">
 													<textarea class="form-control" name="reason"></textarea>
 												</div>
-												<input type="hidden" id="input-radio-1" name="session" value="Full Day">
+												<input type="text" id="input-radio-1" name="session" value="Full Day">
 											</div>
 										</div><br>
 									</div>
