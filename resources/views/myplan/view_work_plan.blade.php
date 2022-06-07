@@ -76,12 +76,10 @@
                                 $i=1;
                                 @endphp
 
-
                                 @foreach($student as $plan)
                                 @php
                                 if($plan->approve_status==1 || $plan->approve_status==2){
                                 @endphp
-
 
                                 @if(session('USER_ID')==$plan->created_by)
                                 <tr>

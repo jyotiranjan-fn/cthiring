@@ -48,15 +48,12 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-
                     <div class="card">
                         <div class="card-content collapse show table-responsive">
                             <div class="card-body ">
-
                                 <table class="table table-striped table-bordered dataex-html5-selectors table-responsive">
                                     <thead>
                                         <tr>
-
                                             <th>Date</th>
                                             <th>Session</th>
                                             <th>Work Type</th>
@@ -68,18 +65,9 @@
                                             <th>Approve status</th>
                                             <th>Remarks</th>
                                             <th>Action</th>
-
                                         </tr>
                                     </thead>
-
-
-
-
                                     <tbody>
-
-
-
-
                                         @foreach($student as $plan)
                                         @php
                                         $dta=date('Y-m-d', strtotime($plan->created_at));
@@ -91,18 +79,8 @@
                                         @endphp
                                         @if($level_id[0]->level_1==session('USER_ID')||$level_id[0]->level_2==session('USER_ID'))
 
-
-
-
-                                        @php
-                                        $date = date('Y-m-d', time());
-                                        @endphp
                                         @if($dta==$date && $plan->approve_status==0)
                                         <tr>
-
-
-
-
                                             <td><span class="badge badge-default badge-danger">{{date('j F-Y', strtotime($plan->task_date))}}</span></td>
                                             <td>{{$plan->day_work_name}}</td>
                                             <td>{{$plan->work_plan_type}}</td>
@@ -121,8 +99,6 @@
                                             <td>{{($plan->plan3)->fname}} {{($plan->plan3)->lname}}</td>
                                             <td>{{date('j F-Y',strtotime($plan->created_at))}}</td>
 
-
-
                                             @if ($plan->approve_status == 0)
                                             <td><span class="badge badge-default badge-danger" style="background-color:#F5AA1A!important;">Approval Awaited</span></td>
 
@@ -137,11 +113,9 @@
                                             @if ($level_id[0]->level_1==session('USER_ID')||$level_id[0]->level_2==session('USER_ID'))
                                             @if ($plan->approve_status==0)
                                             <td>
-
                                                 <button type="button" class="badge badge-default badge-success" data-toggle="modal" data-target="#exampleModalCenter{{$plan->id}}">
                                                     Approval
                                                 </button>
-
 
                                                 <!-------------------------------------------Modal1--------------------------------------------------------->
                                                 <div class="modal fade" id="exampleModalCenter{{$plan->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -181,7 +155,6 @@
 
                                                 <button type="button" class="badge badge-default badge-danger" data-toggle="modal" data-target="#exampleModalCenter1{{$plan->id}}" style="margin-top: 5px;">Reject
                                                 </button>
-
 
                                                 <!-------------------------------------------Modal2--------------------------------------------------------->
                                                 <div class="modal fade" id="exampleModalCenter1{{$plan->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

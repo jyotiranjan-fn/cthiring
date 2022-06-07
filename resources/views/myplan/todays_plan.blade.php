@@ -59,12 +59,39 @@
 												</div>
 												<div class="col-md-9">
 													<div class="form-group">
-														<!--input type="radio" name="input-radio-3" id="input-radio-11">
-                                        <label for="input-radio-11">Radio button</label-->
+														@php
+														$myplan = App\Models\myplan::where('user_id',session('USER_ID'))->orderBy('id', 'DESC')->first();
+														@endphp
+
+														@php
+														$leave = App\Models\Leave::where('user_id',session('USER_ID'))->orderBy('id', 'DESC')->first();
+														@endphp
+
+														@if ($myplan != null)
+
+														@php
+														$ldate = date('Y-m-d');
+														$yesterday = date("Y-m-d", strtotime( '-1 days' ) );
+														$create = $myplan->created_at->format('Y-m-d');
+														$leave = $leave->leave_to;
+														@endphp
+
+														@if ($create == $yesterday || $leave == $yesterday)
 														<input type="radio" id="input-radio-1" name="day_plan" value="1">
+														@else
+														<input type="radio" id="input-radio-1" name="day_plan" value="1" disabled>
+														@endif
+
+														@endif
+														
+														@if ($myplan == null)
+														<input type="radio" id="input-radio-1" name="day_plan" value="1">
+														@endif
 														<label for="input-radio-11">Current Day Plan</label>
+
 														<input type="radio" id="input-radio-2" name="day_plan" value="2">
 														<label for="input-radio-11">Previous Day Plan</label>
+
 														<input type="radio" id="input-radio-3" name="day_plan" value="3">
 														<label for="input-radio-11">Long Leave</label>
 													</div>
@@ -97,7 +124,13 @@
 												</div>
 												<div class="col-md-9">
 													<div class="input-group">
-														<input type="date" name="date" class="form-control" />
+													@if ($myplan != NULL)														
+														@if ($create == $yesterday)
+														<input type="date" id="demo" class="form-control">
+														@else
+														<input type="date" id="demo1" class="form-control">
+														@endif
+													@endif
 													</div>
 												</div>
 
@@ -148,7 +181,7 @@
 												</div>
 												<div class="col-md-9">
 													<div class="form-group">
-														<select class="form-control" name="clientname">
+														<select class="form-control" id="client_name" name="clientname">
 															<option value="">Select</option>
 															@foreach ($client1 as $client2)
 															<option value="{{$client2->id}}">{{$client2->client_name}}</option>
@@ -161,11 +194,8 @@
 												</div>
 												<div class="col-md-9">
 													<div class="form-group">
-														<select class="form-control" name="positionname">
-															<option value="">Select</option>
-															<option value="1">Hacking 1</option>
-															<option value="2">Hacking 2</option>
-															<option value="3">Hacking 3</option>
+														<select class="form-control" id="position_name" name="positionname">
+
 														</select>
 													</div>
 												</div>
@@ -204,8 +234,6 @@
 													</div>
 												</div>
 											</div>
-
-
 										</div>
 									</div>
 									<div class="col-md-6" id="taskdate1">
@@ -235,25 +263,9 @@
 												<div class="col-md-9">
 													<textarea class="form-control" name="reason"></textarea>
 												</div>
+												<input type="hidden" id="input-radio-1" name="session" value="Full Day">
 											</div>
 										</div><br>
-										<div id="div2">
-											<div class="row">
-												<div class="col-md-3">
-													<p><strong>Session*</strong></p>
-												</div>
-												<div class="col-md-9">
-													<div class="form-group">
-														<input type="radio" id="input-radio-1" name="session" value="Full Day">
-														<label for="input-radio-11">Full Day</label>
-														<input type="radio" id="input-radio-2" name="session" value="Forenoon">
-														<label for="input-radio-11">Forenoon</label>
-														<input type="radio" id="input-radio-3" name="session" value="Afternoon">
-														<label for="input-radio-11">Afternoon</label>
-													</div>
-												</div>
-											</div>
-										</div>
 									</div>
 								</div>
 							</div>
@@ -337,7 +349,65 @@
 
 		</div>
 	</div>
+	<!-- current calender date disable -->
+	<script>
+		var todayDate = new Date();
 
+		var month = todayDate.getMonth() + 1; // current month
+
+		var year = todayDate.getUTCFullYear(); //current year
+
+		var tdate = todayDate.getDate(); //current date 
+
+		if (month < 10) {
+
+			month = "0" + month //'0' + 4 = 04
+
+		}
+
+		if (tdate < 10) {
+
+			tdate = "0" + tdate;
+
+		}
+
+		var minDate = year + "-" + month + "-" + tdate;
+
+		document.getElementById("demo").setAttribute("min", minDate);
+
+		console.log(maxDate);
+	</script>
+	<!-- current calender date disable -->
+
+	<!-- previous calender date disable -->
+	<script>
+		var todayDate = new Date();
+
+		var month = todayDate.getMonth() + 1; // current month
+
+		var year = todayDate.getUTCFullYear(); //current year
+
+		var tdate = todayDate.getDate() - 1; //current date 
+
+		if (month < 10) {
+
+			month = "0" + month //'0' + 4 = 04
+
+		}
+
+		if (tdate < 10) {
+
+			tdate = "0" + tdate;
+
+		}
+
+		var maxDate = year + "-" + month + "-" + tdate;
+
+		document.getElementById("demo1").setAttribute("max", maxDate);
+
+		console.log(maxDate);
+	</script>
+	<!-- previous calender date disable -->
 	<script>
 		$(document).ready(function() {
 			//initialize the show hide functuion
@@ -392,6 +462,34 @@
 			document.getElementById('div2').style.display = 'flex';
 			document.getElementById('div1').style.display = 'none';
 		}
+	</script>
+	<script>
+		$(document).ready(function() {
+			$('#client_name').on('change', function() {
+				var client_name = this.value;
+				$('#position_name').html('');
+				$.ajax({
+					url: "{{url('position_fetch_plan')}}",
+					type: "POST",
+					data: {
+						client_name: client_name,
+						_token: '{{csrf_token()}}'
+					},
+					dataType: 'json',
+					success: function(result) {
+						$('#position_name').html('<option value="">Select Position</option>');
+						$.each(result.positionname, function(key, value) {
+							$("#position_name").append('<option value="' + value
+								.position_id + '">' +
+								value.job_title + '</option>');
+						});
+					}
+
+				});
+
+			});
+
+		});
 	</script>
 
 </x-admin-layout>

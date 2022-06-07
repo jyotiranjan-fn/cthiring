@@ -3226,8 +3226,7 @@
 
             <!-- Form wizard with icon tabs section end -->
             <script> 
-             var test_id={{$res_show->id}};
-             var ajax_addres=$('#resumeid_ajax_address').val();
+
              
             $("#get_address".test_id).on('change', function() {
                

@@ -110,9 +110,10 @@
                                                     <tr>
                                                         <th>Created By</th>
                                                         @php
-                                                        $createdby=App\Models\User::where('id',$view->id)->get();
+                                                        $createdby=App\Models\User::where('id',$view->user_id)->get();
                                                         @endphp
-                                                        <td>{{$createdby[0]->name}}</td>
+                                                        
+                                                        <td>{{$createdby[0]->fname}} {{$createdby[0]->lname}}</td>
                                                     </tr>
                                                     @if ($view->status == 1)
                                                     <tr>
@@ -148,7 +149,7 @@
                                             @endif
                                             @endif
 
-                                            @if ($view->user_id == session('USER_ID') && $view->status != 3)
+                                            @if ($view->user_id == session('USER_ID') && $view->status != 3 && $view->status != 2)
                                                 <button type="button" data-toggle="modal" data-target="#cancelleave{{$view->id}}" class="btn btn-danger">Cancel Leave</button>
                                             @endif
                                         </div>
