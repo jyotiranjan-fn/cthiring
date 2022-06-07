@@ -151,7 +151,7 @@
                 <li class=" nav-item"><a href="#"><i class="la icon-notebook"></i><span class="menu-title" data-i18n="nav.dash.main">My Plans</a>
                     <ul class="menu-content">
 
-                    @can('Create Today Plan')
+                        @can('Create Today Plan')
                         <li><a class="menu-item" href="{{url('/todays_plan')}}" data-i18n="nav.dash.ecommerce">Create
                                 Work Plan
                             </a>
@@ -168,17 +168,17 @@
                                 Work Plan</a>
                         </li>
                         @endcan
-                        
+
                         <li>
                             <a class="menu-item" href="{{url('viewleave')}}" data-i18n="nav.dash.ecommerce">View Leave</a>
                         </li>
-                        
-                        @can('Search Events')
-                        <li><a class="menu-item" href="{{url('view_event')}}" data-i18n="nav.dash.ecommerce">View
-                                Events</a>
+
+
+                        <!-- @can('Approve Leave')
+                        <li>
+                            <a class="menu-item" href="{{url('view_event')}}" data-i18n="nav.dash.ecommerce">Approve Leave</a>
                         </li>
-                        @endcan
-                        
+                        @endcan -->
                     </ul>
                 </li>
                

@@ -7,13 +7,6 @@
         .select2 {
             width: 100% !important;
         }
-
-
-        div.stars {
-            /* width: 270px;
-            display: inline-block; */
-        }
-
         input.star {
             display: none;
         }

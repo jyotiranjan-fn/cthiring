@@ -214,6 +214,8 @@ Route::middleware(['auth'])->name('admin.')->prefix('')->group(function () {
     Route::post('/cancel_leave_remark/{id}', [MyplanController::class, 'cancel_leave']);
     Route::get('/edit_plan/{id}', [MyplanController::class, 'edit_plan']);
 
+    Route::post('/position_fetch_plan', [MyplanController::class, 'position_fetch_ajax_plan']);
+
     //resume blade(uttam)
     Route::get('/add/resume', [ResumeController::class, 'showresume']);
     Route::post('/fetch_position', [ResumeController::class, 'fetch_position']);
