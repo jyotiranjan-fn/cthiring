@@ -34,9 +34,13 @@ class CreateInterviewsTable extends Migration
             $table->string('reschedule_reason', 255)->nullable();
             $table->timestamps();
             $table->integer('interview_status')->default(0)->comment('0=interview schedule data
+0=interview reschedule data
 1=interview selected
 2=interview rejected
 ');
+            $table->string('interview_stage', 255)->nullable();
+            $table->string('net_interview_decision', 255)->nullable();
+            $table->string('reject_interview_resn', 255)->nullable();
         });
     }
 

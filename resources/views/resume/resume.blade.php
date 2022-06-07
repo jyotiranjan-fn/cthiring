@@ -125,7 +125,7 @@
             cursor: pointer;
         }
     </style>
-
+@include('sweetalert::alert')
     <div class="content-header row">
         <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
             <h3 class="content-header-title mb-0 d-inline-block">Resume</h3><br>
@@ -289,13 +289,17 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="">Email</label>
-                                                        <input type="text" class="form-control" name="email">
+                                                          @if (session()->has('resume_mail_found'));
+                                                        <input type="text" class="form-control" name="email"  value="{{session('resume_mail_found')}}" readonly>
+                                                          @endif
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="">Mobile</label>
-                                                        <input type="text" class="form-control" name="mobile">
+                                                         @if (session()->has('resume_mobile_no_found'));
+                                                        <input type="text" class="form-control" name="mobile"  value="{{session('resume_mobile_no_found')}}" readonly>
+                                                          @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -836,7 +840,24 @@
 
     <div id="test" name="test"></div>
 
+ 
+<!-- 
+    <script>
+        $( document ).ready(function() {
+            var email=" {{session('email_found')}}";
+            console.log(email);
+            if(email=!null){
+                //alert("email");
+            
 
+                    //$(window).on('load', function() {
+                    //$('#duplicate_resue').show();
+                    //});
+    
+            }
+        
+       });
+    </script> -->
     <script>
         $('#reset').on('click', function() {
             $.ajax({

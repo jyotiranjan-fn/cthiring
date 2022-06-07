@@ -98,7 +98,7 @@ class CreateResumeTable extends Migration
             $table->integer('crm_status')->nullable()->default(0)->comment('0=Not Approved
 1= Approved
 2= Rejected');
-            $table->string('cv_approve_remarks', 255);
+            $table->string('cv_rejected_remarks', 255)->nullable();
         });
     }
 

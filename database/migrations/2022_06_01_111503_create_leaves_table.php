@@ -20,11 +20,17 @@ class CreateLeavesTable extends Migration
             $table->date('leave_to');
             $table->string('leave_type', 255);
             $table->longText('reason');
-            $table->tinyInteger('status')->default(0);
-            $table->integer('res_l1');
+            $table->string('session', 255)->nullable();
+            $table->tinyInteger('status')->default(0)->comment('0=Approval Awaiting
+1=Approved
+2=Rejected
+3=Cancel Leave');
             $table->integer('approved_by')->nullable();
+            $table->string('approve_remarks', 255)->nullable();
+            $table->string('reject_remarks', 255)->nullable();
+            $table->string('cancel_remarks', 255)->nullable();
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('modified_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

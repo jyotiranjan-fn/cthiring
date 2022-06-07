@@ -23,6 +23,7 @@ use App\Http\Controllers\StateController;
 use App\Http\Controllers\UserDesignationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\BillingController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -254,6 +255,10 @@ Route::middleware(['auth'])->name('admin.')->prefix('')->group(function () {
     Route::post('job_joined/{id}',[ResumeController::class,'job_joined']);
     Route::post('job_not_joined/{id}',[ResumeController::class,'job_not_joined']);
     Route::post('job_defered/{id}',[ResumeController::class,'job_defered']);
+
+    // Billing part 
+    Route::get('/showbilling/{id}', [BillingController::class, 'show_billing']);
+
 
 
 
