@@ -60,17 +60,33 @@
 												<div class="col-md-9">
 													<div class="form-group">
 														@php
+														$myplan = App\Models\myplan::where('user_id',session('USER_ID'))->orderBy('id', 'DESC')->first();
+														@endphp
+
+														@php
+														$leave = App\Models\Leave::where('user_id',session('USER_ID'))->orderBy('id', 'DESC')->first();
+														@endphp
+
+														@if ($myplan != null)
+
+														@php
 														$ldate = date('Y-m-d');
 														$yesterday = date("Y-m-d", strtotime( '-1 days' ) );
 														$create = $myplan->created_at->format('Y-m-d');
+														$leave = $leave->leave_to;
 														@endphp
 
-														@if ($create == $yesterday)
+														@if ($create == $yesterday || $leave == $yesterday)
 														<input type="radio" id="input-radio-1" name="day_plan" value="1">
 														@else
 														<input type="radio" id="input-radio-1" name="day_plan" value="1" disabled>
 														@endif
 
+														@endif
+														
+														@if ($myplan == null)
+														<input type="radio" id="input-radio-1" name="day_plan" value="1">
+														@endif
 														<label for="input-radio-11">Current Day Plan</label>
 
 														<input type="radio" id="input-radio-2" name="day_plan" value="2">
@@ -108,11 +124,13 @@
 												</div>
 												<div class="col-md-9">
 													<div class="input-group">
+													@if ($myplan != NULL)														
 														@if ($create == $yesterday)
 														<input type="date" id="demo" class="form-control">
 														@else
 														<input type="date" id="demo1" class="form-control">
 														@endif
+													@endif
 													</div>
 												</div>
 
@@ -356,7 +374,7 @@
 		var minDate = year + "-" + month + "-" + tdate;
 
 		document.getElementById("demo").setAttribute("min", minDate);
-		
+
 		console.log(maxDate);
 	</script>
 	<!-- current calender date disable -->

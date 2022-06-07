@@ -57,14 +57,13 @@ class MyplanController extends Controller
     }
     public function myplan_todays()
     {
-        $myplan = myplan::orderBy('id', 'DESC')->first();
         $student = myplan::all();
-     //  dd($student->created_at->format('Y-m-d') );
+        //  dd($student->created_at->format('Y-m-d') );
         $client1 = client::all();
         $position1 = Position::all();
         $pos = session('USER_ID');
         $pos_req = Position::where('recruiters', '=', $pos)->get()->unique('client_name');
-        return view('myplan.todays_plan', compact('pos_req', 'student', 'client1','myplan'));
+        return view('myplan.todays_plan', compact('pos_req', 'student', 'client1'));
     }
 
 
@@ -121,12 +120,11 @@ class MyplanController extends Controller
             $leave_data = Leave::all();
             // dd($leave_data);
             if (!$leave_data->isEmpty()) {
-                $date = Leave::where('user_id', session('USER_ID'))->get();
-                //  dd($date[1],$request);
-                $count = count($date);
-                for ($i = 0; $i < $count; $i++) {
-                    $from_date = $date[$i]->leave_from;
-                    $to_date = $date[$i]->leave_to;
+                $date = Leave::where('user_id', session('USER_ID'))->orderBy('id', 'DESC')->first();
+                //   dd($date,$request);
+            
+                    $from_date = $date->leave_from;
+                    $to_date = $date->leave_to;
                     $from_date1 = $request->from_date;
                     $to_date1 = $request->to_date;
 
@@ -156,7 +154,7 @@ class MyplanController extends Controller
                         $leave->save();
                         return redirect('/viewleave')->with('message', 'Leave Added Successfully, It will be visible after approved by your respective L1');
                     }
-                }
+                
             } else {
                 $leave = new Leave;
                 $leave->user_id = session('USER_ID');
