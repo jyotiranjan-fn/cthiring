@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Client-Approved Business Head</title>
+    <title>Client-Approved</title>
 </head>
 
 <body>

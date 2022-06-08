@@ -101,11 +101,6 @@ class clientController extends Controller
     public function client_insertpage2(Request $request)
     {
         // dd($request);
-        
-        //dd($request->data[0]['contactname']);
-
-        // dd(session('USER_ID'));
-        // dd(count($request->data));
 
         $role = new client;
         $role->client_name = session('client')['CLIENT_FULLNAME'];
@@ -176,8 +171,6 @@ class clientController extends Controller
 
     }
 
- 
-    
      public function mail_send($created,$client_name,$city_id,$crm_id)
     {
         // echo "hyy";
@@ -202,7 +195,7 @@ class clientController extends Controller
 
             $messages->subject('CT Hiring - Client created by '.$user1[0]->name);
         });
-    }
+        }
     }
 
     //viewclient page

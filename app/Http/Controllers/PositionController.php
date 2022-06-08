@@ -11,6 +11,7 @@ use App\Models\Position;
 use App\Models\Qualification;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail as FacadesMail;
 
 class PositionController extends Controller
 {
@@ -89,11 +90,7 @@ class PositionController extends Controller
        
         //file attachment
         $file = rand() . '.' . $request->filetype->extension();
-        // dd($imageName);
         $randfile = $request->filetype->move(('document/position/jd'), $file);
-        //dd($randfile);
-
-        //dd($role);
         $count = count($request->data);
         //dd($request->data);
 
@@ -152,41 +149,48 @@ class PositionController extends Controller
             $role->publish_web_industry = request('industry');
             $role->publish_web_competency = request('competency');
 
-            // dd($role);
+            //dd($role);
             $role->save();
 
+        
+
         }
+        $postion_id=Position::where('id',$role->position_id)->pluck('position_id');
+        $recruiters=Position::where('position_id',$postion_id[0])->pluck('recruiters');
 
-        // $job_title = request('jobname');
-        // $job_location = request('joblocation');
-        // $total_opening = request('opening');
-        // $recruiters = $request->data[$i]['recruitername'];
+        $job_title = $role->job_title;
+        $job_location = $role->job_location;
+        $total_opening = $role->total_opening;
+        $client_name=$role->client_name;
+        $createdby= $role->created_by;
 
-        // $role = client :: where('id','=',$request->fullname)->get('crm_id');
-        // // dd($role,$request->fullname);
-        // $array=json_decode($role[0]->crm_id);
-        // $createdby= session('USER_ID');        
+        $client_crm = client :: where('id','=',$request->fullname)->get('crm_id');
+        $array=json_decode($client_crm[0]->crm_id);
         // array_push($array,$createdby);
-        // $client_name= $role[0]->client_name; 
-        // $city_id= $role[0]->city_id; 
-        // $remarks= $role[0]->remarks; 
-        // $approved_by= $role[0]->approved_by;
+        $count = count($array);
         
-        
-        
-        // $user=user::where();
-        
-        // $data = [ 'created_by' => $createdby ,'job_title' => $job_title, 'job_location' => $job_location ,'total_opening' => $total_opening , 'recruiters' =>$recruiters ,'client_name' =>$client_name];
-        // // $this->mail_send( $role->created_by ,$role->job_title ,$role->job_location ,$role->total_opening ,$role->recruiters ,$role->client_name);
+        for ($i = 0; $i < $count; $i++) {
 
-        
-        // $user['to'] = $smail;
+        $email = User::where('id',$array[$i])->get();
+        $l1 = $email[0]->level_1;
+        // dd($email);
+       
+        $create = client::all();
+        // dd($create[$i]);
+        $user1 = User::where('id','=',$create[$i]->created_by)->get();
+
+        $data = [ 'created_by' => $createdby ,'job_title' => $job_title, 'job_location' => $job_location ,'total_opening' => $total_opening , 'recruiters' =>$recruiters ,'client_name' =>$client_name,'level1' =>$l1];
+
+        //   dd($data);
+
+        $user['to'] = $email[0]->email;
      
-        // FacadesMail::send('mail.otppassword', $data, function ($messages) use ($user) {
-        //     $messages->to($user['to']);
+        FacadesMail::send('mail.position_create', $data, function ($messages) use ($user,$user1) {
+            $messages->to($user['to']);
 
-        //     $messages->subject('CT-HIRING TEMP_PASSWORD');
-        // });
+            $messages->subject('CT Hiring - Position created by '.$user1[0]->name);
+        });
+    } 
         return redirect('/position')->with('message', ' Inserted Successfully');
 
     }
