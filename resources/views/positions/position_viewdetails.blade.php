@@ -461,7 +461,7 @@
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                    @elseif($res_show->crm_status==1 && $res_show->cv_status==1)<span
+                                                    @elseif($res_show->crm_status==1 && $res_show->cv_status>=1)<span
                                                         class="badge badge-success" data-toggle="tooltip"
                                                         data-placement="top" title="Billing Pending">CV Sent</span>
                                                             @elseif($res_show->crm_status==2 )
@@ -484,7 +484,7 @@
                                                         <span class="badge badge-warning" data-toggle="tooltip"
                                                             data-placement="top" title="Billing Pending">CRM
                                                             Pending</span>
-                                                        @elseif($res_show->crm_status==1 && $res_show->cv_status==1)<span
+                                                        @elseif($res_show->crm_status==1 && $res_show->cv_status>=1)<span
                                                             class="badge badge-success" data-toggle="tooltip"
                                                             data-placement="top" title="Billing Pending">CV Sent</span>
                                                                 @elseif($res_show->crm_status==2 )
