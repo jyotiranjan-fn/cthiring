@@ -151,9 +151,6 @@ class PositionController extends Controller
 
             //dd($role);
             $role->save();
-
-        
-
         }
         $postion_id=Position::where('id',$role->position_id)->pluck('position_id');
         $recruiters=Position::where('position_id',$postion_id[0])->pluck('recruiters');
@@ -175,9 +172,9 @@ class PositionController extends Controller
         $l1 = $email[0]->level_1;
         // dd($email);
        
-        $create = client::all();
+        $create = client::where('id',$client_name)->get();
         // dd($create[$i]);
-        $user1 = User::where('id','=',$create[$i]->created_by)->get();
+        $user1 = User::where('id','=',$create[0]->created_by)->get();
 
         $data = [ 'created_by' => $createdby ,'job_title' => $job_title, 'job_location' => $job_location ,'total_opening' => $total_opening , 'recruiters' =>$recruiters ,'client_name' =>$client_name,'level1' =>$l1];
 
@@ -191,15 +188,15 @@ class PositionController extends Controller
             $messages->subject('CT Hiring - Position created by '.$user1[0]->name);
         });
     } 
-        return redirect('/position')->with('message', ' Inserted Successfully');
+        return redirect('/position')->with('msg', 'Position Inserted Successfully');
 
     }
     
 
     public function position_approve_page()
     {
-        $view = position::distinct('client_name')->get()->unique('position_id');
-       
+        $view = position::distinct('position_id')->get()->unique('position_id');
+    //    dd($view);
         return view('positions.position_approve', compact('view'));
     }
 
@@ -209,29 +206,66 @@ class PositionController extends Controller
             where('role_id', '=', 8)->get();
         //dd($position_id);
         $view = position::findorfail($position_id);
-        //dd($view);
-        // $member = json_decode($view);
-        ;
 
         return view('positions.position_approvedetails', compact('view','requiter'));
     }
 
     public function approve_position(Request $request)
     {
-
-     $id = $request->position_id;
+        //dd($request->all());
+        $id = $request->position_id;
         // dd($id);
         $role = position::findorfail($id);
         $role->remarks = request('remarks');
         $role->is_approve = "1";
         $role->status = "1";
+        $role->approved_by = session('USER_ID');
         $role->save();
-        return redirect('/position_approve');
+        //dd($role);
+        //Approve mail
+        // $postion_id=Position::where('id',$role->position_id)->pluck('position_id');
+        $recruiters=Position::where('position_id',$request->position_id)->pluck('recruiters');
+
+        //  dd($recruiters);
+        $job_title = $role->job_title;
+        $job_location = $role->job_location;
+        $total_opening = $role->total_opening;
+        $client_name=$role->client_name;
+        $approved_by = session('USER_ID');
+        $remarks = request('remarks');
+
+        $client_crm = client :: where('id','=',$client_name)->get('crm_id');
+        $array1=json_decode($recruiters);
+        $array=json_decode($client_crm[0]->crm_id);
+        $data = array_merge($array1,$array);
+        //  dd($data);
+        
+        // $count = count($data);
+        // dd($data,$count);
+        foreach ($data as $view) {
+
+        $email = User::where('id',$view)->get();
+        $user1 = User::where('id','=',$approved_by)->get();
+
+        // dd($email);
+
+        $data = [ 'approved_by' => $approved_by ,'job_title' => $job_title, 'job_location' => $job_location ,'total_opening' => $total_opening , 'recruiters' =>$recruiters ,'client_name' =>$client_name,'email' =>$email];
+
+        //  dd($data);
+
+        $user['to'] = $email[0]->email;
+     
+        FacadesMail::send('mail.position_approve', $data, function ($messages) use ($user,$user1) {
+            $messages->to($user['to']);
+
+            $messages->subject('CT Hiring - Position Approved by '.$user1[0]->name);
+        });
+    }
+       return redirect('/position_approve')->with('msg', 'Position Approved Successfully');
     }
 
     public function reject_position(Request $request)
     {
-
         //dd($request->all());
         $id = $request->position_id;
         $role = position::findorfail($id);
@@ -239,34 +273,23 @@ class PositionController extends Controller
         $role->is_approve = "2";
         $role->save();
         return redirect('/position_approve');
-
     }
 
     public function position_viewpage()
     {
-
-      $view = position::distinct('client_name')->get()->unique('position_id');
-
-        //dd($view);
+        $view = position::distinct('client_name')->get()->unique('position_id');
         return view('positions.position_view', compact('view'));
-
     }
 
     public function position_view_delts($id)
     {
-
         //dd($id);
-        $requiter = user::
-            where('role_id', '=', 8)->get();
-            
+        $requiter = user::where('role_id', '=', 8)->get();
         $view = position::findorfail($id);
         $resume_delts = Resume::where('position_id', $view->position_id)->get();
         // $member = json_decode($view);
 
         return view('positions.position_viewdetails', compact('view','resume_delts','requiter'));
-
-        //dd($view);
-
     }
 
     public function editposition(Request $request, $id)
@@ -314,103 +337,12 @@ class PositionController extends Controller
 
             $edit_bevrl[] = $temp;
         }
-
-        // $role->publish_web_responsibility = request('responsibility');
-        //     $role->publish_web_industry = request('industry');
-        //     $role->publish_web_competency = request('competency');
-
         return view('positions.position_edit', compact('view', 'client1', 'function_area1', 'industry1', 'client_contact', 'crm_position', 'requiter','edit_result','edit_bevrl','qualification1'));
 
 
     }
     public function updateposition(Request $request, $position_id)
             { 
-
-        //dd($request->all());
-            
-        //         if ($request->hasfile('file')) {
-        
-        //             $file = $request->file('file');
-        //             $extention = $file->getClientOriginalExtension();
-        //             $filename = time() . '.' . $extention;
-        //             $file->move('document/position/jd/', $filename);
-
-        //         }
-        //    // dd($request->file);
-        //         Position::where('position_id',$position_id)->delete();
-                
-        //         $data1 = explode(',', $request->technical[0]);
-        //         $data2 = explode(',', $request->behavioural[0]);
-        //         $count = count($request->data);
-        //         // dd($count);
-
-        //         for ($i = 0; $i < $count; $i++) {
-
-        //         $position = new Position;
-        //         $position->position_id=$position_id;
-        //         $position->client_name = request('fullname');
-        //         $position->spoc_name = request('client_contanct_name');
-
-        //         $position->job_title = request('jobname');
-        //         $position->job_location = request('joblocation');
-        //         $position->job_code = request('jobcode');
-        //         $position->min_experience = request('min_experience');
-        //         $position->max_experience = request('max_experience');
-
-        //         // $position->annual_ctc_min = $request->input('min_salary') . $request->input('salary_value');
-        //         // $position->annual_ctc_max = request('max_salary') . request('salary_value2');
-
-
-        //         $position->annual_ctc_min = $request->input('min_salary') ." " . $request->input('salary_value');
-        //         $position->annual_ctc_max = request('max_salary') . " ". request('salary_value2');
-
-        //         $position->qualification = request('qualification');
-        //         $position->functional_area = request('functionarea');
-        //         $position->industry = request('industryname');
-
-        //         $position->age_min = request('min_age');
-        //         $position->age_max = request('max_age');
-
-        //         $position->technicalskils = json_encode($data1);
-
-        //         $position->behaviour_skils = json_encode($data2);
-
-        //         $position->total_opening = request('opening');
-
-        //         $position->crm = request('crm_name');
-        //         $position->billable_value = request('bill_value');
-
-        //         $position->total_billable = request('total_billvalue');
-
-        //         $position->joining_date = request('joiningdate');
-
-        //         $position->gender = request('basic_radio');
-
-        //         $position->resume_contact = request('resume1');
-
-        //         $position->resume_type = request('resumetype1');
-
-        //         $position->project_type = request('ptype1');
-        //         $position->publish_website = request('website1');
-        //         $position->job_description_ckediter = request('editor1');
-        //         $position->remarks = request('remarks');
-        //         // $position->file_attachment = $file;
-        //         $position->created_by = session('USER_ID');
-        //         $position->is_approve = 0;
-
-        //         $position->recruiters = $request->data[$i]['recruitername'];
-        //         // dd($position->recruiters);
-        //         $position->position_no_recruiter = $request->data[$i]['position_no_recruiter'];
-        //         $position->file_attachment = $filename;
-
-
-        //           //dd($position);
-        //         $position->save();
-                
-                
-        //         }
-        //         return redirect('/positionview')->with('msg', 'Position Updated Successfully.');
-
         $position = Position::findOrNew($request->position_id);
         
         $data1 = explode(',', $request->technical[0]);
@@ -420,84 +352,55 @@ class PositionController extends Controller
 
         for ($i = 0; $i < $count; $i++) {
 
-        //$position = new Position;
-        //$position->position_id=$position_id;
         $position->client_name = request('fullname');
         $position->spoc_name = request('client_contanct_name');
-
         $position->job_title = request('jobname');
         $position->job_location = request('joblocation');
         $position->job_code = request('jobcode');
         $position->min_experience = request('min_experience');
         $position->max_experience = request('max_experience');
-
-        // $position->annual_ctc_min = $request->input('min_salary') . $request->input('salary_value');
-        // $position->annual_ctc_max = request('max_salary') . request('salary_value2');
-
-
         $position->annual_ctc_min = $request->input('min_salary') ." " . $request->input('salary_value');
         $position->annual_ctc_max = request('max_salary') . " ". request('salary_value2');
-
         $position->qualification = request('qualification');
         $position->functional_area = request('functionarea');
         $position->industry = request('industryname');
-
         $position->age_min = request('min_age');
         $position->age_max = request('max_age');
-
         $position->technicalskils = json_encode($data1);
-
         $position->behaviour_skils = json_encode($data2);
-
         $position->total_opening = request('opening');
-
         $position->crm = request('crm');
         $position->billable_value = request('bill_value');
-
         $position->total_billable = request('total_billvalue');
-
         $position->joining_date = request('joiningdate');
-
         $position->gender = request('basic_radio');
-
         $position->resume_contact = request('resume1');
-
         $position->resume_type = request('resumetype1');
-
         $position->project_type = request('ptype1');
         $position->publish_website = request('website1');
         $position->job_description_ckediter = request('editor1');
         $position->remarks = request('remarks');
         $position->created_at = request('created');
-        // $position->file_attachment = $file;
         $position->created_by = session('USER_ID');
         $position->is_approve = 0;
-
         $position->recruiters = $request->data[$i]['recruitername'];
-        // dd($position->recruiters);
         $position->position_no_recruiter = $request->data[$i]['position_no_recruiter'];
 
-        // dd($request->file);
-        if ($request->hasfile('file')) {
-            $request->validate([
-            'file' => 'mimes:pdf',
-            ]);
-            $file = $request->file('file');
-            $extention = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extention;
-            $file->move('document/position/jd/', $filename);
-            $position->file_attachment = $filename;
-        }else{
-            
-            $position->file_attachment = request('file_name');
-        }
-        
-        //   dd($position);
-        $position->save();
-        
-        
+            if ($request->hasfile('file')) {
+                $request->validate([
+                'file' => 'mimes:pdf',
+                ]);
+                $file = $request->file('file');
+                $extention = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extention;
+                $file->move('document/position/jd/', $filename);
+                $position->file_attachment = $filename;
+            }else{
+                $position->file_attachment = request('file_name');
+            }
+            $position->save();
         }
 
         return redirect('/positionview')->with('msg', 'Position Updated Successfully.');   
-                }
+    }
 }

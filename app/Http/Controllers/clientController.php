@@ -162,7 +162,7 @@ class clientController extends Controller
             $role1->save();
 
         }
-         $this->mail_send($role1->created_by, $role->client_name, $role1->city_id, $role->crm_id);
+         $this->mail_send($role1->created_by, $role->client_name, $role1->city_id, $role->crm_id,$LastInsertId);
          
         $request->session()->forget('client');
 
@@ -171,9 +171,9 @@ class clientController extends Controller
 
     }
 
-     public function mail_send($created,$client_name,$city_id,$crm_id)
+     public function mail_send($created,$client_name,$city_id,$crm_id,$LastInsertId)
     {
-        // echo "hyy";
+        // dd($LastInsertId);
         
         $user = User::where('role_id', '2')->get();
         
@@ -183,9 +183,10 @@ class clientController extends Controller
         $data = ['createby' => $created, 'nameclient' => $client_name, 'cityname' => $city_id, 'crmid' => $crm_id,'fname' => $user[$i]->fname,'lname' => $user[$i]->lname];
         
         // dd($data);
-        $create = client::all('created_by');
-        //  dd($create[$i]->created_by);
-        $user1 = User::where('id','=',$create[$i]->created_by)->get();
+        $create = client::where('id',$LastInsertId)->get();
+        // $create = client::all('created_by');
+        //   dd($create);
+        $user1 = User::where('id','=',$create[0]->created_by)->get();
 
         //  dd($user1[0]->name);
         $clientmail['to'] = $user[$i]->email;
@@ -247,8 +248,6 @@ class clientController extends Controller
         $role->is_approve = "1";
         $role->save();
         
-
-
         $role = client :: where('id',"=",$request->c_id)->get();
         $array=json_decode($role[0]->crm_id);
         $client_createdby= $role[0]->created_by;        
@@ -267,11 +266,7 @@ class clientController extends Controller
         $count= count($user_mail);
         // dd($user_mail);
         for($i = 0; $i < $count; $i++){
-
-        
-
-
-        $create = client::all('approved_by');
+        $create = client::where('id',$id)->get();
           //dd($create[$i]->approved_by);
         $user1 = User::where('id','=',$create[0]->approved_by)->get();
          //dd($user1[0]->name);
