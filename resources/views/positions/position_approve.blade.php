@@ -27,12 +27,12 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
             </div>
         </div>
 
-        @if(session()->has('roleinster'))
+        @if(session()->has('msg'))
         <div class="alert alert-success alert-dismissible bg-success text-white border-0 fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            {{session('roleinster')}}
+            {{session('msg')}}
         </div>
         @endif
         <!-- Form wizard with icon tabs section start -->
@@ -63,8 +63,6 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                         <th>Total Openings</th>
                                         <th>CRM</th>
                                         <th>Recruiters</th>
-
-
                                         <th>Status</th>
                                         <th>Pending</th>
                                         <th>Created By</th>
@@ -73,11 +71,14 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                
-                                  @php
+                                @if(!empty($view[0]))
+                             
+                                @php
                                 $level_id=App\Models\User::where('id',$view[0]->created_by)->get(['level_1','level_2']);
+                                @endphp
 
-                                if($level_id[0]->level_1==session('USER_ID')||$level_id[0]->level_2==session('USER_ID')){
+                                @php
+                                if($level_id[0]->level_1==session('USER_ID')){
                                 @endphp
 
                                  <tbody>
@@ -98,12 +99,8 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                                 href="{{url('/position_approve_details',$loc->position_id)}}">{{$loc->job_title}}</a>
                                         </td>
                                         <td style="text-align: left;">{{optional ($loc->client_na)->client_name }}</td>
-
-
                                         <td style="text-align: left;">{{$loc->total_opening}}</td>
-
                                         <td style="text-align: left;">
-                    
                                                 @php                                                                 
                                                 $test=json_decode($loc->crm);
                                                 @endphp 
@@ -121,8 +118,6 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                         @php
                                         $recruiter_id=App\Models\Position::where('position_id', $loc->position_id)->get('recruiters');
                                         @endphp
-                                        
-                                       
                                         <td style="text-align: left;">
                                             @foreach($recruiter_id as $recruiter_name)
                                                 <span class="badge badge-primary">
@@ -131,36 +126,19 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                                 </span>
                                             @endforeach
                                         </td>
-                          
-
-
                                         @if ($loc->is_approve == 1)
                                         <td><span class="badge badge-default badge-success">Approved</span></td>
-
-
                                         @else
                                         <td><span class="badge badge-default badge-warning">Pending</span> </td>
-
-
                                         @endif
-
-
-
-
                                         <td><span class="badge badge-default badge-warning">
                                                 {{(($loc->created_at)->diffForHumans(now()))}}
                                             </span>
                                         </td>
-
-
-
                                         <td>{{optional($loc->position_create)->fname}}{{optional($loc->position_create)->lname}}
                                         </td>
-
-
                                         <td>{{$loc->created_at}}</td>
                                         <td>{{$loc->updated_at}}</td>
-
                                         <td><a href="{{url('/position_approve_details',$loc->position_id)}}">
                                                 <i class="fa fa-external-link" aria-hidden="true"></i>
                                             </a>
@@ -176,6 +154,8 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                     @php
                                     }
                                     @endphp
+
+                                    @endif
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
@@ -184,8 +164,6 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                         <th>Total Openings</th>
                                         <th>CRM</th>
                                         <th>Recruiters</th>
-
-
                                         <th>Status</th>
                                         <th>Pending</th>
                                         <th>Created By</th>

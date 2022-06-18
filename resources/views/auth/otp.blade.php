@@ -70,7 +70,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         @if(session()->has('otpmsg'))
-                                        <div class="alert alert-succss alert-dismissible bg-success text-white border-0 fade show"
+                                        <div class="alert alert-danger alert-dismissible bg-success text-white border-0 fade show"
                                             role="alert">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>

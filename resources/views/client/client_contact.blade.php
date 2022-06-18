@@ -368,13 +368,13 @@ $(document).ready(function() {
 
  <script>
  $('#single_checkbox').click(function(){
-     var door_no={{session('client')['CLIENT_DRNO']}};
+     var door_no="{{session('client')['CLIENT_DRNO']}}";
      var stree_name="{{session('client')['CLIENT_STNAME']}}";
      var area="{{session('client')['CLIENT_AREA']}}";
-     var state={{session('client')['CLIENT_STATE']}};
-     var dist={{ session('client')['CLIENT_DIST']}};
-     var city={{session('client')['CLIENT_CITY']}};
-     var pin={{session('client')['CLIENT_PINCODE']}};
+     var state="{{session('client')['CLIENT_STATE']}}";
+     var dist="{{ session('client')['CLIENT_DIST']}}";
+     var city="{{session('client')['CLIENT_CITY']}}";
+     var pin="{{session('client')['CLIENT_PINCODE']}}";
 
 
 

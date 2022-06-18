@@ -1,7 +1,7 @@
 <!Doctype html>
 <html>
 	<head>
-		<title>Position Create</title>
+		<title>Position Approve</title>
 	</head>
 	<body>
 		<div style="width:744px;background-color: #f2f2f2;padding-top: 12px;padding-bottom: 15px;">
@@ -15,21 +15,20 @@
 			<table style="width: 700px;margin-right: auto;margin-left: auto;position: relative;top: -4px;background-color: #f9f9f9;padding-bottom: 16px;">
 				<tr>
 					<td colspan="2">
-                        @php
-                            $l1 = App\Models\User::where('id',$level1)->get();
-                        @endphp
+                      
 						<p style="font-family: verdana;text-align: left;font-size: 14px;margin: 0px;color: #484546;line-height: 140%;word-wrap: break-word;padding-top: 6px;padding-left: 12px;font-weight:600;">
-                        Dear {{$l1[0]->fname}} {{$l1[0]->lname}},
+                        Dear {{$email[0]->name}},
                         </p>
+                        
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
                         @php
-                            $created = App\Models\User::where('id',$created_by)->get();
+                            $approved = App\Models\User::where('id',$approved_by)->get();
                         @endphp
 						<p style="font-family: verdana;text-align: left;font-size: 12px;margin: 0px;color: #484546;line-height: 140%;margin-top: 10px;word-wrap: break-word;padding-top: 6px;padding-left: 12px;">
-							The following position is created by <span style="font-weight:600;">{{$created[0]->name}}</span>. Please login to CT Hiring and approve the requirement quickly. After your approval only recruiters can create resumes for the requirements.
+							The following position is approved by <span style="font-weight:600;">{{$approved[0]->name}}</span>. Please login to CT Hiring and start submitting resumes for this Position.
 						</p>
 					</td>
 				</tr>
@@ -50,7 +49,7 @@
 					</td>
 					<td>
 						<p style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;">
-                        {{$created[0]->name}}
+                        {{$approved[0]->name}}
 						</p>
 					</td>
 					<td>
@@ -97,7 +96,6 @@
 					</td>
 					<td>
                         <p style="font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px; padding-bottom: 6px; background-color: #f2f2f2;">
-                       
                             @php
                             $count = count($recruiters);
                         @endphp
@@ -105,7 +103,7 @@
                             @php
                                 $recruiter = App\Models\User::where('id',$recruiters[$i])->get();
                             @endphp
-                           {{$recruiter[0]->fname}} {{$recruiter[0]->lname}},
+                           {{$recruiter[0]->name}},
                             @endfor
 						</p>
 					</td>
