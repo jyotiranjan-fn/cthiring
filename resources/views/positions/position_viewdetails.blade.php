@@ -407,7 +407,7 @@
                                             <tr>
                                                 <td class="pd_20"><input type="checkbox"
                                                         class="m_r">{{$res_show ->resume_code}}</td>
-                                                <td><a href="">{{$res_show ->name}}</a></td>
+                                                <td><a href="{{url('resume_viewdetails',$res_show->id)}}">{{$res_show ->name}}</a></td>
                                                 <td>{{$res_show ->mobile}}</td>
                                                 <td>{{$res_show ->email}}</td>
                                                 <td>{{$res_show ->present_location}}</td>
@@ -714,7 +714,7 @@
                                             <tr>
                                                 <td class="pd_20"><input type="checkbox"
                                                         class="m_r">{{$res_show ->resume_code}}</td>
-                                                <td><a href="">{{$res_show ->name}}</a></td>
+                                                <td><a href="{{url('resume_viewdetails',$res_show->id)}}">{{$res_show ->name}}</a></td>
                                                 <td>{{$res_show ->mobile}}</td>
                                                 <td>{{$res_show ->email}}</td>
                                                 <td>{{$res_show ->present_location}}</td>
@@ -1127,7 +1127,7 @@
                                     <!-- 3rd interview schedule end -->
 
                                     <!-- 3rd interview schedule start -->
-                                    @if($res_show->cv_status==12)
+                                    @if($res_show->cv_status==12 ||$res_show->cv_status==13)
                                     <span class="p_d" data-toggle="tooltip" data-placement="top"
                                         title="First Interview Scheduled">3 IS</span>
                                     <div class="dropdown d_inblk">
@@ -1200,7 +1200,7 @@
                                     @endif
 
                                     <!-- 4th interview schedule start -->
-                                    @if($res_show->cv_status==16)
+                                    @if($res_show->cv_status==16 || $res_show->cv_status==17)
                                     <span class="p_d" data-toggle="tooltip" data-placement="top"
                                         title="First Interview Scheduled">4 IS</span>
                                     <div class="dropdown d_inblk">
@@ -1271,7 +1271,7 @@
                                     @endif
 
                                     <!-- final interview schedule start -->
-                                    @if($res_show->cv_status==20)
+                                    @if($res_show->cv_status==20 || $res_show->cv_status==21)
                                     <span class="p_d" data-toggle="tooltip" data-placement="top"
                                         title="First Interview Scheduled">FIS
                                     
@@ -1857,26 +1857,36 @@
                                     @php 
                                      
                                          
-                                    if($res_show ->cv_status==6 || $res_show ->cv_status==4){
+                                    if($res_show ->cv_status==6 || $res_show ->cv_status==4 || $res_show ->cv_status==5){
                                         $interview_level=1;
                                     }
-                                    elseif($res_show ->cv_status==10 || $res_show ->cv_status==8){
+                                    elseif($res_show ->cv_status==10 || $res_show ->cv_status==8 || $res_show ->cv_status==9){
                                         $interview_level=2;
                                     }
-                                    elseif($res_show ->cv_status==14 || $res_show ->cv_status==12){
+                                    elseif($res_show ->cv_status==14 || $res_show ->cv_status==12 || $res_show ->cv_status==13){
                                          $interview_level=3;
                                     }
-                                    elseif($res_show ->cv_status==18 || $res_show ->cv_status==16){
+                                    elseif($res_show ->cv_status==18 || $res_show ->cv_status==16 || $res_show ->cv_status==17 ){
                                          $interview_level=4;
                                     }
+                                    elseif($res_show ->cv_status==20 || $res_show ->cv_status==21 ){
+                                         $interview_level=5;
+                                    }
+
                                     else{
                                         $interview_level="";
                                     }
                                                                    
                 
-                                    $interview_details = App\Models\Interview::where('candidate_id',$res_show ->id)->where('interview_level', $interview_level)->first();
+                                    $interview_details = App\Models\Interview::where('candidate_id',$res_show ->id)->where('interview_level', $interview_level)->orderBy('id', 'DESC')->first();
+                                
                                     @endphp 
+
+                    
                                     
+
+                                
+  
                                    @if(!empty ($interview_details))
                                     <div class="modal fade bd-example-modal-lg" id="viewinterview{{$res_show ->id}}"
                                         tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"aria-hidden="true">
@@ -3218,6 +3228,12 @@
 
                                             @if(in_array(session('USER_ID'),json_decode($fetch_crm_billing[0]->crm_id)))
 
+                                            
+
+                                            
+                                            
+
+                                           
                                             <li>
                                                 <a href="{{url('/showbilling',$res_show ->id)}}">
                                                     <button type="button" class="btn pd_slst">
@@ -3423,63 +3439,7 @@
 
 
 
-            <!-- <script>
-            $("#reschedule_get_address").on('change', function() {
-                var ab = $(this).val();
-                var reschdul_resume_id= $('#resume_id_ajax_reschedul').val();
-                if (ab == 1) {
-                    $.ajax({
-                        url: "{{url('getaddtess')}}",
-                        type: "POST",
-                        data: {
-                            resume_id: reschdul_resume_id,
-                            _token: '{{csrf_token()}}'
-                        },
-                        dataType: 'json',
-
-                        success: function(result) {
-                            $('#reschedule_interview_venue{{$res_show->id}}').html('<textarea name="re_interview_venue"' +
-                                'class="form-control" id="reschedule_interview_venue{{$res_show->id}}" cols="63"' +
-                                'rows="2">' + result[0][0].client_name +
-                                '\nAddress: ' + result[0][0].door_no + ', ' + result[0][0]
-                                .street_name + ', ' + result[0][0].area_name +
-                                '\nCity/Town: ' + result[1][0].name + '\nDistricts: ' + result[
-                                    2][0].district_title + '\n' + result[3][0].state_title +
-                                ' ,' + result[0][0].pincode + '</textarea>');
-
-                        },
-                    });
-                } else {
-                    $('#reschedule_interview_venue').html('<textarea name="re_interview_venue"' +
-                        'class="form-control" id="reschedule_interview_venue" cols="63"' +
-                        'rows="2"></textarea>');
-                }
-
-            });
-
-            $("#reschedule_spoc").on('change', function() {
-                var test = $(this).val();
-
-
-                $.ajax({
-                    url: "{{url('getspoc')}}",
-                    type: "POST",
-                    data: {
-                        id: test,
-                        _token: '{{csrf_token()}}'
-                    },
-                    dataType: 'json',
-
-                    success: function(spoc_details) {
-                        $('#reschedule_contact_name').val(spoc_details[0].contact_name);
-                        $('#reschedule_contact_phone').val(spoc_details[0].mobile);
-
-                    },
-                });
-
-
-            });
-            </script> -->
+           
 
 
         </div>

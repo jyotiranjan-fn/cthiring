@@ -90,7 +90,8 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                         <td>{{$loc->name}}</td>
                                         <td>{{$loc->mobile}}</td>
                                         <td>{{$loc->email}}</td>
-                                        <td>{{$loc->year_experience}}{{$loc->month_experience}}</td>
+                                        <td>{{$loc->year_experience}} {{$loc->month_experience}}</td>
+                                            
                                         <td> {{$loc->present_location}} </td>
 
                                         <td> </td>

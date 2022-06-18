@@ -729,6 +729,9 @@ class ResumeController extends Controller
         $schedule_interview->cv_status = $interview_status;
         $schedule_interview->save();
 
+        $cv_status=Resume::where('id',$id)->first('cv_status');
+        //dd($cv_status->cv_status);
+
 
         $interview_level_data = new Interview;
         $interview_level_data->candidate_id = request('candidate_id');
@@ -749,8 +752,10 @@ class ResumeController extends Controller
         $interview_level_data->client_contact_number  = request('client_contact_number');
         $interview_level_data->addition_info = request('additional_info');
 
+        $interview_level_data->interview_cv_status = $cv_status->cv_status;
 
-         $interview_level_data->save();
+
+        $interview_level_data->save();
 
         return redirect('/position_view_details/'.$request->pos_id)->with('message', ' Interview Scheduled.');
  
@@ -791,7 +796,8 @@ class ResumeController extends Controller
         
          $re_schedule_interview->cv_status = $interview_status;
          $re_schedule_interview->save();
- 
+               
+         $cv_status=Resume::where('id',$id)->first('cv_status');
  
          $re_interview_level_data = new Interview;
          $re_interview_level_data->candidate_id = request('re_candidate_id');
@@ -812,6 +818,9 @@ class ResumeController extends Controller
          $re_interview_level_data->client_contact_name = request('re_client_contact_name');
          $re_interview_level_data->client_contact_number  = request('re_client_contact_number');
          $re_interview_level_data->addition_info = request('re_additional_info');
+         $re_interview_level_data->interview_status=1;
+
+        $re_interview_level_data->interview_cv_status = $cv_status->cv_status;
          
 
           $re_interview_level_data->save();
@@ -881,7 +890,7 @@ class ResumeController extends Controller
              $interview_level_select->candidate_name = $request->candidate_name;
              $interview_level_select->remark =$request->remarks;
              $interview_level_select->net_interview_decision =$request->net_interview_decision;
-             $interview_level_select->interview_status=1;
+             $interview_level_select->interview_status=2;
              
              
            if($interview_level_cv_status[0]->cv_status==6)
@@ -907,6 +916,9 @@ class ResumeController extends Controller
                $interview_stage= "Final Interview "; 
             }
             $interview_level_select->interview_stage=$interview_stage;
+
+            $interview_level_select->interview_cv_status = $interview_level_cv_status[0]->cv_status;
+
             $interview_level_select->save();
             return redirect('/position_view_details/'.$request->pos_id)->with('message', 'Interview Selected');
         }
@@ -955,7 +967,7 @@ class ResumeController extends Controller
         $interview_level_reject->candidate_name = $request->candidate_name;
         $interview_level_reject->reject_interview_resn =$request->reject_interview_reason;
         $interview_level_reject->reject_interview_resn =$request->remarks;
-        $interview_level_reject->interview_status=2;
+        $interview_level_reject->interview_status=3;
 
          if($interview_level_cv_status_reject[0]->cv_status==7)
 
@@ -964,7 +976,7 @@ class ResumeController extends Controller
             }
             elseif($interview_level_cv_status_reject[0]->cv_status== 11)
             {
-                $interview_stage= "second Interview";
+                $interview_stage= "Second Interview";
             }
 
             elseif($interview_level_cv_status_reject[0]->cv_status== 15)
@@ -980,6 +992,9 @@ class ResumeController extends Controller
                $interview_stage= "Final Interview "; 
             }
             $interview_level_reject->interview_stage=$interview_stage;
+
+            $interview_level_reject->interview_cv_status = $interview_level_cv_status_reject[0]->cv_status;
+
             $interview_level_reject->save();
             return redirect('/position_view_details/'.$request->pos_id)->with('delt', 'Interview Rejected');
 
@@ -1018,6 +1033,8 @@ class ResumeController extends Controller
             }
 
         $job_offer_status-> offer_decission =$offer;
+
+        $job_offer_status->interview_cv_status = $offer_decission[0]->cv_status;
 
         $job_offer_status->save();
         return redirect('/position_view_details/'.$request->pos_id)->with('message', 'Offer Accepted');
@@ -1058,6 +1075,8 @@ class ResumeController extends Controller
 
         $job_offer_status-> offer_decission =$offer;
 
+        $job_offer_status->interview_cv_status = $offer_decission_reject[0]->cv_status;
+
         $job_offer_status->save();
         return redirect('/position_view_details/'.$request->pos_id)->with('delt', 'Offer Rejected');
     }
@@ -1095,6 +1114,8 @@ class ResumeController extends Controller
             }
 
         $job_joined_status-> joined_decission =$job_offer;
+        $job_joined_status->interview_cv_status = $job_joined[0]->cv_status;
+        
 
         $job_joined_status->save();
         return redirect('/position_view_details/'.$request->pos_id)->with('message', 'Joined');
@@ -1130,6 +1151,7 @@ class ResumeController extends Controller
             }
 
         $job_status-> joined_decission =$job_offer;
+        $job_status->interview_cv_status = $not_joined_job[0]->cv_status;
 
         $job_status->save();
         return redirect('/position_view_details/'.$request->pos_id)->with('delt', 'Not Joined');
@@ -1168,6 +1190,8 @@ class ResumeController extends Controller
             }
 
         $job_status-> joined_decission =$job_offer;
+
+        $job_status->interview_cv_status = $differed_job[0]->cv_status;
 
         $job_status->save();
         return redirect('/position_view_details/'.$request->pos_id)->with('delt', 'Defered');
