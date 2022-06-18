@@ -101,4 +101,16 @@ class BillingController extends Controller
 
     }
 
+
+    public function billing_one()
+    {
+        return view('performance.view_billing_details');
+    }
+
+    
+    public function billing_two()
+    {
+        return view('performance.view_billing');
+    }
+
 }

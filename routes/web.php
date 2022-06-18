@@ -259,6 +259,12 @@ Route::middleware(['auth'])->name('admin.')->prefix('')->group(function () {
     // Billing part 
     Route::get('/showbilling/{id}', [BillingController::class, 'show_billing']);
     Route::post('/insert_billing', [BillingController::class, 'insert_billing_candidate']);
+
+
+    
+    Route::get('/billing', [BillingController::class, 'billing_one']);
+    
+    Route::get('/billing_two', [BillingController::class, 'billing_two']);
     
 
 

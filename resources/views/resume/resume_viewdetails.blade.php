@@ -1,4 +1,9 @@
 <x-admin-layout>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+    href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 <style>
 body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
     margin-left: 0px;
@@ -361,10 +366,12 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                                                         <th>Consultant Assessment</th>
                                                                         <td>{{$view->assessment}}</td>
                                                                     </tr>
+                                                  
                                                                     <tr>
+                                                                        
                                                                         <th>Technical Skills Rating</th>
-                                                                        <td>
-                                                                        </td>
+                               
+                                                                         
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Any Other Inputs</th>
@@ -432,9 +439,6 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
 
                                                 @php
                                                 $spoc_name=App\Models\ClientContact::where('id',($view->jobname)->spoc_name)->get();
-
-
-
                                                 @endphp
                                                 <td>{{$spoc_name[0]->contact_name}}</td>
                                                 <td>{{$spoc_name[0]->email}}</td>
@@ -445,7 +449,13 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                 </div>
                                 <div id="menu4" class="container tab-pane fade pd_0"><br>
                                     <table class="table table-bordered wd_37">
+                                        
                                         <thead>
+                                            @php 
+                                            $interview_satge=App\Models\Interview::where('candidate_id',$view->id)->orderBy('id', 'DESC')->limit(1)->first();
+                                            @endphp
+                                         
+                                   
                                             <tr>
                                                 <th>Interview Date</th>
                                                 <th>Stage</th>
@@ -456,9 +466,54 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                         <tbody>
 
                                             <tr>
-                                                <td>1</td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{$interview_satge->interview_date}}</td>
+                                                @php
+                                                if($interview_satge->interview_level==1)
+                                                {
+                                                    $interview_stage="First Interview";
+
+                                                }
+                                                elseif($interview_satge->interview_level==2)
+                                                {
+                                                    $interview_stage="Second Interview";
+                                                }
+
+                                                elseif($interview_satge->interview_level==3)
+                                                {
+                                                    $interview_stage="Third Interview";
+                                                }
+                                                elseif($interview_satge->interview_level==4)
+                                                {
+                                                    $interview_stage="Four Interview";
+                                                }
+                                                elseif($interview_satge->interview_level==5)
+                                                {
+                                                    $interview_stage="Final Interview";
+                                                }
+                                                @endphp
+                                                
+
+                                                <td>{{$interview_stage}}</td>
+
+                                                @php
+                                                if($interview_satge->interview_status==0)
+                                                {
+                                                    $interview_status="Interview";
+
+                                                }
+                                                elseif($interview_satge->interview_status==1)
+                                                {
+                                                    $interview_status="Second Interview";
+                                                }
+
+                                                elseif($interview_satge->interview_status==2)
+                                                {
+                                                    $interview_status="Third Interview";
+                                                }
+                                               
+                                                @endphp
+
+                                                <td>{{}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -513,6 +568,18 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
             </div>
        
         <!-- Form wizard with icon tabs section end -->
+        <script>
+var i = 1;
+$('#add').each(function() {
+    $(this).on('click', function() {
+
+        $('#test')
+        console.log(i);
+        i++;
+
+    });
+})
+</script>
     
 
-                                                </x-admin-layout>
+  </x-admin-layout>

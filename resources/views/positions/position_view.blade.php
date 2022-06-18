@@ -131,15 +131,26 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                             @endforeach
                                         </td>
 
+                                        @php
+                                        $resume_count=App\Models\Resume::where('position_id', $loc->position_id)->get('id');
+                                        @endphp
 
-                                        <td style="text-align: left;"> </td>
-
-
-
-
-
-                                        <td> {{$loc->joining_date}}</td>
-
+                                        <td style="text-align: left;">{{count($resume_count)}} </td>
+                               
+                                        @php
+                            
+                                            $cv_status = App\Models\Resume::where('position_id','=',$loc->position_id)->where(function($query) {
+                                                        $query -> where('cv_status','=','26')
+                                                               -> orWhere('cv_status','=','29');
+                                            })->get();                              
+                                        @endphp
+                                       
+                                          
+                                        <td>{{count($cv_status)}}</td>
+                                       
+                                     
+                                                
+                                         
 
 
                                         <td>{{optional ($loc->position_create)->fname}}{{optional ($loc->position_create)->lname}}
