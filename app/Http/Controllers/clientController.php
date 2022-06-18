@@ -400,9 +400,7 @@ class clientController extends Controller
             
             
             ]);
-        
         }
         return redirect('/viewclient')->with('msg', 'Client Updated successfully.');
     }
-
 }
