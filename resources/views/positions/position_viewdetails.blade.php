@@ -3424,24 +3424,6 @@
                 });
             </script>
 
-               <!-- <script>
-                
-                $('('input[name="name_of_your_radiobutton"]:checked').val();').on('click',function(){
-                    var interview_level=$(this).val();
-                    alert(interview_level);
-                });
-            </script> -->
-
-
-
-
-
-
-
-
-           
-
-
         </div>
     </div>
 </x-admin-layout>

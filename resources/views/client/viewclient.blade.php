@@ -1,9 +1,5 @@
 <x-admin-layout>
 <style>
-body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
-    margin-left: 0px;
-}
-
 .pd_0 {
     padding: 0px;
 }
@@ -110,7 +106,7 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                     if($loc->is_approve==1 ){
                                     @endphp
                                     <tr>
-                                        <td>{{ $key+1 }}</td>
+                                        <td>{{ $key+1}}</td>
                                         <td data-toggle="tooltip" data-trigger="hover" data-placement="top"
                                             data-title="click to view the details" style="text-align: left;">
 
@@ -182,10 +178,6 @@ $position_count=count(App\Models\Position::where('client_name',$loc->id)->get()-
                                         <!-- <a href="{{url('/',$loc->id)}}" onclick="return confirm('Are you sure?')"><i
                                                     class="ft-trash-2 ml-1 text-warning"></i></a> -->
                                         </td>
-
-
-
-
                                     </tr>
                                     @php
                                     $i++;
@@ -194,11 +186,6 @@ $position_count=count(App\Models\Position::where('client_name',$loc->id)->get()-
 
                                     @endforeach
                                 </tbody>
-
-
-
-
-
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
@@ -207,7 +194,6 @@ $position_count=count(App\Models\Position::where('client_name',$loc->id)->get()-
                                         <th>Position</th>
                                         <th>City</th>
                                         <th>District</th>
-
                                         <th>CRM</th>
                                         <th>Status</th>
                                         <th>Created By</th>
@@ -216,15 +202,11 @@ $position_count=count(App\Models\Position::where('client_name',$loc->id)->get()-
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
-
-
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- Form wizard with icon tabs section end -->
-
-
         </div>
-                                </x-admin-layout>
+</x-admin-layout>

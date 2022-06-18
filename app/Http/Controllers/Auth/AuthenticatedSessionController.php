@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        // dd($request);
+        // dd($request->all());
        // $request->authenticate();
     //    $check_user=User::all();
     //    dd($check_user);
@@ -47,11 +47,11 @@ class AuthenticatedSessionController extends Controller
            
         
         $temp_pass_status=$password_status[0]->temp_password;
-      // dd($password_status);
+    //   dd($password_status);
         
          $pass = Hash::check($request->password, $temp_pass_status);
 
-         
+        //   dd($pass);
         
         if(!$temp_pass_status==null && $pass){
             
@@ -61,7 +61,7 @@ class AuthenticatedSessionController extends Controller
                             
                             // dd($get_user[0]->id);
                             $get_id=$get_user[0]->id;
-                                
+                        //   dd($get_user);      
                 if($get_user->isNotEmpty()){
                      return view('auth.newpassword',compact('get_id'));
                 
@@ -73,6 +73,7 @@ class AuthenticatedSessionController extends Controller
         else{
         
        $credentials = $request->only('email', 'password');
+    //   dd($credentials);
        if (Auth::attempt($credentials)) {   
         $id = Auth::user()->id;
         
@@ -112,7 +113,7 @@ class AuthenticatedSessionController extends Controller
         $userid=session('USER_ID');
 
 
-        //dd($otp_in,$email);
+        // dd($otp_in,$email);
 
        // $this->mail_send('Prasant','666555');
         $this->mail_send( $random ,$email,$username,'abinash889@gmail.com');
@@ -126,11 +127,12 @@ class AuthenticatedSessionController extends Controller
          $userid=session('USER_ID');
         //dd(session('USER_ID'));
        
-         return redirect()->intended(RouteServiceProvider::HOME);
+        //  return redirect()->intended(RouteServiceProvider::HOME)->with('msg',"Invalid Password");
+        return redirect ('/login')->with('msg',"Invalid Password");
         }
     }
     else{
-        return redirect ('/login')->with('message',"Invalid User Id");
+        return redirect ('/login')->with('msg',"Invalid User Id");
     }
     }
 
@@ -162,18 +164,7 @@ class AuthenticatedSessionController extends Controller
         ]);
          
         return redirect ('/login');
-       
-       
-    
-       
-       
- 
     }
-
-
-
-
-    
 
     /**
      * Destroy an authenticated session.
@@ -193,13 +184,7 @@ class AuthenticatedSessionController extends Controller
     }
     public function otp()
     {
-
-
-      
         return view('auth.otp');
-
-       
-
     }
     public function otp_verify(Request $request){
 
@@ -207,20 +192,19 @@ class AuthenticatedSessionController extends Controller
         $mobile_no_get=User::where('id',session('USER_ID'))->get('mobile');
         $get_otp=OtpStore::where('mobile_no',$mobile_no_get[0]->mobile)->get();
          
-//dd($request->otp,$get_otp[0]->otp);
+        //dd($request->otp,$get_otp[0]->otp);
        if($request->otp==$get_otp[0]->otp){
 
         $request->session()->put('otp_verified',true);
+        // dd($request->session());
         return redirect('/');
 
        }
        else{
-        Auth::logout();
-        return view('auth.login');
+        // Auth::logout();
+        $request->session()->flash('otpmsg','Invalid OTP'); 
+        return view('auth.otp');
 
        }
-
-       // dd($mobile_no_get[0]->mobile,$get_otp);
-
     }
 }
