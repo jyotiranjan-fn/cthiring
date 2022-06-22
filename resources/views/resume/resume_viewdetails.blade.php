@@ -454,7 +454,11 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
                                             @php 
                                             $interview_satge=App\Models\Interview::where('candidate_id',$view->id)->orderBy('id', 'DESC')->limit(1)->first();
                                             @endphp
-                                         
+
+                                            @php 
+                                            $inv_result=App\Models\InterviewStatus::where('candidate_id',$view->id)->get();
+                                            @endphp
+
                                    
                                             <tr>
                                                 <th>Interview Date</th>
@@ -465,56 +469,125 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
 
                                         <tbody>
 
+                                        @if(!empty ($interview_satge))
+                                        
+
+                                            @if(!empty ($inv_result))
+                                            
+        
+                                                @foreach($inv_result as $interview_result)
+                                            
+                                                    <tr>
+                                                        <td>
+                                                        
+                                                        {{date('j-F-Y', strtotime($interview_result->created_at))}}
+                                                        </td>
+                                                        <td>
+                                                        {{$interview_result->interview_stage}} 
+                                                        </td>
+                                                        @php
+                                        
+                                                        if($interview_result->interview_status==2)
+                                                        {
+                                                            $interview_status="Selected";
+                                                            $class="success";
+                                                        }
+
+                                                        elseif($interview_result->interview_status==3)
+                                                        {
+                                                            $interview_status=" Rejected";
+                                                            $class="danger";
+                                                        }
+                                                    
+                                                        @endphp
+                                                        
+                                                        <td><span class="badge badge-default badge-{{$class}}">
+                                                               {{$interview_status}}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                            
+                                            @if($interview_satge->interview_status==0 || $interview_satge->interview_status==1)
                                             <tr>
-                                                <td>{{$interview_satge->interview_date}}</td>
-                                                @php
-                                                if($interview_satge->interview_level==1)
-                                                {
-                                                    $interview_stage="First Interview";
+                                                
+                                               <td>
+                                              
+                                               
+                                                {{date('j-F-Y', strtotime($interview_satge->interview_date))}}
+                                               
+             
+                                                
+                                               </td>
 
-                                                }
-                                                elseif($interview_satge->interview_level==2)
-                                                {
-                                                    $interview_stage="Second Interview";
-                                                }
+                                                @php 
+                                              
+                                                    if($interview_satge->interview_level==1)
+                                                    {
+                                                        $interview_st_view="First Interview";
 
-                                                elseif($interview_satge->interview_level==3)
-                                                {
-                                                    $interview_stage="Third Interview";
-                                                }
-                                                elseif($interview_satge->interview_level==4)
-                                                {
-                                                    $interview_stage="Four Interview";
-                                                }
-                                                elseif($interview_satge->interview_level==5)
-                                                {
-                                                    $interview_stage="Final Interview";
-                                                }
-                                                @endphp
+                                                    }
+                                                    elseif($interview_satge->interview_level==2)
+                                                    {
+                                                        $interview_st_view="Second Interview";
+                                                    }
+
+                                                    elseif($interview_satge->interview_level==3)
+                                                    {
+                                                        $interview_st_view="Third Interview";
+                                                    }
+                                                    elseif($interview_satge->interview_level==4)
+                                                    {
+                                                        $interview_st_view="Four Interview";
+                                                    }
+                                                    elseif($interview_satge->interview_level==5)
+                                                    {
+                                                        $interview_st_view="Final Interview";
+                                                    }
+                                                 
+                                                   
+
                                                 
 
-                                                <td>{{$interview_stage}}</td>
+                                                @endphp
 
+                                                <td>{{$interview_st_view}}</td>
+
+                                            
                                                 @php
                                                 if($interview_satge->interview_status==0)
                                                 {
-                                                    $interview_status="Interview";
+                                                    $interview_status="Schedule ";
+                                                    $class="warning";
 
                                                 }
                                                 elseif($interview_satge->interview_status==1)
                                                 {
-                                                    $interview_status="Second Interview";
+                                                    $interview_status="Reschedule";
+                                                    $class="secondary";
                                                 }
 
                                                 elseif($interview_satge->interview_status==2)
                                                 {
-                                                    $interview_status="Third Interview";
+                                                    $interview_status="Selected";
+                                                    $class="success";
+                                                }
+
+                                                elseif($interview_satge->interview_status==3)
+                                                {
+                                                    $interview_status="Rejected";
+                                                    $class="danger";
                                                 }
                                                
                                                 @endphp
 
-                                                <td>{{}}</td>
+                                              
+
+                                                <td><span class="badge badge-default badge-{{$class}}">{{$interview_status}}</span></td>
                                             </tr>
+                                            @endif
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
