@@ -290,8 +290,8 @@
                                                                     <td>{{$view->resume_contact}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Modified On</th>
-                                                                    <td>{{$view->joining_date}}</td>
+                                                                    <th>Modified On</th>  
+                                                                    <td>{{date('j-F-Y', strtotime($view->updated_at))}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Status</th>

@@ -10,6 +10,7 @@ use App\Models\Degree;
 use App\Models\Position;
 use App\Models\Qualification;
 use App\Models\Interview;
+use App\Models\InterviewStatus;
 use App\Models\Resume;
 use App\Models\JobOffer;
 use App\Models\Specialization;
@@ -920,6 +921,19 @@ class ResumeController extends Controller
             $interview_level_select->interview_cv_status = $interview_level_cv_status[0]->cv_status;
 
             $interview_level_select->save();
+
+
+            $status_code = new InterviewStatus;
+
+            $status_code->candidate_id = request('candidate_id');
+            $status_code->position_id = request('pos_id');
+            $status_code->client_id = request('client_id');
+            $status_code->candidate_name = $request->candidate_name;
+            $status_code->interview_cv_status = $interview_level_cv_status[0]->cv_status;
+            $status_code->interview_stage=$interview_stage;
+            $status_code->interview_status=2;
+            $status_code->save();
+
             return redirect('/position_view_details/'.$request->pos_id)->with('message', 'Interview Selected');
         }
         return redirect('/position_view_details/'.$request->pos_id)->with('delt', 'Please Select Next Interview*');
@@ -996,6 +1010,17 @@ class ResumeController extends Controller
             $interview_level_reject->interview_cv_status = $interview_level_cv_status_reject[0]->cv_status;
 
             $interview_level_reject->save();
+
+            $status_code = new InterviewStatus;
+
+            $status_code->candidate_id = request('candidate_id');
+            $status_code->position_id = request('pos_id');
+            $status_code->client_id = request('client_id');
+            $status_code->candidate_name = $request->candidate_name;
+            $status_code->interview_cv_status = $interview_level_cv_status_reject[0]->cv_status;
+            $status_code->interview_stage=$interview_stage;
+            $status_code->interview_status=3;
+            $status_code->save();
             return redirect('/position_view_details/'.$request->pos_id)->with('delt', 'Interview Rejected');
 
     }
