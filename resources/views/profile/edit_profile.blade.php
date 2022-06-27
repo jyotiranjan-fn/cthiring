@@ -173,7 +173,7 @@
 
                                                     </div>
                                                 </div>
-                                                <a href="{{url('/dashboard')}}">
+                                                <a href="{{url('view_profile',$role->id)}}">
                                                     <button type="button" class="btn btn-primary">Back</button>
                                                 </a>
                                                 <input type="submit" name="submit" class="btn btn-success" value="Update">

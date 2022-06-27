@@ -18,8 +18,8 @@ class ClientDesignationController extends Controller
     public function add_clientdesignation(Request $request)
     {
         $role = new client_designation;
-        $role->client_name = request('client_name');
-        $role->mobile = request('mobile');
+        $role->client_designation = request('client_designation');
+        // $role->mobile = request('mobile');
 
 
         $role->status = request('status');
@@ -42,9 +42,7 @@ class ClientDesignationController extends Controller
     public function edit_clientdesignation(Request $request, $id)
     {
         $role = client_designation::findorfail($id);
-        $role->client_name = request('client_name');
-        $role->mobile = request('mobile');
-
+        $role->client_designation = request('client_designation');
         $role->status = request('status');
         $role->save();
 

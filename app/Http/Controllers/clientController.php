@@ -33,8 +33,14 @@ class clientController extends Controller
 
         $state_name = State::all();
         //$roles = $request->session()->get('CLIENT_FULLNAME');
+        $state_name = State::all();
+        $district = District::all();
+        $city = city::all();
 
-        return view('client.client', compact('crm_user', 'state_name'));
+        $client_branch = client_location::all();
+        //return view('client.client_contact', compact('state_name', 'client_branch', 'district', 'city'));
+
+        return view('client.client', compact('crm_user', 'state_name','state_name', 'client_branch', 'district', 'city'));
 
     }
 
@@ -87,16 +93,11 @@ class clientController extends Controller
         return redirect('client_contactpage');
     }
 
-    public function client_contactshow(Request $request)
-    {
-        $state_name = State::all();
-        $district = District::all();
-        $city = city::all();
+    // public function client_contactshow(Request $request)
+    // {
 
-        $client_branch = client_location::all();
-        return view('client.client_contact', compact('state_name', 'client_branch', 'district', 'city'));
 
-    }
+    // }
 
     public function client_insertpage2(Request $request)
     {

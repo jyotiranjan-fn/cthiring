@@ -16,8 +16,8 @@ class UserDesignationController extends Controller
     public function add_userdesignation(Request $request)
     {
         $role = new user_designation;
-        $role->userdesig_name = request('user_name');
-        $role->mobile = request('mobile');
+        $role->user_designation = request('user_designation');
+        //$role->mobile = request('mobile');
 
 
         $role->status = request('status');
@@ -40,8 +40,7 @@ class UserDesignationController extends Controller
     public function edit_userdesignation(Request $request, $id)
     {
         $role = user_designation::findorfail($id);
-        $role->userdesig_name = request('user_name');
-        $role->mobile = request('mobile');
+        $role->user_designation = request('user_designation');      
 
         $role->status = request('status');
         $role->save();
