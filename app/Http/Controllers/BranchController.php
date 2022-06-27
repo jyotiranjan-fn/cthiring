@@ -27,6 +27,7 @@ class BranchController extends Controller
         $location = DB::table('client_location')->insert([
             'location' => $request->input('location'),
             'status' => $request->input('status'),
+            'created_by'=>session('USER_ID'),
         ]);
         $request->session()->flash('msg', 'Client Branch Created Successfully');
         return redirect('/client_branch');
@@ -39,7 +40,9 @@ class BranchController extends Controller
 
         DB::table('client_location')->where('id', $id)->update([
             'location' => $request->location,
-            'status' => $request->status
+            'status' => $request->status,
+            'modified_by'=>session('USER_ID'),
+            'updated_at'=> now()
 
 
         ]);
@@ -78,6 +81,7 @@ class BranchController extends Controller
         $location = DB::table('location')->insert([
             'location' => $request->input('location'),
             'status' => $request->input('status'),
+            'created_by'=>session('USER_ID'),
         ]);
         $request->session()->flash('msg', 'User Branch Created Successfully');
         return redirect('/user_branch');
@@ -90,7 +94,9 @@ class BranchController extends Controller
 
         DB::table('location')->where('id', $id)->update([
             'location' => $request->location,
-            'status' => $request->status
+            'status' => $request->status,
+            'modified_by'=>session('USER_ID'),
+            'updated_at'=> now()
 
 
         ]);

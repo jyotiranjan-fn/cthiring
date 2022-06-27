@@ -14,6 +14,8 @@ class HomeController extends Controller
     {
         return view('dashboard');
     }
+
+ 
  
     public function view_profile(Request $request,$id)
     {

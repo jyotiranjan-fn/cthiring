@@ -274,7 +274,7 @@
                                                                     <div class="col-lg-4 col-md-4">
                                                                         <div class="form-group">
                                                                             <label for="Level2">Level2 <span
-                                                                                    class="text-danger">*</span></label>
+                                                                                    class="text-danger"></span></label>
                                                                             <select name="label_2" class="form-control"
                                                                                 id="label_2">
                                                                                 <option selected>Please Select</option>
@@ -290,7 +290,7 @@
                                                                     <div class="col-lg-4 col-md-4">
                                                                         <div class="form-group">
                                                                             <label for="Image">Upload Image <span
-                                                                                    class="text-danger">*</span></label>
+                                                                                    class="text-danger"></span></label>
                                                                             <div class="row">
                                                                                 <div class="col-md-8">
                                                                                     <input type="file"
@@ -513,7 +513,7 @@
                                                     <div class="col-lg-4 col-md-4">
                                                         <div class="form-group">
                                                             <label for="Level2">Level2 <span
-                                                                    class="text-danger">*</span></label>
+                                                                    class="text-danger"></span></label>
                                                             <select name="label_2" class="form-control" id="label_2"
                                                                 required>
                                                                 <option selected>Please Select</option>
@@ -527,7 +527,7 @@
                                                     <div class="col-lg-4 col-md-4">
                                                         <div class="form-group">
                                                             <label for="Image">Upload Image <span
-                                                                    class="text-danger">*</span></label>
+                                                                    class="text-danger"></span></label>
                                                             <div class="col-md-8">
                                                                 <input type="file" class="custom-file-input"
                                                                     id="inputGroupFile01" name="image">

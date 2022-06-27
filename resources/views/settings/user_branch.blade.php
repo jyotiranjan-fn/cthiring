@@ -91,7 +91,7 @@
 
                                         <td>{{ date('j F-Y', strtotime($loc->created_at)) }} </td>
 
-                                        <td>{{ $loc->modified_at}}</td>
+                                        <td>{{date('j F-Y', strtotime($loc->updated_at))}}</td>
 
                                         <td><a><i class="ft-edit text-success" data-toggle="modal" data-target="#edit{{ $loc->id }}"></i></a>
                                             <a href="{{url('/user_branch_delete',$loc->id)}}" onclick="return confirm('Are you sure?')"><i class="ft-trash-2 ml-1 text-warning"></i></a>

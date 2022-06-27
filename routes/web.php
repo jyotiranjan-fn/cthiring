@@ -75,7 +75,7 @@ Route::middleware(['auth'])->name('admin.')->prefix('')->group(function () {
     Route::get('/client_branch_delete/{id}', [BranchController::class, 'client_delete']);
 
     // userbranch
-
+    Route::get('/user_branch', [BranchController::class, 'userbranch']);
     Route::post('/add_branch', [BranchController::class, 'addbranch']);
     Route::post('/edit_user_branch/{id}', [BranchController::class, 'updatedit']);
     Route::get('/user_branch_delete/{id}', [BranchController::class, 'userdelete']);
@@ -92,6 +92,13 @@ Route::middleware(['auth'])->name('admin.')->prefix('')->group(function () {
     Route::get('/client_designation', [ClientDesignationController::class, 'fetch_clientdesignation']);
     Route::get('/edit_client_designation/{id}', [ClientDesignationController::class, 'edit_clientdesignation']);
     Route::get('/client_designation_delete/{id}', [ClientDesignationController::class, 'delete_clientdesignation']);
+
+
+    //user Designation table(uttam)
+    Route::post('/adduserdesignation', [UserDesignationController::class, 'add_userdesignation']);
+    Route::get('/user_designation', [UserDesignationController::class, 'fetch_userdesignation']);
+    Route::get('/edit_user_designation/{id}', [UserDesignationController::class, 'edit_userdesignation']);
+    Route::get('/user_designation_delete/{id}', [UserDesignationController::class, 'delete_userdesignation']);
 
     // qualification
     //Route::get('/qualification', [QualificationController::class, 'showqualification']);
@@ -132,11 +139,7 @@ Route::middleware(['auth'])->name('admin.')->prefix('')->group(function () {
     Route::put('/edit_industry/{id}', [IndustryController::class, 'edit_industry_function']);
     Route::get('/delete_industry/{id}', [IndustryController::class, 'delete_industry_function']);
 
-    //user Designation table(uttam)
-    Route::post('/adduserdesignation', [UserDesignationController::class, 'add_userdesignation']);
-    Route::get('/user_designation', [UserDesignationController::class, 'fetch_userdesignation']);
-    Route::get('/edit_user_designation/{id}', [UserDesignationController::class, 'edit_userdesignation']);
-    Route::get('/user_designation_delete/{id}', [UserDesignationController::class, 'delete_userdesignation']);
+    
 
     // user
     Route::get('/user', [UserController::class, 'userfetch'])->name('users.index');
@@ -147,7 +150,7 @@ Route::middleware(['auth'])->name('admin.')->prefix('')->group(function () {
 
     //client
     Route::get('/client', [clientController::class, 'clientshow']);
-    Route::get('/client_contactpage', [clientController::class, 'client_contactshow']);
+    //Route::get('/client_contactpage', [clientController::class, 'client_contactshow']);
     Route::post('/clientinsert', [clientController::class, 'client_insert']);
     Route::post('/clientinsert2', [clientController::class, 'client_insertpage2']);
     Route::get('edit_client/{id}', [clientController::class, 'client_edit']);

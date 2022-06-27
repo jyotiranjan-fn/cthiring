@@ -110,23 +110,23 @@
                                                                 </tr>
                                                                 @endforeach
                                                                 <tr>
-@php
-    $post=App\Models\User::where('id','=',$loc->level_1)->get();
-@endphp
-@foreach($post as $l1)
+                                                                        @php
+                                                                            $post=App\Models\User::where('id','=',$loc->level_1)->get();
+                                                                        @endphp
+                                                                        @foreach($post as $l1)
                                                                     <th>L1</th>
                                                                     <td>{{$l1->fname}} {{$l1->lname}}</td>
-@endforeach
+                                                                    @endforeach
                                                                 </tr>
                                                                 <tr>
-@php
-    $post1=App\Models\User::where('id','=',$loc->level_2)->get();
-@endphp
-@foreach($post1 as $l2)
+                                                                        @php
+                                                                            $post1=App\Models\User::where('id','=',$loc->level_2)->get();
+                                                                        @endphp
+                                                                        @foreach($post1 as $l2)
                                                                     <th>L2</th>
                                                                     <td>{{$l2->fname}} {{$l2->lname}}</td>
                                                                 </tr>
-@endforeach
+                                                                 @endforeach
                                                             </table>
                                                         </div>
                                                     </div>

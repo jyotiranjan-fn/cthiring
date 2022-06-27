@@ -120,6 +120,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                             <!--<a class="dropdown-item" href="{{url('/edit_profile',$loc->id)}}"><i class="ft-user"></i> Edit Profile</a>-->
                                 <a class="dropdown-item" href="{{url('/view_profile',$loc->id)}}"><i class="ft-user"></i> View Profile</a>
+                                <a class="dropdown-item" href=""><i class="fa fa-key"></i> Change Password</a>
                                 <a class="dropdown-item" href="#"><i class="ft-mail"></i> My Inbox</a>
                                 <a class="dropdown-item" href="#"><i class="ft-check-square"></i> Task</a>
                                 <a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
@@ -372,10 +373,10 @@
                         <li><a class="menu-item" href="{{route('admin.roles.index')}}" data-i18n="nav.dash.ecommerce">Roles</a>
                         </li>
                          @endcan
-                        @can('Permission')
+                        <!-- @can('Permission')
                         <li><a class="menu-item" href="{{route('admin.permissions.index')}}" data-i18n="nav.dash.ecommerce">Permissions</a>
                         </li>
-                         @endcan
+                         @endcan -->
                         @can('API Keys')
                         <li><a class="menu-item" href="{{url('/apikeys')}}" data-i18n="nav.dash.ecommerce">Api Keys</a>
                         </li>

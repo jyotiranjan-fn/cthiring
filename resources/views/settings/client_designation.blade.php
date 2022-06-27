@@ -63,8 +63,8 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Client_name</th>
-                    <th>Phone no </th>
+                    <th>Client  Designation </th>
+                  
                     <th>Status</th>
                     <th>Created At</th>
                     <th>Modified At</th>
@@ -79,8 +79,8 @@
                                     @foreach($view as $loc)
                   <tr>
                     <td>{{ $i }}</td>
-                    <td style="text-align: left;">{{$loc->client_name}}</td>
-                    <td style="text-align: left;">{{$loc->mobile}}</td>
+                    <td style="text-align: left;">{{$loc->client_designation}}</td>
+                  
 
                     @if ($loc->status == 1)
                     <td><span class="badge badge-default badge-success">Active</span></td>
@@ -93,7 +93,7 @@
                     @endif
                     <td>{{ date('j F-Y', strtotime($loc->created_at)) }} </td>
 
-                    <td>{{$loc->updated_at}}</td>
+                    <td>{{date('j F-Y', strtotime($loc->updated_at))}}</td>
 
                     <td><a><i class="ft-edit text-success" data-toggle="modal" data-target="#edit{{ $loc->id }}"></i></a>
                       <a href="{{url('/client_designation_delete',$loc->id)}}" onclick="return confirm('Are you sure?')"><i class="ft-trash-2 ml-1 text-warning"></i></a>
@@ -138,9 +138,9 @@
                                   <div class="form-body">
                                     <div class="row">
                                       <div class="form-group col-12 mb-2">
-                                        <label for="timesheetinput1">Client Name:</label>
+                                        <label for="timesheetinput1">Client  Designation :</label>
                                         <div class="position-relative has-icon-left">
-                                          <input type="text" id="timesheetinput1" value="{{$loc->client_name}}"  class="form-control" placeholder="Add Client Branch" name="client_name">
+                                          <input type="text" id="timesheetinput1" value="{{$loc->client_designation}}"  class="form-control" placeholder="Add Client Designation" name="client_designation">
                                           <div class="form-control-position">
                                             <i class="ft-map"></i>
                                           </div>
@@ -148,7 +148,7 @@
                                       </div>
                                     </div>
 
-                                    <div class="row">
+                                    <!-- <div class="row">
                                       <div class="form-group col-12 mb-2">
                                         <label for="timesheetinput1">Mobile No:</label>
                                         <div class="position-relative has-icon-left">
@@ -158,7 +158,7 @@
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
+                                    </div> -->
                                     <div class="row">
                                       <div class="form-group col-12 mb-2">
                                         <label for="issueinput6">Status</label>
@@ -207,8 +207,8 @@
                 <tfoot>
                   <tr>
                   <th>#</th>
-                    <th>Client_name</th>
-                    <th>Phone no </th>
+                    <th>Client Designation </th>
+                   
                     <th>Status</th>
                     <th>Created At</th>
                     <th>Modified At</th>
@@ -239,9 +239,9 @@
                               <div class="form-body">
                                 <div class="row">
                                   <div class="form-group col-12 mb-2">
-                                    <label for="timesheetinput1">Client Name</label>
+                                    <label for="timesheetinput1">Client  Designation </label>
                                     <div class="position-relative has-icon-left">
-                                      <input type="text" id="timesheetinput1" class="form-control" placeholder="Add Client Branch" name="client_name">
+                                      <input type="text" id="timesheetinput1" class="form-control" placeholder="Add Client Designation" name="client_designation">
                                       <div class="form-control-position">
                                         <i class="ft-map"></i>
                                       </div>
@@ -249,7 +249,7 @@
                                   </div>
                                 </div>
 
-                                <div class="row">
+                                <!-- <div class="row">
                                   <div class="form-group col-12 mb-2">
                                     <label for="timesheetinput1">Client Mobile no</label>
                                     <div class="position-relative has-icon-left">
@@ -259,7 +259,7 @@
                                       </div>
                                     </div>
                                   </div>
-                                </div>
+                                </div> -->
                                 <div class="row">
                                   <div class="form-group col-12 mb-2">
                                     <label for="issueinput6">Status</label>
