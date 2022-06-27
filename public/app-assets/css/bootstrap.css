@@ -6328,3 +6328,27 @@ background-color: #4b84ff;
 .wd_58{
   width: 58%;
 }
+.bg_blck{
+  color: #000;
+}
+.pd_lr{
+  padding-left: 5px;
+    padding-right: 5px;
+}
+.head_bdr{
+  border: 1px solid #c1c1c194;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+#DataTables_Table_0_wrapper{
+  padding: 0px;
+}
+body{
+  background-color: #fff!important;
+}
+.bdr_btm{
+  border-bottom: 1px solid #c1c1c17d;
+}

@@ -31,8 +31,8 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .navbar.navbar-brand-cen
   float: left;
   width: auto; }
 
-body.vertical-layout.vertical-menu-modern.menu-expanded .navbar .navbar-container {
-  margin-left: 260px; }
+/* body.vertical-layout.vertical-menu-modern.menu-expanded .navbar .navbar-container {
+  margin-left: 260px; } */
 
 body.vertical-layout.vertical-menu-modern.menu-expanded .navbar .navbar-brand .brand-text {
   animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein; }
@@ -66,9 +66,9 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
   body.vertical-layout.vertical-menu-modern.menu-expanded .main-menu .main-menu-footer {
     width: 260px; }
 
-body.vertical-layout.vertical-menu-modern.menu-expanded .content,
+/* body.vertical-layout.vertical-menu-modern.menu-expanded .content,
 body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
-  margin-left: 260px; }
+  margin-left: 260px; } */
 
 body.vertical-layout.vertical-menu-modern.menu-expanded .navbar-brand-center .content,
 body.vertical-layout.vertical-menu-modern.menu-expanded .navbar-brand-center .footer {
