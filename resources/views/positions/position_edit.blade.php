@@ -552,11 +552,11 @@
                                                         <div class="col-md-9">
                                                             <input type="text" class="form-control" id="joining_date" name="joining_date" value="{{$view[0]->position_create->fname}} {{$view[0]->position_create->lname}}" readonly>
                                                         </div>
-                                                        <!-- <div class="col-md-3 pd_0">
+                                                        <div class="col-md-3 pd_0">
                                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
                                                                 Change
                                                             </button>
-                                                        </div> -->
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -567,7 +567,7 @@
                                         </div>
                                     </div>
                                     <!-- Modal -->
-                                    <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -612,7 +612,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> -->
+                                    </div>
 
                                     <div id="menu1" class="container tab-pane fade"><br>
                                         <div class="form-group mb-2 ">

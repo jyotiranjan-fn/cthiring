@@ -57,14 +57,104 @@
 
     <!-- END Custom CSS-->
 
+    <style>
+        /* Main CSS */
+
+        .navbar ul {
+            list-style: none;
+        }
+
+        .navbar ul a {
+            text-decoration: none;
+        }
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+        }
+
+        .navbar-nav .nav-link {
+            padding: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 400;
+            display: block;
+            transition: 150ms ease;
+        }
+
+        .navbar-nav .nav-item {
+            margin: 0 10px;
+            position: relative;
+        }
+
+
+        /* Navbar options (bg options) */
+        .bg-primary {
+            background: #0081ff;
+            z-index: 99999;
+        }
+
+        .bg-primary .navbar-toggler,
+        .bg-primary .nav-link,
+        .bg-primary .utils-search {
+            color: #fff;
+        }
+
+        /* Dropdown CSS */
+        .nav-item .dropdown {
+            width: 200px;
+            display: block;
+            position: absolute;
+            top: 35px;
+            transition: 300ms;
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(5px);
+            border-top: 1px solid rgba(0, 0, 0, 0.15);
+            background: #fff;
+            border-radius: 4px;
+            z-index: 999;
+            box-shadow: 0 5px 5px 0px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-item .dropdown .nav-link {
+            color: #636363;
+        }
+
+        .nav-item .dropdown .dropdown {
+            top: 0;
+            left: calc(100% + 20px);
+            border-top: 0;
+            border-left: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-item:hover>.dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0px);
+        }
+
+        .nav-item.icon>a:before {
+            content: "";
+            position: absolute;
+            right: -10px;
+            top: calc(50% + 0px);
+            transform: translateY(-50%);
+            border: 4px solid transparent;
+            border-left-color: inherit;
+            transition: 0.15s linear;
+        }
+    </style>
+
 </head>
 
 
 @if(!session()->has('otp_verified'))
 
-  <script>
+<script>
     window.location = "/logout";
-  </script>
+</script>
 
 @endif
 
@@ -73,7 +163,7 @@
 
 
     <!-- fixed-top-->
-    <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-dark navbar-shadow">
+    <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-dark">
         <div class="navbar-wrapper">
             <div class="navbar-header" style="background: white;">
                 <ul class="nav navbar-nav flex-row">
@@ -92,19 +182,20 @@
             <div class="navbar-container content">
                 <div class="collapse navbar-collapse" id="navbar-mobile">
                     <ul class="nav navbar-nav mr-auto float-left">
-                        <li class="nav-item d-none d-md-block"><a class="nav-link nav-link-expand" href="#"><i class="ficon ft-maximize"></i></a></li>
+                        <!-- <li class="nav-item d-none d-md-block"><a class="nav-link nav-link-expand" href="#"><i class="ficon ft-maximize"></i></a></li>
                        
                         <li class="nav-item nav-search"><a class="nav-link nav-link-search" href="#"><i class="ficon ft-search"></i></a>
                             <div class="search-input">
                                 <input class="input" type="text" placeholder="Explore Modern...">
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
+
                     <ul class="nav navbar-nav float-right">
-                        <li class="dropdown dropdown-user nav-item">
-                        @php
+                        <li class="dropdown dropdown-user">
+                            @php
                             $request= Auth::id();
-                           
+
                             $role = App\Models\User::where('id','=',$request)->get();
                             @endphp
                             @foreach($role as $loc)
@@ -118,7 +209,7 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                            <!--<a class="dropdown-item" href="{{url('/edit_profile',$loc->id)}}"><i class="ft-user"></i> Edit Profile</a>-->
+                                <!--<a class="dropdown-item" href="{{url('/edit_profile',$loc->id)}}"><i class="ft-user"></i> Edit Profile</a>-->
                                 <a class="dropdown-item" href="{{url('/view_profile',$loc->id)}}"><i class="ft-user"></i> View Profile</a>
                                 <a class="dropdown-item" href=""><i class="fa fa-key"></i> Change Password</a>
                                 <a class="dropdown-item" href="#"><i class="ft-mail"></i> My Inbox</a>
@@ -135,20 +226,299 @@
                         <!--        <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-de"></i> German</a>-->
                         <!--    </div>-->
                         <!--</li>-->
-                      
-                
+
+
+                    </ul>
+                </div>
+            </div>
+            <div class="navbar-container content bdr_btm">
+                <div class="collapse navbar-collapse" id="navbar-mobile">
+                    <ul class="nav navbar-nav mr-auto float-left f_s">
+                        <li class="pd_lr nav-item">
+                            <a href="{{url('/')}}" class="bg_blck nav-link">
+                                <i class="la la-home f_s"></i><span class="menu-title" data-i18n="nav.dash.main">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="pd_lr nav-item">
+                            <a href="#" class="nav-link"><i class="la icon-notebook f_s"></i><span class="menu-title" data-i18n="nav.dash.main">My Plans </a>
+                            <ul class="dropdown">
+                                @can('Create Today Plan')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/todays_plan')}}" data-i18n="nav.dash.ecommerce">
+                                        Create Work Plan
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('View Today Plan')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/plan_view')}}" data-i18n="nav.dash.ecommerce">
+                                        View Work Plan
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('Approve Today Plan')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('approved')}}" data-i18n="nav.dash.ecommerce">
+                                        Approve Work Plan
+                                    </a>
+                                </li>
+                                @endcan
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('viewleave')}}" data-i18n="nav.dash.ecommerce">View Leave</a>
+                                </li>
+
+
+                                <!-- @can('Approve Leave')
+                                <li>
+                                    <a class="menu-item" href="{{url('view_event')}}" data-i18n="nav.dash.ecommerce">Approve Leave</a>
+                                </li>
+                                @endcan -->
+                            </ul>
+                        </li>
+                        <li class="pd_lr nav-item">
+                            <a href="#" class="nav-link"><i class="la la-group f_s"></i><span class="menu-title" data-i18n="nav.dash.main">Positions</a>
+                            <ul class="dropdown">
+                                @can('Create Position')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/position')}}" data-i18n="nav.dash.ecommerce">Create
+                                        Positions</a>
+                                </li>
+                                @endcan
+
+                                @can('View Position')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/positionview')}}" data-i18n="nav.dash.ecommerce">View
+                                        Positions</a>
+                                </li>
+                                @endcan
+
+                                @can('Accept Position')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/position_approve')}}" data-i18n="nav.dash.ecommerce">
+                                        Approve Positions</a>
+                                </li>
+                                @endcan
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/crm_change')}}" data-i18n="nav.dash.ecommerce">
+                                        View CRM Change Approval</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="pd_lr nav-item">
+                            <a href="#" class="nav-link"><i class="la la-file-text-o f_s"></i><span class="menu-title" data-i18n="nav.dash.main">Resume</a>
+                            <ul class="dropdown">
+                                @can('Create Resume')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/add/resume')}}" data-i18n="nav.dash.ecommerce">Create Resume</a>
+                                </li>
+                                @endcan
+                                @can('View Resume')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/resumeview')}}" data-i18n="nav.dash.ecommerce">View
+                                        Resume</a>
+                                </li>
+                                @endcan
+                            </ul>
+                        </li>
+                        <li class="pd_lr nav-item">
+                            <a href="#" class="nav-link"><i class="la icon-users f_s"></i><span class="menu-title" data-i18n="nav.dash.main">Clients</a>
+                            <ul class="dropdown">
+                                @can('Create_Client')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/client')}}" data-i18n="nav.dash.ecommerce">Create
+                                        Clients</a>
+                                </li>
+                                @endcan
+                                @can('View_Client')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/viewclient')}}" data-i18n="nav.dash.ecommerce">View
+                                        Clients</a>
+                                </li>
+                                @endcan
+                                @can('Approval_Client')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/approveclient')}}" data-i18n="nav.dash.ecommerce">Approve
+                                        Clients</a>
+                                </li>
+                                @endcan
+                            </ul>
+                        </li>
+                        <li class="pd_lr nav-item">
+                            <a href="#" class="nav-link"><i class="la icon-badge f_s"></i><span class="menu-title" data-i18n="nav.dash.main">Performance</a>
+                            <ul class="dropdown">
+                                @can('Approve Billing')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="" data-i18n="nav.dash.ecommerce">Approve Billing</a>
+                                </li>
+                                @endcan
+                                @can('View Billing')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/viewbilling')}}" data-i18n="nav.dash.ecommerce">View Billing</a>
+                                </li>
+                                @endcan
+                                @can('View Incentive')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="" data-i18n="nav.dash.ecommerce">View Incentive</a>
+                                </li>
+                                @endcan
+                            </ul>
+                        </li>
+                        @can('View Reports')
+                        <li class="pd_lr nav-item">
+                            <a href="#" class="nav-link"><i class="la icon-bar-chart f_s"></i><span class="menu-title" data-i18n="nav.dash.main">Reports</span></a>
+                            <ul class="dropdown">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-i18n="nav.dash.ecommerce">View Reports</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="pd_lr nav-item"><a href="#" class="bg_blck nav-link"><i class="la la-home f_s"></i><span class="menu-title" data-i18n="nav.dash.main">User Tracking</span></a>
+                            <ul class="dropdown">
+                                <li class="nav-link">
+                                    <a class="nav-link" href="#" data-i18n="nav.dash.ecommerce">View User Tracking</a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endcan
+                        <li class="pd_lr nav-item"><a href="#" class="bg_blck nav-link"><i class="la icon-info f_s"></i><span class="menu-title" data-i18n="nav.dash.main">Settings</span></a>
+                            <ul class="dropdown">
+                                @can('Functional Area')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/functionalarea')}}" data-i18n="nav.dash.ecommerce">Functional
+                                        Area</a>
+                                </li>
+                                @endcan
+                                @can('View User Tracking')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/industry')}}" data-i18n="nav.dash.ecommerce">Industry</a>
+                                </li>
+                                @endcan
+                                @can('Generate OTP')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-i18n="nav.dash.ecommerce">Generate OTP</a>
+                                </li>
+                                @endcan
+                                @can('Genrate SPOC OTP')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-i18n="nav.dash.ecommerce">Genrate SPOC OTP</a>
+                                </li>
+                                @endcan
+                                @can('Qualification')
+                                <li class="nav-item"><a class="nav-link" href="{{url('/qualification')}}" data-i18n="nav.dash.ecommerce">Qualification</a>
+                                    <ul class="dropdown">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('/qualification')}}" data-i18n="nav.dash.ecommerce">Qualification</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('/degree')}}" data-i18n="nav.dash.ecommerce">Degree</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('/specialization')}}" data-i18n="nav.dash.ecommerce">Specialization</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                @endcan
+                                @can('Designation')
+                                <li class="nav-item"><a class="nav-link" href="#" data-i18n="nav.dash.ecommerce">Designation</a>
+                                    <ul class="dropdown">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('/client_designation')}}" data-i18n="nav.dash.ecommerce">Client Designation</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('/user_designation')}}" data-i18n="nav.dash.ecommerce">User
+                                                Designation</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                @endcan
+
+                                @can('Braches')
+                                <li class="nav-item"><a class="nav-link" href="#" data-i18n="nav.dash.ecommerce">Branch</a>
+                                    <ul class="dropdown">
+                                        <li class="nav-item"><a class="nav-link" href="{{url('/client_branch')}}" data-i18n="nav.dash.ecommerce">Client
+                                                Branch</a>
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" href="{{url('/user_branch')}}" data-i18n="nav.dash.ecommerce">User
+                                                Branch</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                @endcan
+
+                                @can('Users')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('admin.users.index')}}" data-i18n="nav.dash.ecommerce">Users</a>
+                                </li>
+                                @endcan
+                                @can('Roles Access')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('admin.roles.index')}}" data-i18n="nav.dash.ecommerce">Roles</a>
+                                </li>
+                                @endcan
+                                @can('Permission')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('admin.permissions.index')}}" data-i18n="nav.dash.ecommerce">Permissions</a>
+                                </li>
+                                @endcan
+                                @can('API Keys')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/apikeys')}}" data-i18n="nav.dash.ecommerce">Api Keys</a>
+                                </li>
+                                @endcan
+                                @can('Mailer Templates')
+                                <li class="nav-item"><a class="nav-link" href="#" data-i18n="nav.dash.ecommerce">Mailer Template</a>
+                                    <ul class="dropdown">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#" data-i18n="nav.dash.ecommerce"> Send CV to Client</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#" data-i18n="nav.dash.ecommerce"> Interview Confirmation
+                                                to client</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#" data-i18n="nav.dash.ecommerce"> Schedule interview to
+                                                Candidate</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                @endcan
+
+                                @can('Incentive')
+                                <li class="nav-item"><a class="nav-link" href="#" data-i18n="nav.dash.ecommerce">Incentive</a>
+                                    <ul class="dropdown">
+                                        <li class="nav-item"><a class="nav-link" href="#" data-i18n="nav.dash.ecommerce">Eligiblity</a>
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" href="#" data-i18n="nav.dash.ecommerce"> Sharing Criteria</a>
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" href="#" data-i18n="nav.dash.ecommerce"> Salary</a>
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" href="#" data-i18n="nav.dash.ecommerce"> Holiday</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                @endcan
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
     <!-- ////////////////////////////////////////////////////////////////////////////-->
-    <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+    <!--<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="main-menu-content">
-            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="/"><i class="la la-home"></i><span class="menu-title" data-i18n="nav.dash.main">Dashboard</span></a>
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">-->
+                <!-- <li class=" nav-item"><a href="/"><i class="la la-home"></i><span class="menu-title" data-i18n="nav.dash.main">Dashboard</span></a>
                 </li>
-                
+
                 <li class=" nav-item"><a href="#"><i class="la icon-notebook"></i><span class="menu-title" data-i18n="nav.dash.main">My Plans</a>
                     <ul class="menu-content">
 
@@ -175,15 +545,15 @@
                         </li>
 
 
-                        <!-- @can('Approve Leave')
+                        @can('Approve Leave')
                         <li>
                             <a class="menu-item" href="{{url('view_event')}}" data-i18n="nav.dash.ecommerce">Approve Leave</a>
                         </li>
-                        @endcan -->
+                        @endcan
                     </ul>
-                </li>
-               
-                <li class=" nav-item"><a href="#"><i class="la la-group"></i><span class="menu-title" data-i18n="nav.dash.main">Positions</a>
+                </li> -->
+
+                <!-- <li class=" nav-item"><a href="#"><i class="la la-group"></i><span class="menu-title" data-i18n="nav.dash.main">Positions</a>
 
                     <ul class="menu-content">
                         @can('Create Position')
@@ -203,20 +573,19 @@
                                 Approve Positions</a>
                         </li>
                         @endcan
-                        
+
                         <li><a class="menu-item" href="{{url('/crm_change')}}" data-i18n="nav.dash.ecommerce">
                                 View CRM Change Approval</a>
                         </li>
-                      
+
 
 
                     </ul>
 
-                </li>
-                
-                <li class=" nav-item"><a href="#"><i class="la la-file-text-o"></i><span class="menu-title" data-i18n="nav.dash.main">Resume</a>
+                </li> -->
+                <!--<li class=" nav-item"><a href="#"><i class="la la-file-text-o"></i><span class="menu-title" data-i18n="nav.dash.main">Resume</a>
                     <ul class="menu-content">
-                    @can('Create Resume')
+                        @can('Create Resume')
                         <li><a class="menu-item" href="{{url('/add/resume')}}" data-i18n="nav.dash.ecommerce">Create Resume</a>
                         </li>
                         @endcan
@@ -224,21 +593,21 @@
                         <li><a class="menu-item" href="{{url('/resumeview')}}" data-i18n="nav.dash.ecommerce">View
                                 Resume</a>
                         </li>
-                            @endcan
+                        @endcan
                     </ul>
-                </li>
+                </li> -->
 
-                <li class=" nav-item"><a href="#"><i class="la la-mortar-board"></i><span class="menu-title" data-i18n="nav.dash.main">Interviews</a>
+                <!-- <li class=" nav-item"><a href="#"><i class="la la-mortar-board"></i><span class="menu-title" data-i18n="nav.dash.main">Interviews</a>
                     <ul>
                         <li>
-                        @can('View Interview Schedule')
+                            @can('View Interview Schedule')
                             <a class="menu-item" href="{{url('/view_interview_schedule')}}" data-i18n="nav.dash.ecommerce">View Interview Schedule</a>
                         </li>
                         @endcan
                     </ul>
-                </li>
+                </li> -->
 
-                <li class=" nav-item"><a href="#"><i class="la icon-users"></i><span class="menu-title" data-i18n="nav.dash.main">Clients</span></a>
+                <!-- <li class=" nav-item"><a href="#"><i class="la icon-users"></i><span class="menu-title" data-i18n="nav.dash.main">Clients</span></a>
                     <ul class="menu-content">
 
                         @can('Create_Client')
@@ -246,25 +615,25 @@
                                 Clients</a>
                         </li>
                         @endcan
-                       @can('View_Client')
+                        @can('View_Client')
                         <li><a class="menu-item" href="{{url('/viewclient')}}" data-i18n="nav.dash.ecommerce">View
                                 Clients</a>
                         </li>
                         @endcan
-                      @can('Approval_Client')
+                        @can('Approval_Client')
                         <li><a class="menu-item" href="{{url('/approveclient')}}" data-i18n="nav.dash.ecommerce">Approve
                                 Clients</a>
                         </li>
                         @endcan
-                   
+
                     </ul>
-                </li>
-               
-                 <li class=" nav-item"><a href="#"><i class="la icon-badge"></i><span class="menu-title" data-i18n="nav.dash.main">Performance</a>
+                </li> -->
+
+                <!-- <li class=" nav-item"><a href="#"><i class="la icon-badge"></i><span class="menu-title" data-i18n="nav.dash.main">Performance</a>
                     <ul>
-                        <!-- <li>
+                         <li>
                             <a class="menu-item" href="" data-i18n="nav.dash.ecommerce">Add Billing</a>
-                        </li> -->
+                        </li> 
                         @can('Approve Billing')
                         <li>
                             <a class="menu-item" href="" data-i18n="nav.dash.ecommerce">Approve Billing</a>
@@ -281,28 +650,28 @@
                         </li>
                         @endcan
                     </ul>
-                </li>
+                </li> -->
 
-                @can('View Reports')
+                <!-- @can('View Reports')
                 <li class=" nav-item"><a href="#"><i class="la icon-bar-chart"></i><span class="menu-title" data-i18n="nav.dash.main">Reports</span></a>
                     <ul class="menu-content">
-                  
+
                         <li><a class="menu-item" href="#" data-i18n="nav.dash.ecommerce">View Reports</a>
                         </li>
-                        
+
                     </ul>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="la la-home"></i><span class="menu-title" data-i18n="nav.dash.main">User Tracking</span></a>
                     <ul class="menu-content">
-                    
+
                         <li><a class="menu-item" href="#" data-i18n="nav.dash.ecommerce">View User Tracking</a>
                         </li>
-                        
+
 
                     </ul>
                 </li>
-                @endcan
-                <li class=" nav-item"><a href="#"><i class="la icon-info"></i><span class="menu-title" data-i18n="nav.dash.main">Settings</span></a>
+                @endcan -->
+                <!-- <li class=" nav-item"><a href="#"><i class="la icon-info"></i><span class="menu-title" data-i18n="nav.dash.main">Settings</span></a>
                     <ul class="menu-content">
                         @can('Functional Area')
                         <li><a class="menu-item" href="{{url('/functionalarea')}}" data-i18n="nav.dash.ecommerce">Functional
@@ -324,30 +693,30 @@
                         @can('Qualification')
                         <li><a class="menu-item" href="{{url('/qualification')}}" data-i18n="nav.dash.ecommerce">Qualification</a>
                             <ul class="menu-content">
-                            
+
                                 <li><a class="menu-item" href="{{url('/qualification')}}" data-i18n="nav.dash.ecommerce">Qualification</a>
                                 </li>
-                               
+
                                 <li><a class="menu-item" href="{{url('/degree')}}" data-i18n="nav.dash.ecommerce">Degree</a>
                                 </li>
-                                
+
                                 <li><a class="menu-item" href="{{url('/specialization')}}" data-i18n="nav.dash.ecommerce">Specialization</a>
                                 </li>
-                                
+
                             </ul>
                         </li>
                         @endcan
                         @can('Designation')
                         <li><a class="menu-item" href="#" data-i18n="nav.dash.ecommerce">Designation</a>
                             <ul class="menu-content">
-                            
+
                                 <li><a class="menu-item" href="{{url('/client_designation')}}" data-i18n="nav.dash.ecommerce">Client Designation</a>
                                 </li>
-                                
+
                                 <li><a class="menu-item" href="{{url('/user_designation')}}" data-i18n="nav.dash.ecommerce">User
                                         Designation</a>
                                 </li>
-                               
+
                             </ul>
                         </li>
                         @endcan
@@ -368,19 +737,16 @@
                         @can('Users')
                         <li><a class="menu-item" href="{{route('admin.users.index')}}" data-i18n="nav.dash.ecommerce">Users</a>
                         </li>
-                         @endcan
+                        @endcan
                         @can('Roles Access')
                         <li><a class="menu-item" href="{{route('admin.roles.index')}}" data-i18n="nav.dash.ecommerce">Roles</a>
                         </li>
-                         @endcan
-                        <!-- @can('Permission')
-                        <li><a class="menu-item" href="{{route('admin.permissions.index')}}" data-i18n="nav.dash.ecommerce">Permissions</a>
-                        </li>
-                         @endcan -->
+
+
                         @can('API Keys')
                         <li><a class="menu-item" href="{{url('/apikeys')}}" data-i18n="nav.dash.ecommerce">Api Keys</a>
                         </li>
-                         @endcan
+                        @endcan
                         @can('Mailer Templates')
                         <li><a class="menu-item" href="#" data-i18n="nav.dash.ecommerce">Mailer Template</a>
                             <ul class="menu-content">
@@ -412,11 +778,11 @@
                         </li>
                         @endcan
                     </ul>
-                </li>
+                </li> -->
 
-            </ul>
+        <!--    </ul>
         </div>
-    </div>
+    </div>-->
     <div class="app-content content w-full">
         <div class="content-wrapper">
             @if(Session::has('message'))
@@ -442,15 +808,15 @@
 
         </div>
     </div>
-        
+
 
 
     <!-- ////////////////////////////////////////////////////////////////////////////-->
-    <footer class="footer footer-static footer-light navbar-border navbar-shadow">
+    <footer class="footer footer-static footer-light navbar-border">
         <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
             <span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2022 <a class="text-bold-800 grey darken-2" href="#" target="_blank">CTHiring</a>, All rights reserved.
             </span>
-           
+
         </p>
     </footer>
     <!-- BEGIN VENDOR JS-->
@@ -520,7 +886,17 @@
 
     <script src="{{asset('app-assets/js/scripts/tables/components/table-components.js')}}" type="text/javascript"></script>
 
+    <script>
+        /* Add icon on .nav-item if dropdown exists */
+        const navItems = document.querySelectorAll(".nav-item");
 
+        navItems.forEach((item) => {
+            const hasDropdowns = item.querySelector(".dropdown") !== null;
+            if (hasDropdowns) {
+                item.classList.add("icon");
+            }
+        });
+    </script>
 
 </body>
 

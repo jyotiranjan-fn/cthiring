@@ -60,11 +60,7 @@ class ResumeController extends Controller
     }
     public function resume_submit(Request $request)
     { 
-     
-
        //dd($request->resume);
-
-
         $validated = $request->validate([
             'client' => 'required',
             'position' => 'required',
@@ -74,9 +70,6 @@ class ResumeController extends Controller
 
         ]);
 
-
-
-          
         $ResumeName =  $request->resume;
         $fileName = $ResumeName;
         $parser = new Parser();

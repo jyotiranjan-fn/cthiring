@@ -25,15 +25,15 @@
 }
 </style>
 
-        <div class="content-header row">
-            <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
-                <h3 class="content-header-title mb-0 d-inline-block">View Client</h3><br>
+        <div class="content-header head_bdr">
+            <div class="content-header-left col-md-12 col-12 breadcrumb-new">
+                <!-- <h3 class="content-header-title mb-0 d-inline-block">Client</h3><br> -->
                 <div class="row breadcrumbs-top d-inline-block">
                     <div class="breadcrumb-wrapper col-12">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Settings</a>
+                            <li class="breadcrumb-item"><a href="{{url('/')}}"><i class="la la-home f_s"></i></a>
                             </li>
-                            <li class="breadcrumb-item"><a href="#">Branch</a>
+                            <li class="breadcrumb-item"><a href="">Client</a>
                             </li>
                             <li class="breadcrumb-item active">View Client
                             </li>
@@ -60,8 +60,8 @@
         <!-- Form wizard with icon tabs section start -->
         <div class="row match-height">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
+                <div class="">
+                    <!-- <div class="card-header">
                         <h4 class="card-title" id="basic-layout-tooltip">View Client</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
@@ -72,11 +72,10 @@
                                 <li><a data-action="close"><i class="ft-x"></i></a></li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="card-content collapse show table-responsive">
-                        <div class="card-body ">
-
-                            <table class="table table-striped table-bordered dataex-html5-selectors table-responsive">
+                    </div> -->
+                    <div class="table-responsive">
+                        <div class="">
+                            <table class="table table-striped dataex-html5-selectors table-responsive pd_0">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -85,10 +84,8 @@
                                         <th>Position</th>
                                         <th>City</th>
                                         <th>District</th>
-
                                         <th>CRM</th>
                                         <th>Status</th>
-
                                         <th>Created By</th>
                                         <th>Created On</th>
                                         <th>Modified At</th>
